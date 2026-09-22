@@ -225,13 +225,15 @@
       .interests {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px 10px;
+        align-items: center;
+        gap: 8px 12px;
         margin: 25px 0 0;
       }
 
       .interest {
         position: relative;
         display: inline-flex;
+        align-items: center;
         overflow: hidden;
         padding: 8px 0;
         color: var(--muted);
@@ -240,6 +242,18 @@
         letter-spacing: 0.05em;
         text-transform: uppercase;
         transition: color 240ms ease;
+      }
+
+      .interest-sep {
+        display: inline-flex;
+        align-items: center;
+        color: var(--muted);
+        opacity: 0.45;
+        font-family: var(--mono);
+        font-size: 11px;
+        line-height: 1;
+        user-select: none;
+        pointer-events: none;
       }
 
       .interest::after {
@@ -569,8 +583,11 @@
             <p class="intro-copy">Exploring how nanoscale materials can support more thoughtful biomedical solutions.</p>
             <div class="interests" aria-label="Research interests">
               <button class="interest" type="button" data-detail="Building with matter at the smallest useful scale.">Nanomaterials</button>
+              <span class="interest-sep" aria-hidden="true">/</span>
               <button class="interest" type="button" data-detail="Designing miniature fluid networks for precise biological analysis.">Microfluidics</button>
+              <span class="interest-sep" aria-hidden="true">/</span>
               <button class="interest" type="button" data-detail="Investigating the conversation between nanosystems and cells.">Nanobiotechnology</button>
+              <span class="interest-sep" aria-hidden="true">/</span>
               <button class="interest" type="button" data-detail="Translating material research toward human health.">Biomedical applications</button>
             </div>
             <p class="research-cue" aria-live="polite">Explore an interest</p>
