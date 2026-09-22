@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Santanu Saha — Biotechnology researcher working across nanomaterials, biomaterials, and biomedical applications."
+    />
+    <title>Santanu Saha — Biotechnology</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
+
+      :root {
+        --paper: #fffaf4;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #d9d9d1;
+        --accent: #5ba8b8;
+        --accent-soft: #cae9ed;
+        --pastel-peach: #ffc7b2;
+        --pastel-blue: #bfe4f0;
+        --pastel-lilac: #dbccf5;
+        --pastel-yellow: #ffe3a3;
+        --pastel-mint: #bde8d0;
+        --coral: #d7765d;
+        --blue: #6f8ca6;
+        --lilac: #9a8ab7;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { min-height: 100%; }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(circle at 86% 16%, rgba(255, 199, 178, 0.72), transparent 26rem),
+          radial-gradient(circle at 11% 91%, rgba(191, 228, 240, 0.72), transparent 24rem),
+          radial-gradient(circle at 57% 53%, rgba(219, 204, 245, 0.48), transparent 29rem);
+        background-attachment: fixed;
+        font-family: var(--sans);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        position: relative;
+        display: grid;
+        min-height: 100vh;
+        padding: 28px clamp(24px, 5vw, 80px) 26px;
+        isolation: isolate;
+      }
+
+      .page::before,
+      .page::after {
+        position: fixed;
+        z-index: 0;
+        width: clamp(130px, 18vw, 240px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        content: "";
+        filter: blur(2px);
+        opacity: 0.62;
+        pointer-events: none;
+      }
+
+      .page::before {
+        top: 20%;
+        left: 19%;
+        background: radial-gradient(circle at 34% 30%, rgba(255, 227, 163, 0.72), rgba(255, 227, 163, 0.08) 68%, transparent 70%);
+      }
+
+      .page::after {
+        right: 22%;
+        bottom: 13%;
+        background: radial-gradient(circle at 50% 50%, rgba(189, 232, 208, 0.64), rgba(189, 232, 208, 0.05) 68%, transparent 70%);
+      }
+
+      .grain {
+        position: fixed;
+        z-index: 1;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.24;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      }
+
+      .site-header,
+      .site-footer {
+        display: grid;
+        align-items: center;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        position: relative;
+        z-index: 10;
+        grid-template-columns: 1fr auto 1fr;
+        align-self: start;
+      }
+
+      .field {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        justify-self: end;
+      }
+
+      .field::before {
+        width: 6px;
+        height: 6px;
+        border: 1px solid var(--accent);
+        border-radius: 50%;
+        content: "";
+        transition: background 300ms ease, transform 300ms ease;
+      }
+
+      .field:hover::before {
+        background: var(--accent);
+        transform: scale(1.35);
+      }
+
+      main {
+        display: grid;
+        align-self: center;
+        position: relative;
+        z-index: 1;
+        width: min(100%, 1160px);
+        margin: 6vh auto 4vh;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 22px;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: rise 700ms 100ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        content: "";
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+      }
+
+      h1 {
+        max-width: 880px;
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(5.1rem, 13vw, 10.2rem);
+        font-weight: 400;
+        letter-spacing: -0.075em;
+        line-height: 0.75;
+        opacity: 0;
+        animation: rise 900ms 180ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      h1 span { display: block; }
+
+      h1 em {
+        margin-left: clamp(12px, 4vw, 62px);
+        font-style: italic;
+      }
+
+      .introduction {
+        display: grid;
+        grid-template-columns: minmax(320px, 480px) minmax(340px, 520px);
+        justify-content: space-between;
+        gap: clamp(32px, 4vw, 64px);
+        width: 100%;
+        max-width: 100%;
+        margin: clamp(20px, 2.8vh, 38px) 0 0;
+        opacity: 0;
+        animation: rise 800ms 350ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .label {
+        margin: 5px 0 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        line-height: 1.55;
+        text-transform: uppercase;
+        text-align: justify;
+        text-align-last: left;
+      }
+
+      .intro-copy {
+        position: relative;
+        z-index: 2;
+        margin: 0;
+        font-size: clamp(1.35rem, 2.1vw, 1.9rem);
+        font-weight: 400;
+        letter-spacing: -0.045em;
+        line-height: 1.35;
+        max-width: 520px;
+      }
+
+      .interests {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 10px;
+        margin: 25px 0 0;
+      }
+
+      .interest {
+        position: relative;
+        display: inline-flex;
+        overflow: hidden;
+        padding: 8px 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: color 240ms ease;
+      }
+
+      .interest::after {
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        left: 0;
+        height: 1px;
+        background: var(--accent);
+        content: "";
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 300ms ease;
+      }
+
+      .interest:hover { color: var(--ink); }
+      .interest:hover::after { transform: scaleX(1); transform-origin: left; }
+
+      .top-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 18px;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 4px 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .nav-link::before {
+        color: var(--accent);
+        content: "↗";
+        font-size: 13px;
+        opacity: 0;
+        transform: translate(-5px, 4px);
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link:focus-visible::before {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      .research-cue {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 18px;
+        margin: 16px 0 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.04em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .research-cue::before {
+        width: 6px;
+        height: 6px;
+        flex: 0 0 auto;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px var(--accent-soft);
+        content: "";
+        transition: background 300ms ease, box-shadow 300ms ease;
+      }
+
+      .interest {
+        border: 0;
+        background: none;
+        cursor: pointer;
+      }
+
+      .interest:focus-visible,
+      .mode-button:focus-visible,
+      .nav-link:focus-visible {
+        outline: 1px solid var(--accent);
+        outline-offset: 4px;
+      }
+
+      .corner-actions {
+        position: absolute;
+        z-index: 10;
+        right: clamp(24px, 5vw, 80px);
+        bottom: 19px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .mode-button {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        padding: 8px 11px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        background: rgba(245, 244, 239, 0.65);
+        cursor: pointer;
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: border-color 250ms ease, background 250ms ease, color 250ms ease, transform 250ms ease;
+      }
+
+      .mode-button:hover,
+      .mode-button[aria-pressed="true"] {
+        border-color: var(--accent);
+        color: var(--ink);
+        background: var(--accent-soft);
+        transform: translateY(-2px);
+      }
+
+      .mode-button[data-mode="photography"]:hover,
+      .mode-button[data-mode="photography"][aria-pressed="true"] {
+        border-color: var(--coral);
+        background: #f3dcd2;
+      }
+
+      .mode-button[data-mode="art"]:hover,
+      .mode-button[data-mode="art"][aria-pressed="true"] {
+        border-color: var(--lilac);
+        background: #ece5f6;
+      }
+
+      .creative-cue {
+        position: absolute;
+        z-index: 10;
+        right: clamp(24px, 5vw, 80px);
+        bottom: 58px;
+        max-width: 220px;
+        margin: 0;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 8px;
+        letter-spacing: 0.04em;
+        line-height: 1.45;
+        opacity: 0;
+        text-align: right;
+        text-transform: uppercase;
+        transform: translateY(4px);
+        transition: opacity 300ms ease, transform 300ms ease;
+      }
+
+      .creative-cue.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .page[data-mode="photography"] {
+        --accent: var(--coral);
+        --accent-soft: #f3dcd2;
+      }
+
+      .page[data-mode="art"] {
+        --accent: var(--lilac);
+        --accent-soft: #e7dff0;
+      }
+
+      .site-footer {
+        position: relative;
+        z-index: 10;
+        grid-template-columns: auto minmax(40px, 1fr) auto;
+        align-self: end;
+        padding-right: 230px;
+        color: var(--muted);
+      }
+
+      .footer-rule {
+        flex: 1;
+        max-width: 180px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--line);
+      }
+
+      .orbital-field {
+        position: absolute;
+        z-index: 2;
+        pointer-events: none;
+        top: 44%;
+        right: -135px;
+        width: min(49vw, 660px);
+        aspect-ratio: 1;
+        overflow: visible;
+        transform: translate3d(var(--molecule-x, 0px), var(--molecule-y, 0px), 0) translateY(-56%);
+        transition: transform 650ms cubic-bezier(.2,.75,.25,1);
+      }
+
+      .molecule-art {
+        position: absolute;
+        inset: -1px;
+        width: calc(100% + 2px);
+        height: calc(100% + 2px);
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      .molecule-art .cloud {
+        opacity: 1;
+      }
+
+      .molecule-art .orbital-guide {
+        fill: none;
+        stroke: color-mix(in srgb, var(--accent) 38%, transparent);
+        stroke-width: 1.2;
+      }
+
+      .molecule-art .orbital {
+        transform-box: view-box;
+        transform-origin: 260px 260px;
+      }
+
+      .molecule-art .orbital-p-one { transform: rotate(var(--cloud-primary-angle, 0deg)); }
+      .molecule-art .orbital-p-two { transform: rotate(var(--cloud-secondary-angle, 90deg)); }
+
+      .molecule-art .nucleus-core {
+        fill: url(#nucleus-glow);
+        opacity: 0.52;
+        stroke: color-mix(in srgb, #ae87cd 52%, transparent);
+        stroke-width: 1;
+      }
+
+      .molecule-art .nucleus-shell {
+        fill: none;
+        opacity: 0.42;
+        stroke: #ae87cd;
+        stroke-width: 0.8;
+      }
+
+      .molecule-art .atom-symbol {
+        fill: #755d91;
+        opacity: 0.7;
+        font-family: var(--mono);
+        font-size: 22px;
+        letter-spacing: 0.04em;
+        text-anchor: middle;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 680px) {
+        .page { padding: 22px 22px 20px; }
+        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; }
+        .top-nav { grid-column: 1 / -1; grid-row: 2; gap: 0 15px; }
+        .nav-link { font-size: 9px; }
+        .field { font-size: 8px; }
+        main { margin: 13vh auto 7vh; }
+        h1 { font-size: clamp(4.7rem, 22vw, 7rem); line-height: 0.78; }
+        .introduction { grid-template-columns: 1fr; gap: 24px; margin: 38px 0 0; }
+        .label { text-align: left; text-align-last: auto; }
+        nav { margin-top: 42px; }
+        .orbital-field { top: 37%; right: -43%; width: 108vw; opacity: 0.9; }
+        .site-footer { padding-right: 160px; font-size: 7px; }
+        .footer-rule { max-width: 64px; margin: 0 10px; }
+        .corner-actions { right: 22px; bottom: 17px; gap: 5px; }
+        .mode-button { padding: 7px 8px; font-size: 8px; }
+        .creative-cue { right: 22px; bottom: 52px; max-width: 160px; font-size: 7px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="page">
+      <header class="site-header">
+        <span>Santanu Saha</span>
+        <nav class="top-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="research.html">Research</a>
+          <a class="nav-link" href="cv.html">CV</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </nav>
+        <span class="field">Biotechnology</span>
+      </header>
+
+      <div class="orbital-field">
+        <svg class="molecule-art" viewBox="0 0 520 520" role="img" aria-label="Carbon-12 electron-density model: 1s2, 2s2, 2p2">
+          <defs>
+            <radialGradient id="cloud-1s"><stop offset="0%" stop-color="#8fd8ea" stop-opacity="0.9" /><stop offset="100%" stop-color="#bfe4f0" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-2s"><stop offset="46%" stop-color="#dbcdf5" stop-opacity="0" /><stop offset="70%" stop-color="#c4a9ea" stop-opacity="0.68" /><stop offset="100%" stop-color="#dbcdf5" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-pink"><stop offset="0%" stop-color="#ffae90" stop-opacity="0.92" /><stop offset="100%" stop-color="#ffc7b2" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-mint"><stop offset="0%" stop-color="#8edbb1" stop-opacity="0.9" /><stop offset="100%" stop-color="#bde8d0" stop-opacity="0" /></radialGradient>
+            <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#fff1b8" /><stop offset="48%" stop-color="#f2c9e8" /><stop offset="100%" stop-color="#c6a8e9" /></radialGradient>
+            <filter id="soft-cloud"><feGaussianBlur stdDeviation="2" /></filter>
+          </defs>
+          <circle class="orbital-guide" cx="260" cy="260" r="82" />
+          <circle class="orbital-guide" cx="260" cy="260" r="150" />
+          <circle class="cloud" cx="260" cy="260" r="88" fill="url(#cloud-1s)" filter="url(#soft-cloud)" />
+          <circle class="cloud" cx="260" cy="260" r="162" fill="url(#cloud-2s)" filter="url(#soft-cloud)" />
+          <g class="orbital orbital-p-one">
+            <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
+            <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
+          </g>
+          <g class="orbital orbital-p-two">
+            <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
+            <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
+          </g>
+          <path class="nucleus-core" d="M260 231 C278 231 290 244 289 260 C291 276 277 289 260 289 C242 290 229 277 231 260 C229 244 243 231 260 231Z" />
+          <path class="nucleus-shell" d="M244 250 C252 240 270 239 279 250 M241 270 C252 280 269 280 280 269" />
+          <text class="atom-symbol" x="260" y="267">C</text>
+        </svg>
+      </div>
+
+      <main>
+        <p class="eyebrow">Researcher / Materials × Biology</p>
+        <h1><span>Santanu</span><span><em>Saha</em></span></h1>
+
+        <section class="introduction" aria-labelledby="introduction-heading">
+          <p class="label" id="introduction-heading">An enthusiast biotechnology researcher exploring the intersection of nanomaterials and biology. My work focuses on designing functional nanomaterials for biomedical applications, particularly drug delivery, bioimaging, microfluidics, and nanomaterial–cell interactions.</p>
+          <div>
+            <p class="intro-copy">Exploring how nanoscale materials can support more thoughtful biomedical solutions.</p>
+            <div class="interests" aria-label="Research interests">
+              <button class="interest" type="button" data-detail="Building with matter at the smallest useful scale.">Nanomaterials</button>
+              <button class="interest" type="button" data-detail="Designing miniature fluid networks for precise biological analysis.">Microfluidics</button>
+              <button class="interest" type="button" data-detail="Investigating the conversation between nanosystems and cells.">Nanobiotechnology</button>
+              <button class="interest" type="button" data-detail="Translating material research toward human health.">Biomedical applications</button>
+            </div>
+            <p class="research-cue" aria-live="polite">Explore an interest</p>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>Based in biotechnology</span>
+        <span class="footer-rule" aria-hidden="true"></span>
+        <span>© <span id="year"></span></span>
+      </footer>
+
+      <p class="creative-cue" id="creative-cue" aria-live="polite"></p>
+      <div class="corner-actions" aria-label="Creative archives">
+        <a class="mode-button" href="photography.html" data-mode="photography">Photography</a>
+        <a class="mode-button" href="art.html" data-mode="art">Art</a>
+      </div>
+    </div>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      const page = document.querySelector(".page");
+      const researchCue = document.querySelector(".research-cue");
+      const creativeCue = document.getElementById("creative-cue");
+      const orbitalField = document.querySelector(".orbital-field");
+      let targetCloudAngle = 0;
+      let currentCloudAngle = 0;
+      let cloudAnimationFrame;
+
+      const moveClouds = () => {
+        const difference = ((targetCloudAngle - currentCloudAngle + 540) % 360) - 180;
+        const maximumStep = 0.45;
+        const step = Math.sign(difference) * Math.min(Math.abs(difference), maximumStep);
+        currentCloudAngle += step;
+        orbitalField.style.setProperty("--cloud-primary-angle", `${currentCloudAngle}deg`);
+        orbitalField.style.setProperty("--cloud-secondary-angle", `${90 - currentCloudAngle * 0.7}deg`);
+
+        if (Math.abs(difference) > 0.01) {
+          cloudAnimationFrame = requestAnimationFrame(moveClouds);
+        } else {
+          cloudAnimationFrame = undefined;
+        }
+      };
+
+      page.addEventListener("pointermove", (event) => {
+        const bounds = orbitalField.getBoundingClientRect();
+        const pointerX = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const pointerY = (event.clientY - bounds.top) / bounds.height - 0.5;
+        const x = pointerX * 4;
+        const y = pointerY * 4;
+        orbitalField.style.setProperty("--molecule-x", `${x}px`);
+        orbitalField.style.setProperty("--molecule-y", `${y}px`);
+        targetCloudAngle = Math.max(-68, Math.min(68, Math.atan2(pointerY, pointerX) * (180 / Math.PI) * 0.4));
+
+        if (!cloudAnimationFrame) {
+          cloudAnimationFrame = requestAnimationFrame(moveClouds);
+        }
+      });
+
+      page.addEventListener("pointerleave", () => {
+        orbitalField.style.setProperty("--molecule-x", "0px");
+        orbitalField.style.setProperty("--molecule-y", "0px");
+        targetCloudAngle = 0;
+
+        if (!cloudAnimationFrame) {
+          cloudAnimationFrame = requestAnimationFrame(moveClouds);
+        }
+      });
+
+      document.querySelectorAll(".interest").forEach((interest) => {
+        const updateCue = () => { researchCue.textContent = interest.dataset.detail; };
+        interest.addEventListener("pointerenter", updateCue);
+        interest.addEventListener("focus", updateCue);
+        interest.addEventListener("click", updateCue);
+      });
+
+      const modeDescriptions = {
+        photography: "Photography archive — studies in light, texture, and place.",
+        art: "Art archive — experiments in colour, form, and observation."
+      };
+
+      document.querySelectorAll(".mode-button").forEach((button) => {
+        const mode = button.dataset.mode;
+
+        const showCue = () => {
+          page.dataset.mode = mode;
+          button.setAttribute("aria-pressed", "true");
+          creativeCue.textContent = modeDescriptions[mode] || "";
+          creativeCue.classList.add("is-visible");
+        };
+
+        const hideCue = () => {
+          page.dataset.mode = "";
+          button.setAttribute("aria-pressed", "false");
+          creativeCue.classList.remove("is-visible");
+        };
+
+        button.addEventListener("pointerenter", showCue);
+        button.addEventListener("pointerleave", hideCue);
+        button.addEventListener("focus", showCue);
+        button.addEventListener("blur", hideCue);
+      });
+    </script>
+  </body>
+</html>

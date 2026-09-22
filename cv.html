@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Santanu Saha — Curriculum Vitae: Education, research projects, professional experience, publications, and conferences."
+    />
+    <title>Curriculum Vitae — Santanu Saha</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
+
+      :root {
+        --paper: #fffaf4;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #d9d9d1;
+        --accent: #5ba8b8;
+        --accent-soft: #cae9ed;
+        --pastel-peach: #ffc7b2;
+        --pastel-blue: #bfe4f0;
+        --pastel-lilac: #dbccf5;
+        --pastel-yellow: #ffe3a3;
+        --pastel-mint: #bde8d0;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        min-height: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(circle at 86% 16%, rgba(255, 199, 178, 0.72), transparent 26rem),
+          radial-gradient(circle at 11% 91%, rgba(191, 228, 240, 0.72), transparent 24rem),
+          radial-gradient(circle at 57% 53%, rgba(219, 204, 245, 0.48), transparent 29rem);
+        background-attachment: fixed;
+        font-family: var(--sans);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 28px clamp(24px, 5vw, 80px) 36px;
+        isolation: isolate;
+      }
+
+      .page::before,
+      .page::after {
+        position: fixed;
+        z-index: 0;
+        width: clamp(140px, 18vw, 240px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        content: "";
+        filter: blur(2px);
+        opacity: 0.62;
+        pointer-events: none;
+      }
+
+      .page::before {
+        top: 15%;
+        left: 18%;
+        background: radial-gradient(circle at 34% 30%, rgba(255, 227, 163, 0.72), rgba(255, 227, 163, 0.08) 68%, transparent 70%);
+      }
+
+      .page::after {
+        right: 18%;
+        bottom: 20%;
+        background: radial-gradient(circle at 50% 50%, rgba(189, 232, 208, 0.64), rgba(189, 232, 208, 0.05) 68%, transparent 70%);
+      }
+
+      .grain {
+        position: fixed;
+        z-index: 1;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.24;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      }
+
+      .site-header,
+      .site-footer {
+        position: relative;
+        z-index: 10;
+        display: grid;
+        align-items: center;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        grid-template-columns: 1fr auto 1fr;
+        align-self: stretch;
+      }
+
+      .brand {
+        font-weight: 500;
+        transition: color 200ms ease;
+      }
+
+      .brand:hover {
+        color: var(--accent);
+      }
+
+      .field {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        justify-self: end;
+      }
+
+      .field::before {
+        width: 6px;
+        height: 6px;
+        border: 1px solid var(--accent);
+        border-radius: 50%;
+        content: "";
+        transition: background 300ms ease, transform 300ms ease;
+      }
+
+      .field:hover::before {
+        background: var(--accent);
+        transform: scale(1.35);
+      }
+
+      .top-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 18px;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 4px 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .nav-link::before {
+        color: var(--accent);
+        content: "↗";
+        font-size: 13px;
+        opacity: 0;
+        transform: translate(-5px, 4px);
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link:focus-visible::before {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      .nav-link.active {
+        color: var(--accent);
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+        width: min(100%, 1160px);
+        margin: 5vh auto 6vh;
+        flex: 1 0 auto;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 20px;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: rise 700ms 100ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        content: "";
+      }
+
+      .cv-header-row {
+        padding-bottom: 24px;
+        border-bottom: 1px solid var(--line);
+        opacity: 0;
+        animation: rise 900ms 180ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(4.4rem, 10vw, 8.6rem);
+        font-weight: 400;
+        letter-spacing: -0.075em;
+        line-height: 0.8;
+      }
+
+      h1 span { display: block; }
+      h1 em {
+        margin-left: clamp(12px, 3.5vw, 56px);
+        font-style: italic;
+      }
+
+      /* Editorial Horizontal Navigation Links */
+      .cv-nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(14px, 2.5vw, 32px);
+        flex-wrap: wrap;
+        margin: 28px 0 52px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: rise 800ms 280ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .cv-nav-link {
+        position: relative;
+        color: var(--muted);
+        padding: 4px 0;
+        transition: color 220ms ease;
+      }
+
+      .cv-nav-link::after {
+        position: absolute;
+        right: 0;
+        bottom: -17px;
+        left: 0;
+        height: 1.5px;
+        background: var(--accent);
+        content: "";
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 260ms ease;
+      }
+
+      .cv-nav-link:hover,
+      .cv-nav-link.is-active {
+        color: var(--ink);
+      }
+
+      .cv-nav-link:hover::after,
+      .cv-nav-link.is-active::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* Sections Layout */
+      .cv-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+      }
+
+      .cv-section {
+        scroll-margin-top: 80px;
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: clamp(24px, 5vw, 56px);
+        opacity: 0;
+        animation: rise 800ms 350ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .section-heading-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        position: sticky;
+        top: 40px;
+        align-self: start;
+      }
+
+      .section-number {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(2rem, 3.2vw, 2.6rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+        color: var(--ink);
+      }
+
+      /* Editorial Entry List (Non-card layout) */
+      .section-entries {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cv-entry {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 24px 0;
+        border-bottom: 1px solid rgba(217, 217, 209, 0.7);
+        transition: transform 220ms ease;
+      }
+
+      .cv-entry:first-child {
+        padding-top: 4px;
+      }
+
+      .cv-entry:last-child {
+        border-bottom: 0;
+      }
+
+      .cv-entry:hover {
+        transform: translateX(4px);
+      }
+
+      .entry-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .entry-title {
+        margin: 0;
+        font-family: var(--sans);
+        font-size: 16.5px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.35;
+        color: var(--ink);
+        transition: color 200ms ease;
+      }
+
+      .cv-entry:hover .entry-title {
+        color: var(--accent);
+      }
+
+      .entry-period {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .entry-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: var(--accent-soft);
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 9.5px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        width: fit-content;
+      }
+
+      .entry-institution {
+        margin: 0;
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .entry-specialization {
+        font-size: 13.5px;
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      /* Clean bullet points */
+      .entry-bullets {
+        margin: 4px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .entry-bullets li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #38423f;
+      }
+
+      .entry-bullets li::before {
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+      }
+
+      /* Publications details */
+      .entry-authors {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      .author-self {
+        color: var(--ink);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 2px;
+      }
+
+      .entry-citation {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 2px;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .pub-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--accent);
+        font-weight: 500;
+        transition: color 180ms ease;
+      }
+
+      .pub-link:hover {
+        color: var(--ink);
+        text-decoration: underline;
+      }
+
+      .pub-link .arrow {
+        transition: transform 180ms ease;
+      }
+
+      .pub-link:hover .arrow {
+        transform: translate(2px, -2px);
+      }
+
+      .site-footer {
+        grid-template-columns: auto minmax(40px, 1fr) auto;
+        align-self: stretch;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .footer-rule {
+        flex: 1;
+        max-width: 180px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--line);
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Focus states */
+      .cv-nav-link:focus-visible,
+      .pub-link:focus-visible,
+      .nav-link:focus-visible {
+        outline: 1px solid var(--accent);
+        outline-offset: 4px;
+      }
+
+      /* Responsive Breakpoint */
+      @media (max-width: 820px) {
+        .page { padding: 22px 20px 28px; }
+        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; }
+        .top-nav { grid-column: 1 / -1; grid-row: 2; gap: 0 15px; }
+        .nav-link { font-size: 9px; }
+        .field { font-size: 8px; }
+        main { margin: 6vh auto 5vh; }
+        h1 { font-size: clamp(3.8rem, 14vw, 5.6rem); line-height: 0.85; }
+        .cv-section { grid-template-columns: 1fr; gap: 14px; }
+        .section-heading-wrap { position: static; }
+        .cv-nav-links { gap: 14px; margin: 24px 0 36px; }
+        .entry-title { font-size: 15px; }
+        .site-footer { font-size: 8px; }
+        .footer-rule { max-width: 50px; margin: 0 8px; }
+      }
+
+      /* Conway's Game of Life Background Simulation */
+      .life-simulation-canvas-wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: clamp(280px, 30vw, 460px);
+        height: 100vh;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        opacity: 0.72;
+      }
+
+      #lifeCanvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      @media (max-width: 820px) {
+        .life-simulation-canvas-wrap {
+          width: 45vw;
+          opacity: 0.28;
+        }
+      }
+
+      @media print {
+        .life-simulation-canvas-wrap {
+          display: none !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        .life-simulation-canvas-wrap { display: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="life-simulation-canvas-wrap" aria-hidden="true">
+      <canvas id="lifeCanvas"></canvas>
+    </div>
+    <div class="page">
+      <header class="site-header">
+        <a class="brand" href="index.html">Santanu Saha</a>
+        <nav class="top-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="research.html">Research</a>
+          <a class="nav-link active" href="cv.html">CV</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </nav>
+        <span class="field">Biotechnology</span>
+      </header>
+
+      <main>
+        <p class="eyebrow">Academic & Professional Record</p>
+        <div class="cv-header-row">
+          <h1><span>Curriculum</span><span><em>Vitae</em></span></h1>
+        </div>
+
+        <!-- Section Navigation Links -->
+        <nav class="cv-nav-links" aria-label="CV Sections Navigation">
+          <a class="cv-nav-link is-active" href="#education">Education</a>
+          <a class="cv-nav-link" href="#projects">Projects</a>
+          <a class="cv-nav-link" href="#experience">Work Experiences</a>
+          <a class="cv-nav-link" href="#publications">Publications</a>
+          <a class="cv-nav-link" href="#conferences">Conferences</a>
+        </nav>
+
+        <div class="cv-sections">
+          <!-- 01. EDUCATION -->
+          <section class="cv-section" id="education" aria-labelledby="heading-education">
+            <div class="section-heading-wrap">
+              <span class="section-number">01 / Education</span>
+              <h2 class="section-title" id="heading-education">Academics & Education</h2>
+            </div>
+            <div class="section-entries">
+              <!-- IIT Mandi -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Master of Technology</h3>
+                  <span class="entry-period">2022 – 2024</span>
+                </div>
+                <p class="entry-institution">
+                  <span class="entry-specialization">Biotechnology (Specialization in Medical and Nanobiotechnology)</span><br />
+                  Indian Institute of Technology Mandi
+                </p>
+              </article>
+
+              <!-- MAKAUT -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Bachelor of Technology</h3>
+                  <span class="entry-period">2018 – 2022</span>
+                </div>
+                <p class="entry-institution">
+                  <span class="entry-specialization">Biotechnology</span><br />
+                  Maulana Abul Kalam Azad University of Technology
+                </p>
+              </article>
+
+              <!-- WBCHSE -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Higher Secondary Examination (10+2)</h3>
+                  <span class="entry-period">2016 – 2018</span>
+                </div>
+                <p class="entry-institution">
+                  <span class="entry-specialization">Physics, Chemistry, Mathematics, Biology</span><br />
+                  West Bengal Council of Higher Secondary Education
+                </p>
+              </article>
+            </div>
+          </section>
+
+          <!-- 02. PROJECTS -->
+          <section class="cv-section" id="projects" aria-labelledby="heading-projects">
+            <div class="section-heading-wrap">
+              <span class="section-number">02 / Research</span>
+              <h2 class="section-title" id="heading-projects">Research Projects</h2>
+            </div>
+            <div class="section-entries">
+              <!-- Master's Thesis -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Nano Covalent Organic Framework as Cancer Therapeutic Platform</h3>
+                  <span class="entry-badge">Master’s Thesis</span>
+                </div>
+                <p class="entry-institution">Indian Institute of Technology Mandi</p>
+                <ul class="entry-bullets">
+                  <li>Engineered surface-modified nano COFs for stimuli-responsive targeted cancer drug delivery.</li>
+                  <li>Optimized drug loading, achieving 50% higher cancer cell death.</li>
+                  <li>Characterized nanoparticles using SEM, TEM, DLS, and PXRD techniques.</li>
+                  <li>Studied fate of COF nanocarriers inside a cell, tracking sub-cellular localization of diverse functionalized nano COFs.</li>
+                </ul>
+              </article>
+
+              <!-- Bachelor's Project -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Utilization and Assimilation of Inorganic Carbon Using Microalgae, and Production of Biomass</h3>
+                  <span class="entry-badge">Bachelor’s Project</span>
+                </div>
+                <p class="entry-institution">Maulana Abul Kalam Azad University of Technology</p>
+                <ul class="entry-bullets">
+                  <li>Designed and built a low-cost photobioreactor for efficient wastewater microalgae cultivation.</li>
+                  <li>Isolated, identified, and optimized growth conditions for <em>Desmodesmas intermedius</em> from industrial effluent.</li>
+                  <li>Developed and refined culture media formulations to maximize algal biomass productivity.</li>
+                  <li>Conducted quantitative assays of harvested biomass, profiling protein, carbohydrate, and lipids.</li>
+                </ul>
+              </article>
+
+              <!-- Wrig Nanosystems Project -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Development of Electrochemical Point-of-Care Devices</h3>
+                  <span class="entry-badge">Research Project</span>
+                </div>
+                <p class="entry-institution">Wrig Nanosystems</p>
+                <ul class="entry-bullets">
+                  <li>Developed a biopolymer-based electrochemical glucose sensor strip for point-of-care glucose monitoring.</li>
+                  <li>Performed large-scale experimental data processing, analytics, and programming to support diagnostic-device development and evaluation.</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <!-- 03. WORK EXPERIENCES -->
+          <section class="cv-section" id="experience" aria-labelledby="heading-experience">
+            <div class="section-heading-wrap">
+              <span class="section-number">03 / Professional</span>
+              <h2 class="section-title" id="heading-experience">Work Experiences</h2>
+            </div>
+            <div class="section-entries">
+              <!-- Amiora -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Technology and Operations Consultant</h3>
+                  <span class="entry-period">Jan 2026 – Present</span>
+                </div>
+                <p class="entry-institution">Amiora Diamonds Pvt Ltd</p>
+              </article>
+
+              <!-- Wrig -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Associate Researcher</h3>
+                  <span class="entry-period">Oct 2024 – Oct 2025</span>
+                </div>
+                <p class="entry-institution">Wrig Nanosystems Private Limited</p>
+              </article>
+
+              <!-- IIT Mandi TA -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">University Teaching Assistant</h3>
+                  <span class="entry-period">Aug 2022 – Jun 2024</span>
+                </div>
+                <p class="entry-institution">Indian Institute of Technology Mandi</p>
+              </article>
+
+              <!-- Cognizant -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Intern Programming Analyst</h3>
+                  <span class="entry-period">Feb 2022 – Aug 2022</span>
+                </div>
+                <p class="entry-institution">Cognizant Technology Solutions</p>
+              </article>
+            </div>
+          </section>
+
+          <!-- 04. PUBLICATIONS -->
+          <section class="cv-section" id="publications" aria-labelledby="heading-publications">
+            <div class="section-heading-wrap">
+              <span class="section-number">04 / Scholarship</span>
+              <h2 class="section-title" id="heading-publications">Publications</h2>
+            </div>
+            <div class="section-entries">
+              <!-- Publication 1 -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Boosting Iodine Sorption with Electrospun Nanofiber Supported Nano/Mesoscale Covalent Organic Frameworks</h3>
+                  <span class="entry-badge">Journal Article</span>
+                </div>
+                <p class="entry-authors">
+                  S Chowdhury, A Hasnat, P Rathi, M Kumar, <span class="author-self">S Saha</span>, J K Randhawa, P F Siril
+                </p>
+                <div class="entry-citation">
+                  <span>Small — Wiley Online Library</span>
+                  <span>•</span>
+                  <a
+                    class="pub-link"
+                    href="https://doi.org/10.1002/smll.202409495"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>doi.org/10.1002/smll.202409495</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+
+              <!-- Publication 2 -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Surface Chemistry Guided Cellular Entry of Sub-100 nm Covalent Organic Frameworks</h3>
+                  <span class="entry-badge">Preprint (In Press)</span>
+                </div>
+                <p class="entry-authors">
+                  P Rathi, S Chowdhuri, A Hasnat, <span class="author-self">S Saha</span>, V Verma, P Kaidan, AK Keshari, A Roy, A Prasad, PF Siril
+                </p>
+                <div class="entry-citation">
+                  <span>ChemRxiv (Preprint) [In Press]</span>
+                  <span>•</span>
+                  <a
+                    class="pub-link"
+                    href="https://chemrxiv.org/doi/full/10.26434/chemrxiv.15004167/v2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>chemrxiv.org/doi/full/10.26434/chemrxiv.15004167/v2</span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- 05. CONFERENCES -->
+          <section class="cv-section" id="conferences" aria-labelledby="heading-conferences">
+            <div class="section-heading-wrap">
+              <span class="section-number">05 / Dissemination</span>
+              <h2 class="section-title" id="heading-conferences">Conferences & Seminars</h2>
+            </div>
+            <div class="section-entries">
+              <!-- Conf 1 -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">National Conference on Advances in Electron Microscopy and Its Application</h3>
+                  <span class="entry-period">11 – 12 Dec, 2025</span>
+                </div>
+                <p class="entry-institution">Indian Institute of Technology Mandi</p>
+              </article>
+
+              <!-- Conf 2 -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">AppSciCon 2022 Interdisciplinary National Science Conference</h3>
+                  <span class="entry-period">27 – 28 May, 2022</span>
+                </div>
+                <p class="entry-institution">Maulana Abul Kalam Azad University of Technology, Kolkata</p>
+              </article>
+
+              <!-- Conf 3 -->
+              <article class="cv-entry">
+                <div class="entry-header">
+                  <h3 class="entry-title">Application of Nuclear Science in Bio-Chemical, Agricultural Productivity & Food Safety</h3>
+                  <span class="entry-period">30 – 31 Aug, 2019</span>
+                </div>
+                <p class="entry-institution">Haldia Institute of Technology</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <span>Based in biotechnology</span>
+        <span class="footer-rule" aria-hidden="true"></span>
+        <span>© <span id="year"></span> Santanu Saha</span>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Subtle active section highlighting on scroll
+      const sections = document.querySelectorAll(".cv-section");
+      const navLinks = document.querySelectorAll(".cv-nav-links .cv-nav-link");
+
+      const observerOptions = {
+        root: null,
+        rootMargin: "-20% 0px -70% 0px",
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add("is-active");
+              } else {
+                link.classList.remove("is-active");
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      // Conway's Game of Life Live Simulation (Right 30% background)
+      (function () {
+        const canvas = document.getElementById("lifeCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+
+        const CELL_SIZE = 12;
+        const STEP_INTERVAL_MS = 380; // Slow, calm step interval (~2.5 fps)
+        let cols = 0;
+        let rows = 0;
+        let grid = null;
+        let nextGrid = null;
+        let ageGrid = null;
+        let lastStepTime = 0;
+        let stagnantCount = 0;
+        let lastLiveCount = 0;
+
+        function resize() {
+          const container = canvas.parentElement;
+          if (!container) return;
+          const width = container.clientWidth;
+          const height = container.clientHeight;
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.scale(dpr, dpr);
+
+          cols = Math.ceil(width / CELL_SIZE) + 2;
+          rows = Math.ceil(height / CELL_SIZE) + 2;
+
+          grid = new Uint8Array(cols * rows);
+          nextGrid = new Uint8Array(cols * rows);
+          ageGrid = new Uint8Array(cols * rows);
+
+          seed();
+        }
+
+        function seed() {
+          for (let i = 0; i < cols * rows; i++) {
+            if (Math.random() < 0.22) {
+              grid[i] = 1;
+              ageGrid[i] = 1;
+            } else {
+              grid[i] = 0;
+              ageGrid[i] = 0;
+            }
+          }
+          // Seed a couple of gliders
+          spawnGlider(Math.floor(cols * 0.4), 6);
+          spawnGlider(Math.floor(cols * 0.7), Math.floor(rows * 0.35));
+        }
+
+        function spawnGlider(x, y) {
+          const glider = [
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 1, 1]
+          ];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              const gx = (x + c + cols) % cols;
+              const gy = (y + r + rows) % rows;
+              const idx = gy * cols + gx;
+              grid[idx] = glider[r][c];
+              ageGrid[idx] = glider[r][c];
+            }
+          }
+        }
+
+        function spawnOrganicCluster() {
+          const cx = Math.floor(Math.random() * (cols - 8)) + 4;
+          const cy = Math.floor(Math.random() * (rows - 8)) + 4;
+          for (let dy = -3; dy <= 3; dy++) {
+            for (let dx = -3; dx <= 3; dx++) {
+              if (Math.random() < 0.42) {
+                const gx = (cx + dx + cols) % cols;
+                const gy = (cy + dy + rows) % rows;
+                const idx = gy * cols + gx;
+                grid[idx] = 1;
+                ageGrid[idx] = 1;
+              }
+            }
+          }
+        }
+
+        function step() {
+          let liveCount = 0;
+
+          for (let y = 0; y < rows; y++) {
+            const yAbove = (y - 1 + rows) % rows;
+            const yBelow = (y + 1) % rows;
+
+            for (let x = 0; x < cols; x++) {
+              const xLeft = (x - 1 + cols) % cols;
+              const xRight = (x + 1) % cols;
+
+              const neighbors =
+                grid[yAbove * cols + xLeft] +
+                grid[yAbove * cols + x] +
+                grid[yAbove * cols + xRight] +
+                grid[y * cols + xLeft] +
+                grid[y * cols + xRight] +
+                grid[yBelow * cols + xLeft] +
+                grid[yBelow * cols + x] +
+                grid[yBelow * cols + xRight];
+
+              const idx = y * cols + x;
+              const state = grid[idx];
+
+              // Conway's Game of Life Standard Rules (B3/S23)
+              if (state === 1 && (neighbors === 2 || neighbors === 3)) {
+                nextGrid[idx] = 1;
+                ageGrid[idx] = Math.min(255, ageGrid[idx] + 1);
+                liveCount++;
+              } else if (state === 0 && neighbors === 3) {
+                nextGrid[idx] = 1;
+                ageGrid[idx] = 1;
+                liveCount++;
+              } else {
+                nextGrid[idx] = 0;
+                ageGrid[idx] = 0;
+              }
+            }
+          }
+
+          // Swap buffers
+          const temp = grid;
+          grid = nextGrid;
+          nextGrid = temp;
+
+          // Prevent indefinite stagnation or extinction
+          if (liveCount < cols * rows * 0.04 || Math.abs(liveCount - lastLiveCount) < 2) {
+            stagnantCount++;
+            if (stagnantCount > 16) {
+              spawnOrganicCluster();
+              spawnGlider(Math.floor(Math.random() * (cols - 4)), 3);
+              stagnantCount = 0;
+            }
+          } else {
+            stagnantCount = 0;
+          }
+          lastLiveCount = liveCount;
+        }
+
+        function draw() {
+          const width = canvas.parentElement.clientWidth;
+          const height = canvas.parentElement.clientHeight;
+          ctx.clearRect(0, 0, width, height);
+
+          // Subtle grid guide dots matching website theme
+          ctx.fillStyle = "rgba(112, 118, 112, 0.08)";
+          for (let y = 0; y < rows; y += 2) {
+            for (let x = 0; x < cols; x += 2) {
+              ctx.fillRect(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2, 1, 1);
+            }
+          }
+
+          // Render living cells with theme-accurate colors & rounded nodes
+          for (let y = 0; y < rows; y++) {
+            for (let x = 0; x < cols; x++) {
+              const idx = y * cols + x;
+              if (grid[idx] === 1) {
+                const age = ageGrid[idx];
+                const px = x * CELL_SIZE + 1;
+                const py = y * CELL_SIZE + 1;
+                const size = CELL_SIZE - 2;
+
+                // Color palette transitioning from fresh teal/accent to soft pastel blue
+                if (age <= 2) {
+                  ctx.fillStyle = "rgba(91, 168, 184, 0.78)"; // --accent
+                } else if (age <= 6) {
+                  ctx.fillStyle = "rgba(111, 140, 166, 0.70)"; // --blue
+                } else {
+                  ctx.fillStyle = "rgba(154, 138, 183, 0.62)"; // --lilac
+                }
+
+                if (ctx.roundRect) {
+                  ctx.beginPath();
+                  ctx.roundRect(px, py, size, size, 2.5);
+                  ctx.fill();
+                } else {
+                  ctx.fillRect(px, py, size, size);
+                }
+              }
+            }
+          }
+        }
+
+        function loop(timestamp) {
+          if (!lastStepTime) lastStepTime = timestamp;
+          const elapsed = timestamp - lastStepTime;
+
+          if (elapsed > STEP_INTERVAL_MS) {
+            step();
+            draw();
+            lastStepTime = timestamp;
+          }
+
+          requestAnimationFrame(loop);
+        }
+
+        window.addEventListener("resize", () => {
+          resize();
+          draw();
+        });
+
+        resize();
+        requestAnimationFrame(loop);
+      })();
+    </script>
+  </body>
+</html>

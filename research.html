@@ -1,0 +1,1682 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Santanu Saha — Research in Covalent Organic Frameworks (COFs), targeted drug delivery, nanofiber composites, and point-of-care biosensors."
+    />
+    <title>Research — Santanu Saha</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
+
+      :root {
+        --paper: #fffaf4;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #d9d9d1;
+        --accent: #5ba8b8;
+        --accent-soft: #cae9ed;
+        --pastel-peach: #ffc7b2;
+        --pastel-blue: #bfe4f0;
+        --pastel-lilac: #dbccf5;
+        --pastel-yellow: #ffe3a3;
+        --pastel-mint: #bde8d0;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        min-height: 100%;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(circle at 86% 16%, rgba(255, 199, 178, 0.72), transparent 26rem),
+          radial-gradient(circle at 11% 91%, rgba(191, 228, 240, 0.72), transparent 24rem),
+          radial-gradient(circle at 57% 53%, rgba(219, 204, 245, 0.48), transparent 29rem);
+        background-attachment: fixed;
+        font-family: var(--sans);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding: 28px clamp(24px, 5vw, 80px) 36px;
+        isolation: isolate;
+      }
+
+      .page::before,
+      .page::after {
+        position: fixed;
+        z-index: 0;
+        width: clamp(140px, 18vw, 240px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        content: "";
+        filter: blur(2px);
+        opacity: 0.62;
+        pointer-events: none;
+      }
+
+      .page::before {
+        top: 14%;
+        left: 17%;
+        background: radial-gradient(circle at 34% 30%, rgba(255, 227, 163, 0.72), rgba(255, 227, 163, 0.08) 68%, transparent 70%);
+      }
+
+      .page::after {
+        right: 16%;
+        bottom: 24%;
+        background: radial-gradient(circle at 50% 50%, rgba(189, 232, 208, 0.64), rgba(189, 232, 208, 0.05) 68%, transparent 70%);
+      }
+
+      .grain {
+        position: fixed;
+        z-index: 1;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.24;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      }
+
+      .site-header,
+      .site-footer {
+        position: relative;
+        z-index: 10;
+        display: grid;
+        align-items: center;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        grid-template-columns: 1fr auto 1fr;
+        align-self: stretch;
+      }
+
+      .brand {
+        font-weight: 500;
+        transition: color 200ms ease;
+      }
+
+      .brand:hover {
+        color: var(--accent);
+      }
+
+      .field {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        justify-self: end;
+      }
+
+      .field::before {
+        width: 6px;
+        height: 6px;
+        border: 1px solid var(--accent);
+        border-radius: 50%;
+        content: "";
+        transition: background 300ms ease, transform 300ms ease;
+      }
+
+      .field:hover::before {
+        background: var(--accent);
+        transform: scale(1.35);
+      }
+
+      .top-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 18px;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 4px 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .nav-link::before {
+        color: var(--accent);
+        content: "↗";
+        font-size: 13px;
+        opacity: 0;
+        transform: translate(-5px, 4px);
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link:focus-visible::before {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      .nav-link.active {
+        color: var(--accent);
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+        width: min(100%, 1160px);
+        margin: 5vh auto 6vh;
+        flex: 1 0 auto;
+      }
+
+      p {
+        text-align: justify;
+        text-align-last: left;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 20px;
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: rise 700ms 100ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        content: "";
+      }
+
+      .research-hero {
+        display: grid;
+        grid-template-columns: minmax(320px, 1fr) minmax(280px, 440px);
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: clamp(32px, 5vw, 64px);
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        opacity: 0;
+        animation: rise 900ms 180ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(4.4rem, 10vw, 8.6rem);
+        font-weight: 400;
+        letter-spacing: -0.075em;
+        line-height: 0.82;
+      }
+
+      h1 span { display: block; }
+      h1 em {
+        margin-left: clamp(12px, 3.5vw, 56px);
+        font-style: italic;
+      }
+
+      .hero-statement {
+        margin: 0;
+        font-size: 14.5px;
+        line-height: 1.65;
+        color: var(--ink);
+        text-align: justify;
+        text-align-last: left;
+      }
+
+      .hero-statement strong {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* Quick Nav Anchor Pills */
+      .research-nav-links {
+        display: flex;
+        align-items: center;
+        gap: clamp(14px, 2.5vw, 32px);
+        flex-wrap: wrap;
+        margin: 28px 0 52px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: rise 800ms 280ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .research-nav-link {
+        position: relative;
+        color: var(--muted);
+        padding: 4px 0;
+        transition: color 220ms ease;
+      }
+
+      .research-nav-link::after {
+        position: absolute;
+        right: 0;
+        bottom: -17px;
+        left: 0;
+        height: 1.5px;
+        background: var(--accent);
+        content: "";
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 260ms ease;
+      }
+
+      .research-nav-link:hover,
+      .research-nav-link.is-active {
+        color: var(--ink);
+      }
+
+      .research-nav-link:hover::after,
+      .research-nav-link.is-active::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      /* Research Project Blocks */
+      .research-stream {
+        display: flex;
+        flex-direction: column;
+        gap: 72px;
+      }
+
+      .research-block {
+        scroll-margin-top: 80px;
+        display: grid;
+        grid-template-columns: minmax(320px, 1.1fr) minmax(280px, 0.9fr);
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
+        padding-bottom: 56px;
+        border-bottom: 1px solid rgba(217, 217, 209, 0.7);
+        opacity: 0;
+        animation: rise 850ms 350ms cubic-bezier(.2,.8,.2,1) forwards;
+      }
+
+      .research-block:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .research-content {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .project-title {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 3.4vw, 2.9rem);
+        font-weight: 400;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+        color: var(--ink);
+      }
+
+      .project-narrative {
+        margin: 4px 0 0;
+        font-size: 14px;
+        line-height: 1.65;
+        color: #2a3331;
+        text-align: justify;
+        text-align-last: left;
+      }
+
+      .project-points {
+        margin: 6px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+      }
+
+      .project-points li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 13.5px;
+        line-height: 1.55;
+        color: #38423f;
+      }
+
+      .project-points li::before {
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+      }
+
+      .pub-citation-box {
+        margin-top: 14px;
+        padding: 14px 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.65);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        transition: border-color 200ms ease, background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+        cursor: pointer;
+      }
+
+      .pub-citation-box:hover {
+        border-color: var(--accent);
+        background: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -6px rgba(24, 32, 30, 0.08);
+      }
+
+      .pub-citation-box strong {
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .pub-action {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        color: var(--accent);
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: color 180ms ease;
+      }
+
+      .pub-citation-box:hover .pub-action {
+        color: var(--ink);
+      }
+
+      /* Scientific Diagram Graphics */
+      /* Scientific Diagram Graphics (Interactive) */
+      .graphics-frame {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 250, 244, 0.7);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+        cursor: pointer;
+        perspective: 900px;
+        transform-style: preserve-3d;
+        transition: border-color 300ms ease, box-shadow 300ms ease, transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        user-select: none;
+      }
+
+      .graphics-frame:hover {
+        border-color: var(--accent);
+        box-shadow: 0 18px 40px -12px rgba(24, 32, 30, 0.14), 0 0 24px rgba(91, 168, 184, 0.12);
+      }
+
+      .graphics-svg {
+        width: 100%;
+        max-width: 380px;
+        height: auto;
+        display: block;
+        transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      /* Interactive Fig 1: COF Lattice & Drug Delivery */
+      .hex-cell {
+        transition: fill 250ms ease, stroke 250ms ease, stroke-width 250ms ease;
+        cursor: pointer;
+      }
+      .hex-cell:hover {
+        fill: rgba(91, 168, 184, 0.22) !important;
+        stroke: var(--accent) !important;
+        stroke-width: 2.2px !important;
+      }
+      .drug-node {
+        transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), fill 250ms ease, filter 250ms ease;
+        cursor: pointer;
+        transform-origin: center;
+      }
+      .drug-node:hover {
+        transform: scale(1.6);
+        fill: #e85d43;
+        filter: drop-shadow(0 0 6px rgba(215, 118, 93, 0.8));
+      }
+      .cof-corner-node {
+        transition: transform 250ms ease, fill 250ms ease;
+        cursor: pointer;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .cof-corner-node:hover {
+        transform: scale(1.4);
+        fill: var(--accent);
+      }
+
+      /* Fixed Ligand Wiggle: anchored at each framework vertex */
+      .ligand-branch {
+        transform-box: view-box;
+        transition: transform 300ms ease;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(1) {
+        animation: ligandSwayA 3.2s ease-in-out infinite alternate;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(2) {
+        animation: ligandSwayB 2.7s ease-in-out 0.2s infinite alternate;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(3) {
+        animation: ligandSwayA 3.4s ease-in-out 0.4s infinite alternate-reverse;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(4) {
+        animation: ligandSwayB 2.9s ease-in-out 0.1s infinite alternate;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(5) {
+        animation: ligandSwayA 3.1s ease-in-out 0.5s infinite alternate;
+      }
+      .graphics-frame:hover .ligand-branch:nth-child(6) {
+        animation: ligandSwayB 3.3s ease-in-out 0.3s infinite alternate-reverse;
+      }
+
+      @keyframes ligandSwayA {
+        0% { transform: rotate(-7deg); }
+        100% { transform: rotate(7deg); }
+      }
+      @keyframes ligandSwayB {
+        0% { transform: rotate(6deg); }
+        100% { transform: rotate(-6deg); }
+      }
+
+      .ligand-star {
+        cursor: pointer;
+        filter: drop-shadow(0 0 2px rgba(154, 138, 183, 0.4));
+      }
+      .ligand-star polygon {
+        transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), fill 200ms ease;
+        transform-origin: 0 0;
+      }
+      .ligand-star:hover polygon {
+        transform: scale(1.45);
+        fill: #7d65a3;
+      }
+
+      /* Interactive Fig 2: Nanofibers & COF Sorption */
+      .fiber-strand {
+        transition: stroke-width 300ms ease;
+      }
+      .graphics-frame:hover .fiber-layer-1 { animation: fiberDrift 4s ease-in-out infinite alternate; }
+      .graphics-frame:hover .fiber-layer-2 { animation: fiberDrift 4.8s ease-in-out 0.5s infinite alternate-reverse; }
+      @keyframes fiberDrift {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(-5px); }
+      }
+      /* Smooth crystal hover without vibration */
+      .cof-crystal {
+        cursor: pointer;
+        transition: filter 250ms ease;
+      }
+      .cof-crystal polygon {
+        transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), stroke 250ms ease;
+        transform-origin: 0 0;
+      }
+      .cof-crystal:hover polygon {
+        transform: scale(1.22);
+      }
+      .cof-crystal:hover {
+        filter: drop-shadow(0 0 8px rgba(91, 168, 184, 0.85));
+      }
+      .sorb-molecule {
+        transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), fill 250ms ease;
+        cursor: pointer;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+      .sorb-molecule:hover {
+        transform: scale(1.6);
+        fill: #7d65a3;
+      }
+
+      /* Interactive Fig 3: Electrochemical Sensor */
+      .sensor-electrode {
+        cursor: pointer;
+        transition: fill 250ms ease, stroke 250ms ease;
+      }
+      .sensor-electrode:hover {
+        fill: var(--accent-soft) !important;
+        stroke: var(--accent) !important;
+      }
+      .gold-pad {
+        transition: fill 200ms ease, filter 200ms ease;
+        cursor: pointer;
+      }
+      .gold-pad:hover {
+        fill: #ffd269 !important;
+        filter: drop-shadow(0 0 6px rgba(255, 210, 105, 0.85));
+      }
+      .signal-wave-path {
+        stroke-dasharray: 8 5;
+        animation: redoxFlow 1.3s linear infinite;
+        transition: stroke 200ms ease, stroke-width 200ms ease;
+      }
+      .graphics-frame:hover .signal-wave-path {
+        animation-duration: 0.65s;
+        stroke-width: 2.6px;
+        stroke: var(--accent);
+      }
+      @keyframes redoxFlow {
+        0% { stroke-dashoffset: 26; }
+        100% { stroke-dashoffset: 0; }
+      }
+
+      /* Interactive Fig 4: Photobioreactor Column */
+      .algal-disc {
+        cursor: pointer;
+        transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), fill 250ms ease;
+        transform-origin: center;
+      }
+      .algal-disc:hover {
+        transform: scale(1.45);
+        fill: #5eb888;
+      }
+      .photon-beam {
+        transition: stroke 250ms ease, stroke-width 250ms ease;
+      }
+      .graphics-frame:hover .photon-beam {
+        animation: photonGlint 1.6s ease-in-out infinite alternate;
+      }
+      @keyframes photonGlint {
+        0% { opacity: 0.4; stroke-width: 1.8px; stroke: #ffe3a3; }
+        100% { opacity: 1; stroke-width: 3px; stroke: #ffae90; }
+      }
+      @keyframes bubbleFloat {
+        0% { transform: translateY(0); opacity: 0; }
+        25% { opacity: 0.9; }
+        80% { opacity: 0.9; }
+        100% { transform: translateY(-115px); opacity: 0; }
+      }
+      .rising-bubble-1 { animation: bubbleFloat 3.1s ease-in infinite; }
+      .rising-bubble-2 { animation: bubbleFloat 2.5s ease-in 0.8s infinite; }
+      .rising-bubble-3 { animation: bubbleFloat 3.6s ease-in 1.5s infinite; }
+      .rising-bubble-4 { animation: bubbleFloat 2.8s ease-in 2.2s infinite; }
+
+      /* Click Reaction Keyframes & State */
+      @keyframes pulseGlow {
+        0% { transform: scale(1); filter: brightness(1); }
+        50% { transform: scale(1.35); filter: brightness(1.5) drop-shadow(0 0 8px var(--accent)); }
+        100% { transform: scale(1); filter: brightness(1); }
+      }
+      .anim-pulse {
+        animation: pulseGlow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        transform-origin: center;
+      }
+
+      @keyframes sensorFlash {
+        0% { fill: #cae9ed; filter: none; }
+        50% { fill: #5ba8b8; filter: drop-shadow(0 0 8px rgba(91, 168, 184, 0.9)); }
+        100% { fill: #cae9ed; filter: none; }
+      }
+      .anim-flash {
+        animation: sensorFlash 0.5s ease-out;
+      }
+
+      @keyframes spawnedBubble {
+        0% { transform: translateY(0) scale(0.6); opacity: 0; }
+        20% { opacity: 0.9; }
+        85% { opacity: 0.85; }
+        100% { transform: translateY(-130px) scale(1.1); opacity: 0; }
+      }
+      .spawned-bubble {
+        animation: spawnedBubble 2.2s ease-out forwards;
+      }
+
+      /* Toolkit Section */
+      .toolkit-section {
+        margin-top: 64px;
+        padding-top: 48px;
+        border-top: 1px solid var(--line);
+      }
+
+      .toolkit-header {
+        margin-bottom: 28px;
+      }
+
+      .toolkit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .toolkit-card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 250, 244, 0.5);
+        transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+      }
+
+      .toolkit-card:hover {
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.85);
+        transform: translateY(-2px);
+      }
+
+      .toolkit-title {
+        margin: 0 0 10px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .toolkit-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 13px;
+        line-height: 1.6;
+        color: #3b4543;
+      }
+
+      .toolkit-list li {
+        margin-bottom: 4px;
+      }
+
+      .site-footer {
+        grid-template-columns: auto minmax(40px, 1fr) auto;
+        align-self: stretch;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .footer-rule {
+        flex: 1;
+        max-width: 180px;
+        height: 1px;
+        margin: 0 18px;
+        background: var(--line);
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes pulseGlow {
+        0%, 100% { opacity: 0.65; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+      }
+
+      .node-pulse {
+        animation: pulseGlow 3.5s ease-in-out infinite;
+        transform-origin: center;
+      }
+
+      @media (max-width: 860px) {
+        .page { padding: 22px 20px 28px; }
+        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; }
+        .top-nav { grid-column: 1 / -1; grid-row: 2; gap: 0 15px; }
+        .nav-link { font-size: 9px; }
+        .field { font-size: 8px; }
+        main { margin: 6vh auto 5vh; }
+        h1 { font-size: clamp(3.8rem, 14vw, 5.6rem); line-height: 0.85; }
+        .research-hero { grid-template-columns: 1fr; gap: 20px; }
+        .research-block { grid-template-columns: 1fr; gap: 28px; padding-bottom: 44px; }
+        .graphics-frame { order: -1; }
+        .pub-citation-box { flex-direction: column; align-items: flex-start; gap: 10px; }
+        .site-footer { font-size: 8px; }
+        .footer-rule { max-width: 50px; margin: 0 8px; }
+      }
+
+      /* Boids Background Simulation (Right 30% background with left fade) */
+      .boids-simulation-canvas-wrap {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: clamp(280px, 30vw, 460px);
+        height: 100vh;
+        z-index: 2;
+        pointer-events: none;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        opacity: 0.72;
+      }
+
+      #boidsCanvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      @media (max-width: 820px) {
+        .boids-simulation-canvas-wrap {
+          width: 45vw;
+          opacity: 0.28;
+        }
+      }
+
+      @media print {
+        .boids-simulation-canvas-wrap {
+          display: none !important;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; }
+        .boids-simulation-canvas-wrap { display: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="boids-simulation-canvas-wrap" aria-hidden="true">
+      <canvas id="boidsCanvas"></canvas>
+    </div>
+    <div class="page">
+      <header class="site-header">
+        <a class="brand" href="index.html">Santanu Saha</a>
+        <nav class="top-nav" aria-label="Primary navigation">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" href="research.html">Research</a>
+          <a class="nav-link" href="cv.html">CV</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </nav>
+        <span class="field">Biotechnology</span>
+      </header>
+
+      <main>
+        <p class="eyebrow">Nanomaterials × Reticular Chemistry × Biomedicine</p>
+
+        <section class="research-hero" aria-label="Research overview">
+          <div>
+            <h1><span>Research</span></h1>
+          </div>
+          <div>
+            <p class="hero-statement">
+              Designing crystalline porous materials and biofunctional nanomaterials to navigate biological barriers. My work bridges <strong>covalent organic frameworks (COFs)</strong>, <strong>targeted oncological drug delivery</strong>, <strong>nanofiber sorbents</strong>, and <strong>point-of-care biosensing platforms</strong>.
+            </p>
+          </div>
+        </section>
+
+        <!-- Quick Jump Sub-Navigation -->
+        <nav class="research-nav-links" aria-label="Research Navigation">
+          <a class="research-nav-link is-active" href="#cofs-cancer">Nano-COF Cancer Delivery</a>
+          <a class="research-nav-link" href="#nanofiber-sorption">Nanofiber Sorption</a>
+          <a class="research-nav-link" href="#point-of-care">Electrochemical Biosensors</a>
+          <a class="research-nav-link" href="#bioreactor">Algal Photobioreactors</a>
+          <a class="research-nav-link" href="#toolkit">Methods & Tools</a>
+        </nav>
+
+        <div class="research-stream">
+          <!-- 01. NANO COFS CANCER PLATFORM -->
+          <article class="research-block" id="cofs-cancer" aria-labelledby="title-cofs">
+            <div class="research-content">
+              <h2 class="project-title" id="title-cofs">Nano Covalent Organic Frameworks for Targeted Cancer Therapy</h2>
+
+              <p class="project-narrative">
+                Covalent Organic Frameworks (COFs) represent an emerging class of crystalline porous polymers offering modular pore architectures and immense internal surface areas. This research investigates the rational surface chemistry engineering of sub-100 nm COF nanoparticles to overcome biological barriers, achieve high payload stabilization, and execute triggered release inside cancer cells.
+              </p>
+
+              <ul class="project-points">
+                <li><strong>Engineered Surface Functionalization:</strong> Tailored surface functional groups on nano-COFs to govern protein corona formation, receptor recognition, and cellular internalization efficiency.</li>
+                <li><strong>Triggered Payload Delivery:</strong> Optimized antineoplastic drug loading inside pore cavities, achieving a 50% enhancement in targeted cancer cell lethality over free therapeutic molecules.</li>
+                <li><strong>Multimodal Physicochemical Characterization:</strong> Validated crystalline integrity, morphology, and monodispersity via FE-SEM, HR-TEM, DLS, and Powder X-Ray Diffraction (PXRD).</li>
+                <li><strong>Subcellular Fate Tracking:</strong> Visualized endocytic pathways and intracellular localization across distinct organelle compartments using Confocal Laser Scanning Microscopy (CLSM).</li>
+              </ul>
+
+              <a class="pub-citation-box" href="https://chemrxiv.org/doi/full/10.26434/chemrxiv.15004167/v2" target="_blank" rel="noopener noreferrer">
+                <strong>Surface Chemistry Guided Cellular Entry of Sub-100 nm Covalent Organic Frameworks</strong>
+                <span class="pub-action">View Publication ↗</span>
+              </a>
+            </div>
+
+            <!-- Scientific SVG Graphic 1: Hexagonal COF Lattice with Nanoparticle Delivery -->
+            <div class="graphics-frame" data-figure="cof" aria-label="Hexagonal COF lattice interactive visualization">
+              <svg class="graphics-svg" viewBox="0 0 360 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="hexGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#cae9ed" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="#5ba8b8" stop-opacity="0.05" />
+                  </radialGradient>
+                  <filter id="softBlur"><feGaussianBlur stdDeviation="3" /></filter>
+                </defs>
+
+                <!-- Ambient glow -->
+                <circle cx="180" cy="135" r="95" fill="url(#hexGlow)" filter="url(#softBlur)" />
+
+                <!-- Hexagonal COF Lattice Nodes -->
+                <g stroke="#5ba8b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
+                  <!-- Center Hexagon -->
+                  <polygon class="hex-cell" points="180,95 215,115 215,155 180,175 145,155 145,115" fill="rgba(91, 168, 184, 0.05)" />
+                  <!-- Surrounding Hexagons -->
+                  <polygon class="hex-cell" points="145,115 145,75 180,55 215,75 215,115 180,95" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
+                  <polygon class="hex-cell" points="110,135 145,115 145,155 110,175 75,155 75,135" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
+                  <polygon class="hex-cell" points="180,175 215,195 215,235 180,255 145,235 145,195" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
+                  <polygon class="hex-cell" points="215,115 250,95 285,115 285,155 250,175 215,155" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
+                  <!-- Connecting bonds -->
+                  <line x1="215" y1="195" x2="250" y2="175" />
+                  <line x1="145" y1="195" x2="110" y2="175" />
+                </g>
+
+                <!-- Molecular drug guests inside pores -->
+                <g fill="#d7765d" class="node-pulse">
+                  <circle class="drug-node" cx="180" cy="135" r="7.5" />
+                  <circle class="drug-node" cx="145" cy="75" r="5.5" opacity="0.8" />
+                  <circle class="drug-node" cx="215" cy="75" r="5.5" opacity="0.8" />
+                  <circle class="drug-node" cx="250" cy="135" r="6" opacity="0.85" />
+                  <circle class="drug-node" cx="180" cy="215" r="6.5" opacity="0.85" />
+                  <circle class="drug-node" cx="110" cy="135" r="5.5" opacity="0.75" />
+                </g>
+
+                <!-- Surface functionalization ligands (Anchored & star-shaped) -->
+                <g class="ligands-group">
+                  <!-- Branch 1 (Top) -->
+                  <g class="ligand-branch" style="transform-origin: 180px 55px;">
+                    <line x1="180" y1="55" x2="180" y2="20" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(180, 20)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                  <!-- Branch 2 (Top-Right) -->
+                  <g class="ligand-branch" style="transform-origin: 285px 115px;">
+                    <line x1="285" y1="115" x2="320" y2="105" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(320, 105)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                  <!-- Branch 3 (Bottom-Right) -->
+                  <g class="ligand-branch" style="transform-origin: 285px 155px;">
+                    <line x1="285" y1="155" x2="322" y2="168" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(322, 168)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                  <!-- Branch 4 (Bottom) -->
+                  <g class="ligand-branch" style="transform-origin: 180px 255px;">
+                    <line x1="180" y1="255" x2="180" y2="272" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(180, 272)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                  <!-- Branch 5 (Bottom-Left) -->
+                  <g class="ligand-branch" style="transform-origin: 75px 155px;">
+                    <line x1="75" y1="155" x2="40" y2="168" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(40, 168)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                  <!-- Branch 6 (Top-Left) -->
+                  <g class="ligand-branch" style="transform-origin: 75px 135px;">
+                    <line x1="75" y1="135" x2="40" y2="120" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <g class="ligand-star" transform="translate(40, 120)">
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                    </g>
+                  </g>
+                </g>
+
+                <!-- Reticular coordination corner nodes -->
+                <g>
+                  <circle class="cof-corner-node" cx="180" cy="95" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="215" cy="115" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="215" cy="155" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="180" cy="175" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="145" cy="155" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="145" cy="115" r="4.5" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="180" cy="55" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="250" cy="95" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="285" cy="115" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="285" cy="155" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="250" cy="175" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="215" cy="235" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="180" cy="255" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="145" cy="235" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="75" cy="135" r="4" fill="#5ba8b8" />
+                  <circle class="cof-corner-node" cx="75" cy="155" r="4" fill="#5ba8b8" />
+                </g>
+              </svg>
+            </div>
+          </article>
+
+          <!-- 02. NANOFIBER COMPOSITES FOR IODINE SORPTION -->
+          <article class="research-block" id="nanofiber-sorption" aria-labelledby="title-nanofiber">
+            <div class="research-content">
+              <h2 class="project-title" id="title-nanofiber">Nanofiber-Supported Covalent Organic Frameworks for Molecular Sorption</h2>
+
+              <p class="project-narrative">
+                While powder-form Covalent Organic Frameworks exhibit remarkable intrinsic porosity, their real-world separation and sorption utility is often hampered by particle agglomeration and recovery hurdles. In this work, we developed an electrospinning methodology to immobilize nano/mesoscale COF crystallites across a continuous polymeric nanofiber matrix for ultra-high-efficiency volatile iodine capture.
+              </p>
+
+              <ul class="project-points">
+                <li><strong>Electrospun Nanofiber Matrix:</strong> Synthesized porous hybrid nanofiber webs providing mechanical robustness and open gas-permeable transport channels.</li>
+                <li><strong>Enhanced Iodine Sorption:</strong> Maximized active reticular sorption sites through homogeneous COF dispersion, achieving unprecedented sorption capacities and rapid uptake kinetics.</li>
+                <li><strong>Recyclability & Environmental Safety:</strong> Demonstrated structural stability across consecutive sorption-desorption cycles without framework collapse or leaching.</li>
+              </ul>
+
+              <a class="pub-citation-box" href="https://doi.org/10.1002/smll.202409495" target="_blank" rel="noopener noreferrer">
+                <strong>Boosting Iodine Sorption with Electrospun Nanofiber Supported Nano/Mesoscale Covalent Organic Frameworks</strong>
+                <span class="pub-action">View Publication ↗</span>
+              </a>
+            </div>
+
+            <!-- Scientific SVG Graphic 2: Electrospun Nanofiber Mesh + COF Crystals -->
+            <div class="graphics-frame" data-figure="nanofiber" aria-label="Electrospun nanofiber composite interactive visualization">
+              <svg class="graphics-svg" viewBox="0 0 360 270" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="fiberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#bfe4f0" />
+                    <stop offset="100%" stop-color="#cae9ed" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Intertwined electrospun fibers -->
+                <g class="fiber-layer-1">
+                  <path class="fiber-strand" d="M-10 70 C80 50, 160 130, 370 100" stroke="url(#fiberGrad)" stroke-width="14" stroke-linecap="round" opacity="0.82" />
+                  <path class="fiber-strand" d="M-10 180 C120 220, 210 120, 370 180" stroke="url(#fiberGrad)" stroke-width="12" stroke-linecap="round" opacity="0.82" />
+                </g>
+                <g class="fiber-layer-2">
+                  <path class="fiber-strand" d="M60 -10 C90 110, 190 170, 240 280" stroke="url(#fiberGrad)" stroke-width="13" stroke-linecap="round" opacity="0.75" />
+                  <path class="fiber-strand" d="M280 -10 C260 90, 130 180, 120 280" stroke="url(#fiberGrad)" stroke-width="10" stroke-linecap="round" opacity="0.72" />
+                </g>
+
+                <!-- Embedded COF crystallites anchored on fibers -->
+                <g class="cof-crystal" transform="translate(130, 95)">
+                  <polygon points="0,-18 15,-9 15,9 0,18 -15,9 -15,-9" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
+                  <polygon points="0,-8 7,-4 7,4 0,8 -7,4 -7,-4" fill="#cae9ed" opacity="0.8" />
+                </g>
+                <g class="cof-crystal" transform="translate(210, 135)">
+                  <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
+                  <polygon points="0,-6 6,-3 6,3 0,6 -6,3 -6,-3" fill="#cae9ed" opacity="0.8" />
+                </g>
+                <g class="cof-crystal" transform="translate(160, 185)">
+                  <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
+                  <polygon points="0,-7 6.5,-3.5 6.5,3.5 0,7 -6.5,3.5 -6.5,-3.5" fill="#cae9ed" opacity="0.8" />
+                </g>
+                <g class="cof-crystal" transform="translate(260, 75)">
+                  <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.5" />
+                </g>
+
+                <!-- Iodine molecules being adsorbed (purple spheres) -->
+                <g fill="#9a8ab7" class="node-pulse">
+                  <circle class="sorb-molecule" cx="120" cy="75" r="4.8" />
+                  <circle class="sorb-molecule" cx="145" cy="78" r="4.2" />
+                  <circle class="sorb-molecule" cx="225" cy="120" r="4.2" />
+                  <circle class="sorb-molecule" cx="205" cy="160" r="4.8" />
+                  <circle class="sorb-molecule" cx="175" cy="165" r="4.2" />
+                  <circle class="sorb-molecule" cx="250" cy="95" r="4.2" />
+                  <circle class="sorb-molecule" cx="275" cy="62" r="3.8" />
+                </g>
+
+                <!-- Sorption attraction field lines -->
+                <line x1="120" y1="75" x2="128" y2="85" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
+                <line x1="225" y1="120" x2="218" y2="128" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
+                <line x1="175" y1="165" x2="168" y2="175" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
+              </svg>
+            </div>
+          </article>
+
+          <!-- 03. ELECTROCHEMICAL BIOSENSORS -->
+          <article class="research-block" id="point-of-care" aria-labelledby="title-biosensors">
+            <div class="research-content">
+              <h2 class="project-title" id="title-biosensors">Electrochemical Point-of-Care Diagnostic Sensor Strips</h2>
+
+              <p class="project-narrative">
+                Bridging nanomaterial surface chemistry with functional clinical diagnostics. This research focused on formulating biopolymer-stabilized sensing interfaces on microfabricated electrode strips, enabling rapid, enzyme-mediated electrochemical detection for metabolic point-of-care monitoring.
+              </p>
+
+              <ul class="project-points">
+                <li><strong>Biopolymer Nanocomposite Formulation:</strong> Engineered cross-linked biopolymer matrices ensuring high enzyme retention, low nonspecific fouling, and rapid electron transfer kinetics.</li>
+                <li><strong>Microelectrode Fabrication:</strong> Evaluated multi-electrode configurations (working, reference, counter) for micro-volume sample wetting and reproducible redox signaling.</li>
+                <li><strong>Data Analytics & Calibration Modeling:</strong> Implemented analytical workflows and data processing pipelines to calibrate sensor currents against physiological concentration gradients.</li>
+              </ul>
+            </div>
+
+            <!-- Scientific SVG Graphic 3: Biosensor Strip Interface -->
+            <div class="graphics-frame" data-figure="sensor" aria-label="Electrochemical biosensor strip interactive visualization">
+              <svg class="graphics-svg" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sensor strip body -->
+                <rect x="50" y="70" width="260" height="130" rx="10" fill="#fffaf4" stroke="#d9d9d1" stroke-width="2" />
+
+                <!-- Working & Counter Electrodes -->
+                <rect class="sensor-electrode" x="75" y="100" width="130" height="18" rx="3" fill="#cae9ed" stroke="#5ba8b8" stroke-width="1.2" />
+                <rect class="sensor-electrode" x="75" y="128" width="130" height="18" rx="3" fill="#ffe3a3" stroke="#d7765d" stroke-width="1.2" opacity="0.7" />
+                <rect class="sensor-electrode" x="75" y="156" width="130" height="18" rx="3" fill="#dbccf5" stroke="#9a8ab7" stroke-width="1.2" opacity="0.7" />
+
+                <!-- Microfluidic sample chamber arc -->
+                <path d="M205 90 C235 90, 235 180, 205 180" fill="none" stroke="#5ba8b8" stroke-width="2.5" stroke-dasharray="4 3" />
+
+                <!-- Gold contact terminals -->
+                <rect class="gold-pad" x="260" y="98" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
+                <rect class="gold-pad" x="260" y="126" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
+                <rect class="gold-pad" x="260" y="154" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
+
+                <!-- Trace leads -->
+                <line x1="205" y1="109" x2="260" y2="105" stroke="#5ba8b8" stroke-width="1.5" />
+                <line x1="205" y1="137" x2="260" y2="133" stroke="#d7765d" stroke-width="1.5" />
+                <line x1="205" y1="165" x2="260" y2="161" stroke="#9a8ab7" stroke-width="1.5" />
+
+                <!-- Redox electron exchange wave -->
+                <path d="M85 88 Q110 75 135 88 T185 88" fill="none" stroke="#5ba8b8" stroke-width="1.8" class="signal-wave-path" />
+              </svg>
+            </div>
+          </article>
+
+          <!-- 04. ALGAL PHOTOBIOREACTORS -->
+          <article class="research-block" id="bioreactor" aria-labelledby="title-bioreactor">
+            <div class="research-content">
+              <h2 class="project-title" id="title-bioreactor">Inorganic Carbon Assimilation & Photobioreactor Engineering</h2>
+
+              <p class="project-narrative">
+                Explored closed-loop biological remediation by cultivating indigenous microalgae (<em>Desmodesmas intermedius</em>) isolated from industrial effluents. The project combined custom low-cost photobioreactor fabrication, photon-path optimization, and downstream metabolic profiling to maximize carbon sequestration and lipid/protein accumulation.
+              </p>
+
+              <ul class="project-points">
+                <li><strong>Photobioreactor Design:</strong> Built and commissioned a low-cost, scalable photobioreactor with optimized gas sparging for enhanced dissolved CO₂ mass transfer.</li>
+                <li><strong>Microbial Strain Optimization:</strong> Isolated effluent-tolerant microalgae and engineered balanced nutrient formulations to stimulate rapid vegetative growth.</li>
+                <li><strong>Biochemical Profiling:</strong> Conducted quantitative spectrophotometric and chromatographic assays to characterize total lipids, proteins, and carbohydrate yields.</li>
+              </ul>
+            </div>
+
+            <!-- Scientific SVG Graphic 4: Photobioreactor Vessel & Carbon Fixation -->
+            <div class="graphics-frame" data-figure="bioreactor" aria-label="Photobioreactor column interactive visualization">
+              <svg class="graphics-svg" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Reactor Column -->
+                <rect x="125" y="40" width="110" height="180" rx="16" fill="rgba(189, 232, 208, 0.35)" stroke="#5ba8b8" stroke-width="2" />
+
+                <!-- Liquid culture fill -->
+                <path d="M126 95 Q150 90 180 95 T234 95 L234 205 C234 214 225 219 216 219 L144 219 C135 219 126 214 126 205 Z" fill="rgba(142, 219, 177, 0.45)" />
+
+                <!-- Light irradiation arrows -->
+                <g stroke="#ffe3a3" stroke-width="2" stroke-linecap="round">
+                  <line class="photon-beam" x1="75" y1="80" x2="115" y2="105" />
+                  <line class="photon-beam" x1="70" y1="120" x2="115" y2="130" />
+                  <line class="photon-beam" x1="75" y1="160" x2="115" y2="155" />
+                  <line class="photon-beam" x1="285" y1="80" x2="245" y2="105" />
+                  <line class="photon-beam" x1="290" y1="120" x2="245" y2="130" />
+                  <line class="photon-beam" x1="285" y1="160" x2="245" y2="155" />
+                </g>
+
+                <!-- Sparging Bubbles (CO2) -->
+                <g fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.8" opacity="0.85">
+                  <circle class="rising-bubble-1" cx="180" cy="205" r="3" />
+                  <circle class="rising-bubble-2" cx="170" cy="185" r="4" />
+                  <circle class="rising-bubble-3" cx="192" cy="165" r="3.5" />
+                  <circle class="rising-bubble-4" cx="165" cy="140" r="5" />
+                  <circle class="rising-bubble-1" cx="185" cy="120" r="4" />
+                  <circle class="rising-bubble-2" cx="175" cy="102" r="3" />
+                </g>
+
+                <!-- Algal cells (green discs) -->
+                <g fill="#5ba8b8">
+                  <circle class="algal-disc" cx="150" cy="125" r="5" fill="#8edbb1" />
+                  <circle class="algal-disc" cx="205" cy="135" r="6" fill="#8edbb1" />
+                  <circle class="algal-disc" cx="155" cy="170" r="5.5" fill="#8edbb1" />
+                  <circle class="algal-disc" cx="190" cy="185" r="4.5" fill="#8edbb1" />
+                </g>
+
+                <!-- Base and Ports -->
+                <rect x="155" y="225" width="50" height="15" rx="3" fill="#d9d9d1" stroke="#707670" />
+                <line x1="180" y1="240" x2="180" y2="255" stroke="#707670" stroke-width="2" />
+              </svg>
+            </div>
+          </article>
+        </div>
+
+        <!-- 05. EXPERIMENTAL TOOLKIT & METHODOLOGY -->
+        <section class="toolkit-section" id="toolkit" aria-labelledby="heading-toolkit">
+          <div class="toolkit-header">
+            <p class="eyebrow">Methodologies & Competencies</p>
+            <h2 class="project-title" id="heading-toolkit">Experimental & Analytical Toolkit</h2>
+          </div>
+
+          <div class="toolkit-grid">
+            <div class="toolkit-card">
+              <h3 class="toolkit-title">Nanomaterials Synthesis</h3>
+              <ul class="toolkit-list">
+                <li>Covalent Organic Frameworks (COFs)</li>
+                <li>Gold & Metallic Nanoparticles</li>
+                <li>Polymeric Nanoparticles & Micelles</li>
+                <li>Chemical Surface Functionalization</li>
+                <li>Biomaterial Conjugation Chemistry</li>
+              </ul>
+            </div>
+
+            <div class="toolkit-card">
+              <h3 class="toolkit-title">Material Characterization</h3>
+              <ul class="toolkit-list">
+                <li>Scanning Electron Microscopy (FE-SEM)</li>
+                <li>Transmission Electron Microscopy (TEM)</li>
+                <li>Powder X-Ray Diffraction (PXRD)</li>
+                <li>Dynamic Light Scattering (DLS & Zeta)</li>
+                <li>BET Specific Surface Area Analysis</li>
+                <li>UV-Vis & FTIR Spectroscopy</li>
+              </ul>
+            </div>
+
+            <div class="toolkit-card">
+              <h3 class="toolkit-title">Cellular & Molecular Biology</h3>
+              <ul class="toolkit-list">
+                <li>Confocal Laser Scanning Microscopy (CLSM)</li>
+                <li>Flow Cytometry (FACS Analysis)</li>
+                <li>Mammalian Cell Culture & Transfection</li>
+                <li>Microbial Culture & Photobioreactors</li>
+                <li>Gel Electrophoresis, SDS-PAGE & PCR</li>
+                <li>ELISA & Colorimetric Assays</li>
+              </ul>
+            </div>
+
+            <div class="toolkit-card">
+              <h3 class="toolkit-title">Computation & Programming</h3>
+              <ul class="toolkit-list">
+                <li>Python (NumPy, Pandas, Matplotlib)</li>
+                <li>Bioimaging: ImageJ, OpenCV, Pillow</li>
+                <li>Scientific Data Visualization: OriginPro</li>
+                <li>3D Design & Modeling: SolidWorks, Blender</li>
+                <li>Electrochemical Data Analytics</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>Based in biotechnology</span>
+        <span class="footer-rule" aria-hidden="true"></span>
+        <span>© <span id="year"></span> Santanu Saha</span>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Active highlighting on scroll for research sections
+      const sections = document.querySelectorAll(".research-block, .toolkit-section");
+      const navLinks = document.querySelectorAll(".research-nav-links .research-nav-link");
+
+      const observerOptions = {
+        root: null,
+        rootMargin: "-25% 0px -65% 0px",
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              if (link.getAttribute("href") === `#${id}`) {
+                link.classList.add("is-active");
+              } else {
+                link.classList.remove("is-active");
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach((section) => observer.observe(section));
+
+      // --- Interactive Scientific Figures Controller ---
+      // 1. 3D Perspective Tilt on Mousemove
+      const graphicsFrames = document.querySelectorAll(".graphics-frame");
+      graphicsFrames.forEach((frame) => {
+        let frameAnimId = null;
+
+        frame.addEventListener("mousemove", (e) => {
+          if (frameAnimId) cancelAnimationFrame(frameAnimId);
+          frameAnimId = requestAnimationFrame(() => {
+            const rect = frame.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const tiltX = ((y - centerY) / centerY) * -10;
+            const tiltY = ((x - centerX) / centerX) * 10;
+            frame.style.transform = `perspective(850px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-4px)`;
+          });
+        });
+
+        frame.addEventListener("mouseleave", () => {
+          if (frameAnimId) cancelAnimationFrame(frameAnimId);
+          frame.style.transform = "perspective(850px) rotateX(0deg) rotateY(0deg) translateY(0px)";
+        });
+      });
+
+      // 2. Figure 1: COF Lattice & Drug Nanocarrier Interaction
+      const cofFrame = document.querySelector('.graphics-frame[data-figure="cof"]');
+      if (cofFrame) {
+        const drugNodes = cofFrame.querySelectorAll(".drug-node");
+        const hexCells = cofFrame.querySelectorAll(".hex-cell");
+        const ligandStars = cofFrame.querySelectorAll(".ligand-star polygon");
+
+        cofFrame.addEventListener("click", () => {
+          drugNodes.forEach((node, idx) => {
+            setTimeout(() => {
+              node.classList.remove("anim-pulse");
+              void node.offsetWidth;
+              node.classList.add("anim-pulse");
+            }, idx * 60);
+          });
+          ligandStars.forEach((star, idx) => {
+            setTimeout(() => {
+              star.style.transform = "scale(1.6)";
+              setTimeout(() => { star.style.transform = ""; }, 350);
+            }, idx * 50);
+          });
+          hexCells.forEach((cell) => {
+            cell.style.strokeWidth = "2.6px";
+            cell.style.fill = "rgba(91, 168, 184, 0.18)";
+            setTimeout(() => {
+              cell.style.strokeWidth = "";
+              cell.style.fill = "";
+            }, 550);
+          });
+        });
+      }
+
+      // 3. Figure 2: Electrospun Nanofibers & COF Crystal Sorption
+      const nanoFrame = document.querySelector('.graphics-frame[data-figure="nanofiber"]');
+      if (nanoFrame) {
+        const crystals = nanoFrame.querySelectorAll(".cof-crystal");
+        const sorbMols = nanoFrame.querySelectorAll(".sorb-molecule");
+
+        nanoFrame.addEventListener("click", () => {
+          crystals.forEach((cry, idx) => {
+            setTimeout(() => {
+              const polys = cry.querySelectorAll("polygon");
+              polys.forEach((p) => {
+                p.style.transform = "scale(1.35)";
+                setTimeout(() => { p.style.transform = ""; }, 380);
+              });
+            }, idx * 75);
+          });
+          sorbMols.forEach((mol, idx) => {
+            setTimeout(() => {
+              mol.classList.remove("anim-pulse");
+              void mol.offsetWidth;
+              mol.classList.add("anim-pulse");
+            }, idx * 45);
+          });
+        });
+      }
+
+      // 4. Figure 3: Electrochemical Sensor Pulse & Wave Acceleration
+      const sensorFrame = document.querySelector('.graphics-frame[data-figure="sensor"]');
+      if (sensorFrame) {
+        const electrodes = sensorFrame.querySelectorAll(".sensor-electrode");
+        const goldPads = sensorFrame.querySelectorAll(".gold-pad");
+        const signalWave = sensorFrame.querySelector(".signal-wave-path");
+
+        sensorFrame.addEventListener("click", () => {
+          electrodes.forEach((el, idx) => {
+            setTimeout(() => {
+              el.classList.remove("anim-flash");
+              void el.offsetWidth;
+              el.classList.add("anim-flash");
+            }, idx * 70);
+          });
+          goldPads.forEach((pad) => {
+            pad.style.fill = "#ffd269";
+            setTimeout(() => { pad.style.fill = ""; }, 400);
+          });
+          if (signalWave) {
+            signalWave.style.animationDuration = "0.2s";
+            signalWave.style.strokeWidth = "3px";
+            signalWave.style.stroke = "#d7765d";
+            setTimeout(() => {
+              signalWave.style.animationDuration = "";
+              signalWave.style.strokeWidth = "";
+              signalWave.style.stroke = "";
+            }, 1200);
+          }
+        });
+      }
+
+      // 5. Figure 4: Photobioreactor Bubble Sparging & Algal Activation
+      const bioFrame = document.querySelector('.graphics-frame[data-figure="bioreactor"]');
+      if (bioFrame) {
+        const svg = bioFrame.querySelector("svg");
+        const algalDiscs = bioFrame.querySelectorAll(".algal-disc");
+
+        bioFrame.addEventListener("click", () => {
+          algalDiscs.forEach((disc, idx) => {
+            setTimeout(() => {
+              disc.classList.remove("anim-pulse");
+              void disc.offsetWidth;
+              disc.classList.add("anim-pulse");
+            }, idx * 60);
+          });
+
+          const bubbleGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          bubbleGroup.setAttribute("fill", "#cae9ed");
+          bubbleGroup.setAttribute("stroke", "#5ba8b8");
+          bubbleGroup.setAttribute("stroke-width", "0.8");
+
+          for (let i = 0; i < 6; i++) {
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            const cx = 158 + Math.random() * 44;
+            const cy = 205 + Math.random() * 8;
+            const r = 2.4 + Math.random() * 2.8;
+            circle.setAttribute("cx", cx.toFixed(1));
+            circle.setAttribute("cy", cy.toFixed(1));
+            circle.setAttribute("r", r.toFixed(1));
+            circle.classList.add("spawned-bubble");
+            circle.style.animationDelay = `${(i * 0.1).toFixed(2)}s`;
+            circle.style.animationDuration = `${(1.7 + Math.random() * 0.7).toFixed(2)}s`;
+            bubbleGroup.appendChild(circle);
+          }
+
+          svg.appendChild(bubbleGroup);
+          setTimeout(() => {
+            if (bubbleGroup.parentNode) bubbleGroup.parentNode.removeChild(bubbleGroup);
+          }, 2600);
+        });
+      }
+
+      // --- Boids Flocking Simulation (Right ~30% background) ---
+      (function initBoidsSimulation() {
+        const canvas = document.getElementById("boidsCanvas");
+        if (!canvas) return;
+        const ctx = canvas.getContext("2d");
+
+        let width = 0;
+        let height = 0;
+        let boids = [];
+        let animId = null;
+
+        // Boid parameters (calm, organic bio-flocking)
+        const BOID_COUNT = 52;
+        const VISUAL_RANGE = 75;
+        const PROTECTED_RANGE = 22;
+        const CENTERING_FACTOR = 0.0006;
+        const MATCHING_FACTOR = 0.04;
+        const AVOID_FACTOR = 0.05;
+        const TURN_FACTOR = 0.22;
+        const MAX_SPEED = 2.8;
+        const MIN_SPEED = 1.3;
+
+        // Theme-accurate palette matching Santanu's site
+        const COLORS = [
+          "rgba(91, 168, 184, 0.78)",  // --accent (teal)
+          "rgba(111, 140, 166, 0.72)", // slate blue
+          "rgba(154, 138, 183, 0.65)", // soft lilac
+          "rgba(91, 168, 184, 0.55)",  // light teal
+          "rgba(202, 233, 237, 0.75)"  // soft cyan
+        ];
+
+        // Mouse tracking for subtle avoidance
+        let mouse = { x: -9999, y: -9999, active: false };
+
+        window.addEventListener("pointermove", (e) => {
+          const rect = canvas.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+          if (mx >= -50 && mx <= rect.width + 50 && my >= 0 && my <= rect.height) {
+            mouse.x = mx;
+            mouse.y = my;
+            mouse.active = true;
+          } else {
+            mouse.active = false;
+          }
+        });
+
+        window.addEventListener("pointerleave", () => {
+          mouse.active = false;
+        });
+
+        class Boid {
+          constructor() {
+            this.x = Math.random() * (width || 300);
+            this.y = Math.random() * (height || 600);
+            const angle = Math.random() * Math.PI * 2;
+            const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
+            this.vx = Math.cos(angle) * speed;
+            this.vy = Math.sin(angle) * speed;
+            this.size = 3.5 + Math.random() * 2.2;
+            this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+            this.trail = [];
+            this.maxTrail = 5;
+          }
+
+          update() {
+            // Keep history for motion trail
+            this.trail.unshift({ x: this.x, y: this.y });
+            if (this.trail.length > this.maxTrail) this.trail.pop();
+
+            // Apply speed limits
+            const speed = Math.hypot(this.vx, this.vy);
+            if (speed > MAX_SPEED) {
+              this.vx = (this.vx / speed) * MAX_SPEED;
+              this.vy = (this.vy / speed) * MAX_SPEED;
+            } else if (speed < MIN_SPEED && speed > 0) {
+              this.vx = (this.vx / speed) * MIN_SPEED;
+              this.vy = (this.vy / speed) * MIN_SPEED;
+            }
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Boundary steering
+            if (this.y < 24) this.vy += TURN_FACTOR;
+            if (this.y > height - 24) this.vy -= TURN_FACTOR;
+
+            // Right boundary: soft turn back
+            if (this.x > width - 24) this.vx -= TURN_FACTOR;
+
+            // Left boundary (fade area): soft steering to turn back right
+            if (this.x < 32) this.vx += TURN_FACTOR * 1.5;
+
+            // Gentle wrap if pushed far out
+            if (this.x < -30) {
+              this.x = width + 10;
+              this.trail = [];
+            } else if (this.x > width + 30) {
+              this.x = -10;
+              this.trail = [];
+            }
+            if (this.y < -30) {
+              this.y = height + 10;
+              this.trail = [];
+            } else if (this.y > height + 30) {
+              this.y = -10;
+              this.trail = [];
+            }
+          }
+
+          draw() {
+            // Motion trail
+            if (this.trail.length > 1) {
+              ctx.beginPath();
+              ctx.moveTo(this.x, this.y);
+              for (let i = 0; i < this.trail.length; i++) {
+                ctx.lineTo(this.trail[i].x, this.trail[i].y);
+              }
+              ctx.strokeStyle = this.color;
+              ctx.globalAlpha = 0.22;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+              ctx.globalAlpha = 1;
+            }
+
+            // Streamlined aerodynamic boid dart
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            const heading = Math.atan2(this.vy, this.vx);
+            ctx.rotate(heading);
+
+            ctx.beginPath();
+            const s = this.size;
+            ctx.moveTo(s * 1.7, 0);
+            ctx.lineTo(-s * 1.1, -s * 0.7);
+            ctx.lineTo(-s * 0.5, 0);
+            ctx.lineTo(-s * 1.1, s * 0.7);
+            ctx.closePath();
+
+            ctx.fillStyle = this.color;
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
+        function resize() {
+          const container = canvas.parentElement;
+          if (!container) return;
+          width = container.clientWidth;
+          height = container.clientHeight;
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+          canvas.width = Math.floor(width * dpr);
+          canvas.height = Math.floor(height * dpr);
+          ctx.resetTransform ? ctx.resetTransform() : ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.scale(dpr, dpr);
+
+          if (boids.length === 0) {
+            for (let i = 0; i < BOID_COUNT; i++) {
+              boids.push(new Boid());
+            }
+          }
+        }
+
+        function step() {
+          const numBoids = boids.length;
+
+          for (let i = 0; i < numBoids; i++) {
+            const b = boids[i];
+            let closeDx = 0;
+            let closeDy = 0;
+            let xVelAvg = 0;
+            let yVelAvg = 0;
+            let xPosAvg = 0;
+            let yPosAvg = 0;
+            let neighbors = 0;
+
+            for (let j = 0; j < numBoids; j++) {
+              if (i === j) continue;
+              const other = boids[j];
+              const dx = b.x - other.x;
+              const dy = b.y - other.y;
+              const dist = Math.hypot(dx, dy);
+
+              // 1. Separation (avoid crowding)
+              if (dist < PROTECTED_RANGE && dist > 0) {
+                closeDx += dx / dist;
+                closeDy += dy / dist;
+              }
+
+              // 2. Alignment & Cohesion (within visual range)
+              if (dist < VISUAL_RANGE) {
+                xVelAvg += other.vx;
+                yVelAvg += other.vy;
+                xPosAvg += other.x;
+                yPosAvg += other.y;
+                neighbors++;
+              }
+            }
+
+            if (neighbors > 0) {
+              xVelAvg /= neighbors;
+              yVelAvg /= neighbors;
+              xPosAvg /= neighbors;
+              yPosAvg /= neighbors;
+
+              // Alignment
+              b.vx += (xVelAvg - b.vx) * MATCHING_FACTOR;
+              b.vy += (yVelAvg - b.vy) * MATCHING_FACTOR;
+
+              // Cohesion
+              b.vx += (xPosAvg - b.x) * CENTERING_FACTOR;
+              b.vy += (yPosAvg - b.y) * CENTERING_FACTOR;
+            }
+
+            // Separation force
+            b.vx += closeDx * AVOID_FACTOR;
+            b.vy += closeDy * AVOID_FACTOR;
+
+            // Interactive mouse avoidance
+            if (mouse.active) {
+              const mdx = b.x - mouse.x;
+              const mdy = b.y - mouse.y;
+              const mDist = Math.hypot(mdx, mdy);
+              if (mDist < 95 && mDist > 0) {
+                const repulse = ((95 - mDist) / 95) * 0.45;
+                b.vx += (mdx / mDist) * repulse;
+                b.vy += (mdy / mDist) * repulse;
+              }
+            }
+
+            b.update();
+          }
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, width, height);
+
+          // Subtle guide dots matching website theme
+          ctx.fillStyle = "rgba(112, 118, 112, 0.07)";
+          const dotSpacing = 24;
+          for (let y = 12; y < height; y += dotSpacing) {
+            for (let x = 12; x < width; x += dotSpacing) {
+              ctx.fillRect(x, y, 1.2, 1.2);
+            }
+          }
+
+          // Draw all boids
+          for (let i = 0; i < boids.length; i++) {
+            boids[i].draw();
+          }
+        }
+
+        function loop() {
+          step();
+          draw();
+          animId = requestAnimationFrame(loop);
+        }
+
+        window.addEventListener("resize", () => {
+          resize();
+        });
+
+        resize();
+        loop();
+      })();
+    </script>
+  </body>
+</html>
+

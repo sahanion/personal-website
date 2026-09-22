@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 Not Found — Santanu Saha</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
+
+      :root {
+        --paper: #fffaf4;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #d9d9d1;
+        --accent: #5ba8b8;
+        --serif: "Instrument Serif", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { min-height: 100%; }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(circle at 86% 16%, rgba(255, 199, 178, 0.72), transparent 26rem),
+          radial-gradient(circle at 11% 91%, rgba(191, 228, 240, 0.72), transparent 24rem),
+          radial-gradient(circle at 57% 53%, rgba(219, 204, 245, 0.48), transparent 29rem);
+        background-attachment: fixed;
+        font-family: var(--sans);
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      .page {
+        position: relative;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+        padding: 28px clamp(24px, 5vw, 80px) 26px;
+        isolation: isolate;
+      }
+
+      .page::before,
+      .page::after {
+        position: fixed;
+        z-index: 0;
+        width: clamp(130px, 18vw, 240px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        content: "";
+        filter: blur(2px);
+        opacity: 0.62;
+        pointer-events: none;
+      }
+
+      .page::before {
+        top: 20%;
+        left: 19%;
+        background: radial-gradient(circle at 34% 30%, rgba(255, 227, 163, 0.72), rgba(255, 227, 163, 0.08) 68%, transparent 70%);
+      }
+
+      .page::after {
+        right: 22%;
+        bottom: 13%;
+        background: radial-gradient(circle at 50% 50%, rgba(189, 232, 208, 0.64), rgba(189, 232, 208, 0.05) 68%, transparent 70%);
+      }
+
+      .grain {
+        position: fixed;
+        z-index: 1;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.24;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
+      }
+
+      .site-header,
+      .site-footer {
+        position: relative;
+        z-index: 10;
+        display: grid;
+        align-items: center;
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        grid-template-columns: 1fr auto 1fr;
+        align-self: start;
+      }
+
+      .brand {
+        font-weight: 500;
+        transition: color 200ms ease;
+      }
+
+      .brand:hover {
+        color: var(--accent);
+      }
+
+      .top-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 18px;
+      }
+
+      .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 4px 0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .nav-link::before {
+        color: var(--accent);
+        content: "↗";
+        font-size: 13px;
+        opacity: 0;
+        transform: translate(-5px, 4px);
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      .nav-link:hover::before,
+      .nav-link:focus-visible::before {
+        opacity: 1;
+        transform: translate(0, 0);
+      }
+
+      .field {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        justify-self: end;
+      }
+
+      .field::before {
+        width: 6px;
+        height: 6px;
+        border: 1px solid var(--accent);
+        border-radius: 50%;
+        background: var(--accent);
+        content: "";
+      }
+
+      main {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 640px;
+        margin: clamp(40px, 12vh, 140px) 0;
+      }
+
+      .error-code {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .error-code::before {
+        width: 28px;
+        height: 1px;
+        background: currentColor;
+        content: "";
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-family: var(--serif);
+        font-size: clamp(3.5rem, 8vw, 6.5rem);
+        font-weight: 400;
+        letter-spacing: -0.05em;
+        line-height: 0.95;
+      }
+
+      h1 em {
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      .error-message {
+        margin: 0 0 32px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        line-height: 1.6;
+      }
+
+      .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        width: fit-content;
+        padding: 10px 18px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(245, 244, 239, 0.8);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        transition: all 220ms ease;
+      }
+
+      .btn-back:hover {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        transform: translateX(-3px);
+      }
+
+      .site-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+      }
+
+      .footer-rule {
+        height: 1px;
+        flex: 1;
+        margin: 0 20px;
+        background: var(--line);
+        opacity: 0.4;
+      }
+
+      @media (max-width: 640px) {
+        .site-header {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .field {
+          justify-self: start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="page">
+      <header class="site-header">
+        <a class="brand" href="index.html">Santanu Saha</a>
+        <nav class="top-nav" aria-label="Primary">
+          <a class="nav-link" href="research.html">Research</a>
+          <a class="nav-link" href="cv.html">CV</a>
+          <a class="nav-link" href="contact.html">Contact</a>
+        </nav>
+        <span class="field">404 Error</span>
+      </header>
+
+      <main>
+        <p class="error-code">Error 404</p>
+        <h1>Not <em>Found</em></h1>
+        <p class="error-message">
+          The requested page was not found on this server.
+        </p>
+        <a class="btn-back" href="index.html">← Back to Home</a>
+      </main>
+
+      <footer class="site-footer">
+        <span>Based in biotechnology</span>
+        <span class="footer-rule" aria-hidden="true"></span>
+        <span>© <span id="year"></span></span>
+      </footer>
+    </div>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
