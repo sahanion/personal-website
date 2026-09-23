@@ -413,10 +413,63 @@
         font-size: 15px;
         line-height: 1.75;
         margin-bottom: 28px;
-        white-space: pre-line;
+        word-break: break-word;
       }
       .story-content p {
         margin: 0 0 14px;
+      }
+      .story-content p:last-child {
+        margin-bottom: 0;
+      }
+      .story-content h2 {
+        font-family: var(--serif);
+        font-size: 24px;
+        font-weight: 400;
+        margin: 24px 0 10px;
+        color: var(--ink);
+      }
+      .story-content h3 {
+        font-family: var(--serif);
+        font-size: 20px;
+        font-weight: 400;
+        margin: 20px 0 8px;
+        color: var(--ink);
+      }
+      .story-content blockquote {
+        margin: 16px 0;
+        padding: 8px 18px;
+        border-left: 3px solid var(--accent);
+        color: var(--muted);
+        font-style: italic;
+        background: rgba(91, 168, 184, 0.05);
+        border-radius: 0 6px 6px 0;
+      }
+      .story-content ul,
+      .story-content ol {
+        margin: 12px 0 16px 24px;
+        padding-left: 8px;
+      }
+      .story-content li {
+        margin-bottom: 6px;
+      }
+      .story-content a {
+        color: var(--accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: opacity 160ms ease;
+      }
+      .story-content a:hover {
+        opacity: 0.8;
+      }
+      .story-content hr {
+        border: none;
+        border-top: 1px solid var(--line);
+        margin: 24px 0;
+      }
+      .story-content mark {
+        background-color: #fef08a;
+        padding: 1px 4px;
+        border-radius: 3px;
       }
 
       /* Auto-arranged Photo Galleries */
@@ -612,6 +665,181 @@
         line-height: 1.6;
       }
 
+      /* Rich Text Editor Styling */
+      .rte-container {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fafaf8;
+        overflow: hidden;
+        transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+      .rte-container:focus-within {
+        border-color: var(--accent);
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(91, 168, 184, 0.15);
+      }
+
+      .rte-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 10px;
+        background: #f4f3ef;
+        border-bottom: 1px solid var(--line);
+        user-select: none;
+      }
+
+      .rte-sep {
+        width: 1px;
+        height: 20px;
+        background: var(--line);
+        margin: 0 4px;
+      }
+
+      .rte-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 28px;
+        height: 28px;
+        padding: 0 6px;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        cursor: pointer;
+        transition: all 140ms ease;
+      }
+      .rte-btn:hover {
+        background: #e7e5dc;
+        border-color: rgba(24, 32, 30, 0.1);
+      }
+      .rte-btn:active, .rte-btn.is-active {
+        background: #dad6c8;
+      }
+
+      .rte-select {
+        height: 28px;
+        padding: 0 8px;
+        border-radius: 4px;
+        border: 1px solid var(--line);
+        background: #ffffff;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        cursor: pointer;
+        outline: none;
+      }
+      .rte-select:focus {
+        border-color: var(--accent);
+      }
+
+      .rte-tool-label {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 140ms ease;
+      }
+      .rte-tool-label:hover {
+        background: #e7e5dc;
+        border-color: rgba(24, 32, 30, 0.1);
+      }
+      .rte-icon-text {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        font-family: var(--mono);
+      }
+      .rte-color-bar {
+        width: 16px;
+        height: 3px;
+        border-radius: 2px;
+        margin-top: 2px;
+      }
+      .rte-color-hidden {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        pointer-events: none;
+      }
+
+      .rich-editor-box {
+        min-height: 180px;
+        max-height: 420px;
+        overflow-y: auto;
+        padding: 14px 16px;
+        font-family: var(--sans);
+        font-size: 14.5px;
+        line-height: 1.7;
+        color: var(--ink);
+        outline: none;
+        word-break: break-word;
+      }
+      .rich-editor-box:empty:before {
+        content: attr(placeholder);
+        color: #9ca3af;
+        pointer-events: none;
+        display: block;
+      }
+      .rich-editor-box p {
+        margin: 0 0 10px;
+      }
+      .rich-editor-box p:last-child {
+        margin-bottom: 0;
+      }
+      .rich-editor-box h2 {
+        font-family: var(--serif);
+        font-size: 22px;
+        margin: 16px 0 8px;
+        font-weight: 400;
+      }
+      .rich-editor-box h3 {
+        font-family: var(--serif);
+        font-size: 18px;
+        margin: 14px 0 6px;
+        font-weight: 400;
+      }
+      .rich-editor-box blockquote {
+        margin: 10px 0;
+        padding: 6px 14px;
+        border-left: 3px solid var(--accent);
+        color: var(--muted);
+        font-style: italic;
+        background: rgba(91, 168, 184, 0.06);
+      }
+      .rich-editor-box ul, .rich-editor-box ol {
+        margin: 8px 0 12px 22px;
+        padding-left: 6px;
+      }
+      .rich-editor-box li {
+        margin-bottom: 4px;
+      }
+      .rich-editor-box a {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+      .rich-editor-box hr {
+        border: none;
+        border-top: 1px solid var(--line);
+        margin: 16px 0;
+      }
+      .rich-editor-box mark {
+        background-color: #fef08a;
+        padding: 1px 4px;
+        border-radius: 3px;
+      }
+
       /* Dynamic Photo Rows in Form */
       .photos-builder {
         margin-top: 10px;
@@ -761,10 +989,10 @@
       <div class="header-right">
         <span class="status-pill admin-only" id="dbStatusBadge">
           <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Local Store</span>
+          <span id="statusText">Supabase Live</span>
         </span>
-        <button class="btn-auth" id="btnAuthToggle" title="Author Login (Ctrl+Shift+A)">
-          <span id="authIcon">🔒</span> <span id="authLabel">Author Login</span>
+        <button class="status-pill admin-only" id="btnAdminSignOut" style="cursor: pointer; background: transparent; border: 1px solid var(--line);" title="Signed in as Author. Click to sign out (or Ctrl+Shift+A)" onclick="handleLogout()">
+          <span>🔓 Sign Out</span>
         </button>
       </div>
     </header>
@@ -775,7 +1003,7 @@
         <p class="eyebrow">Field Journals & Travelogue</p>
         <h1 class="travel-title">Travel <em>Stories</em></h1>
         <p class="travel-lead">
-          I have always been drawn to places a little beyond the familiar. This is a collection of journeys, trails, photographs, and memories gathered along the way.
+          I have always been drawn to places beyond the familiar. This is a collection of journeys, trails, photographs, and memories gathered along the way.
         </p>
 
         <!-- Controls Toolbar -->
@@ -835,8 +1063,65 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="storyContent">Travel Story / Blog Text *</label>
-            <textarea class="form-textarea" id="storyContent" required placeholder="Write your travelogue, reflections, notes on culture, environment, or personal anecdotes..."></textarea>
+            <label class="form-label" for="storyContentEditor">Travel Story / Blog Text *</label>
+            <div class="rte-container">
+              <div class="rte-toolbar" role="toolbar" aria-label="Text Formatting Toolbar">
+                <select class="rte-select" id="rteBlockFormat" title="Text Style">
+                  <option value="p">Paragraph</option>
+                  <option value="h2">Heading 2</option>
+                  <option value="h3">Heading 3</option>
+                  <option value="blockquote">Quote Block</option>
+                </select>
+
+                <div class="rte-sep"></div>
+
+                <button type="button" class="rte-btn" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+                <button type="button" class="rte-btn" data-cmd="italic" title="Italics (Ctrl+I)"><i>I</i></button>
+                <button type="button" class="rte-btn" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+                <button type="button" class="rte-btn" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+
+                <div class="rte-sep"></div>
+
+                <label class="rte-tool-label" title="Text Color">
+                  <span class="rte-icon-text">A</span>
+                  <span class="rte-color-bar" id="textColorBar" style="background:#18201e;"></span>
+                  <input type="color" id="rteTextColor" value="#18201e" class="rte-color-hidden" />
+                </label>
+
+                <label class="rte-tool-label" title="Highlight Text (Background Color)">
+                  <span class="rte-icon-text" style="font-size: 11px;">🖌</span>
+                  <span class="rte-color-bar" id="bgColorBar" style="background:#fef08a;"></span>
+                  <input type="color" id="rteBgColor" value="#fef08a" class="rte-color-hidden" />
+                </label>
+
+                <div class="rte-sep"></div>
+
+                <button type="button" class="rte-btn" data-cmd="insertUnorderedList" title="Bullet Points">• List</button>
+                <button type="button" class="rte-btn" data-cmd="insertOrderedList" title="Numbered List">1. List</button>
+
+                <div class="rte-sep"></div>
+
+                <button type="button" class="rte-btn" id="btnRteLink" title="Insert Hyperlink">🔗 Link</button>
+                <button type="button" class="rte-btn" data-cmd="unlink" title="Remove Hyperlink">✕ Link</button>
+
+                <div class="rte-sep"></div>
+
+                <button type="button" class="rte-btn" data-cmd="insertHorizontalRule" title="Divider Line">—</button>
+                <button type="button" class="rte-btn" data-cmd="removeFormat" title="Clear Formatting">🧹 Clean</button>
+                <button type="button" class="rte-btn" data-cmd="undo" title="Undo (Ctrl+Z)">↺</button>
+                <button type="button" class="rte-btn" data-cmd="redo" title="Redo (Ctrl+Y)">↻</button>
+              </div>
+
+              <div
+                id="storyContentEditor"
+                class="rich-editor-box"
+                contenteditable="true"
+                role="textbox"
+                aria-multiline="true"
+                placeholder="Write your travelogue, reflections, notes on culture, environment, or personal anecdotes..."
+              ></div>
+              <input type="hidden" id="storyContent" />
+            </div>
           </div>
 
           <!-- Dynamic Photos Section -->
@@ -874,7 +1159,7 @@
         <form id="loginForm">
           <div class="form-group" id="loginEmailGroup">
             <label class="form-label" for="loginEmail">Author Email *</label>
-            <input class="form-input" type="email" id="loginEmail" required placeholder="e.g. santanu.bt15@gmail.com" autocomplete="username" />
+            <input class="form-input" type="email" id="loginEmail" required placeholder="Enter author email" autocomplete="username" />
           </div>
 
           <div class="form-group">
@@ -970,20 +1255,15 @@
       function setAdminState(active, email = "") {
         isAdmin = active;
         adminEmail = email;
-        const authIcon = document.getElementById("authIcon");
-        const authLabel = document.getElementById("authLabel");
-        const btnAuth = document.getElementById("btnAuthToggle");
+        const btnAdminSignOut = document.getElementById("btnAdminSignOut");
 
         if (active) {
           document.body.classList.add("is-admin");
-          if (authIcon) authIcon.textContent = "🔓";
-          if (authLabel) authLabel.textContent = "Sign Out";
-          if (btnAuth) btnAuth.title = `Signed in as ${email || "Author"}. Click to sign out.`;
+          if (btnAdminSignOut) {
+            btnAdminSignOut.title = `Signed in as ${email || "Author"}. Click to sign out (or Ctrl+Shift+A).`;
+          }
         } else {
           document.body.classList.remove("is-admin");
-          if (authIcon) authIcon.textContent = "🔒";
-          if (authLabel) authLabel.textContent = "Author Login";
-          if (btnAuth) btnAuth.title = "Author Login (Ctrl+Shift+A)";
         }
         renderStories();
       }
@@ -1093,6 +1373,99 @@
       const PLACEHOLDER_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect fill='%23f0ede6' width='300' height='200'/%3E%3Ctext fill='%23707670' font-family='monospace' font-size='12' x='50%25' y='50%25' text-anchor='middle'%3EPhoto Unavailable%3C/text%3E%3C/svg%3E";
       const PREVIEW_THUMB = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='60'%3E%3Crect fill='%23e6e6e0' width='80' height='60'/%3E%3Ctext fill='%23999' font-family='monospace' font-size='9' x='50%25' y='55%25' text-anchor='middle'%3EPreview%3C/text%3E%3C/svg%3E";
 
+      // Sanitize rich HTML to prevent XSS while allowing styling and tags
+      function sanitizeRichHtml(html) {
+        if (!html) return "";
+        try {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const allowedTags = new Set([
+            "P", "BR", "B", "STRONG", "I", "EM", "U", "S", "STRIKE", "MARK",
+            "SPAN", "H1", "H2", "H3", "H4", "H5", "H6", "UL", "OL", "LI",
+            "BLOCKQUOTE", "A", "HR", "FONT", "DIV"
+          ]);
+
+          function cleanNode(node) {
+            const children = Array.from(node.childNodes);
+            for (const child of children) {
+              if (child.nodeType === Node.ELEMENT_NODE) {
+                const tagName = child.tagName.toUpperCase();
+                if (!allowedTags.has(tagName)) {
+                  if (tagName === "SCRIPT" || tagName === "STYLE" || tagName === "IFRAME" || tagName === "OBJECT" || tagName === "EMBED") {
+                    child.remove();
+                    continue;
+                  } else {
+                    while (child.firstChild) {
+                      node.insertBefore(child.firstChild, child);
+                    }
+                    child.remove();
+                    continue;
+                  }
+                }
+
+                // Sanitize attributes
+                const attrs = Array.from(child.attributes);
+                for (const attr of attrs) {
+                  const attrName = attr.name.toLowerCase();
+                  if (attrName === "href" && tagName === "A") {
+                    const hrefVal = attr.value.trim();
+                    if (/^(?:javascript|data|vbscript):/i.test(hrefVal)) {
+                      child.removeAttribute(attr.name);
+                    } else {
+                      child.setAttribute("target", "_blank");
+                      child.setAttribute("rel", "noopener noreferrer");
+                    }
+                  } else if (attrName === "style") {
+                    const safeStyles = attr.value
+                      .split(";")
+                      .map((s) => s.trim())
+                      .filter((s) => {
+                        const [k] = s.split(":");
+                        if (!k) return false;
+                        const prop = k.trim().toLowerCase();
+                        return [
+                          "color", "background-color", "background", "text-decoration",
+                          "font-weight", "font-style", "font-family", "text-align"
+                        ].includes(prop);
+                      })
+                      .join("; ");
+                    if (safeStyles) {
+                      child.setAttribute("style", safeStyles);
+                    } else {
+                      child.removeAttribute("style");
+                    }
+                  } else if (attrName === "color" && tagName === "FONT") {
+                    // Keep font color attribute
+                  } else {
+                    child.removeAttribute(attr.name);
+                  }
+                }
+
+                cleanNode(child);
+              }
+            }
+          }
+
+          cleanNode(doc.body);
+          return doc.body.innerHTML;
+        } catch (e) {
+          console.warn("HTML sanitation fallback:", e);
+          return escapeHtml(html);
+        }
+      }
+
+      function formatStoryContent(content) {
+        if (!content) return "";
+        const hasHtml = /<\/?(?:p|br|b|i|u|strong|em|s|mark|span|h[1-6]|ul|ol|li|blockquote|a|hr|div|font)[ >]/i.test(content);
+        if (!hasHtml) {
+          return escapeHtml(content)
+            .split(/\n\s*\n/)
+            .map((p) => `<p>${p.replace(/\n/g, "<br>")}</p>`)
+            .join("");
+        }
+        return sanitizeRichHtml(content);
+      }
+
       // 4. Render Stories to DOM
       function renderStories() {
         const container = document.getElementById("storiesContainer");
@@ -1153,7 +1526,7 @@
               </header>
 
               <h2 class="story-title">${escapeHtml(story.title)}</h2>
-              <div class="story-content">${escapeHtml(story.content).replace(/\n\n/g, "</p><p>")}</div>
+              <div class="story-content">${formatStoryContent(story.content)}</div>
 
               ${galleryHtml}
             </article>
@@ -1199,6 +1572,107 @@
         container.appendChild(row);
       }
 
+      // 5b. Rich Text Editor Initialization and Controls
+      const storyEditor = document.getElementById("storyContentEditor");
+      const hiddenContentInput = document.getElementById("storyContent");
+      const textColorInput = document.getElementById("rteTextColor");
+      const textColorBar = document.getElementById("textColorBar");
+      const bgColorInput = document.getElementById("rteBgColor");
+      const bgColorBar = document.getElementById("bgColorBar");
+      const rteBlockFormat = document.getElementById("rteBlockFormat");
+      const btnRteLink = document.getElementById("btnRteLink");
+
+      function syncEditorToHidden() {
+        if (storyEditor && hiddenContentInput) {
+          hiddenContentInput.value = storyEditor.innerHTML;
+        }
+      }
+
+      if (storyEditor) {
+        storyEditor.addEventListener("input", syncEditorToHidden);
+        storyEditor.addEventListener("keyup", syncEditorToHidden);
+        storyEditor.addEventListener("paste", () => setTimeout(syncEditorToHidden, 20));
+      }
+
+      // Toolbar Buttons with data-cmd
+      document.querySelectorAll(".rte-btn[data-cmd]").forEach((btn) => {
+        btn.addEventListener("mousedown", (e) => {
+          e.preventDefault(); // Keep selection in editor
+        });
+        btn.addEventListener("click", () => {
+          const cmd = btn.getAttribute("data-cmd");
+          if (cmd && storyEditor) {
+            storyEditor.focus();
+            document.execCommand(cmd, false, null);
+            syncEditorToHidden();
+          }
+        });
+      });
+
+      // Block Format (Heading / Quote / Paragraph)
+      if (rteBlockFormat) {
+        rteBlockFormat.addEventListener("change", (e) => {
+          const val = e.target.value;
+          if (storyEditor) {
+            storyEditor.focus();
+            if (val === "p") {
+              document.execCommand("formatBlock", false, "<p>");
+            } else if (val === "h2") {
+              document.execCommand("formatBlock", false, "<h2>");
+            } else if (val === "h3") {
+              document.execCommand("formatBlock", false, "<h3>");
+            } else if (val === "blockquote") {
+              document.execCommand("formatBlock", false, "<blockquote>");
+            }
+            syncEditorToHidden();
+          }
+        });
+      }
+
+      // Hyperlink
+      if (btnRteLink) {
+        btnRteLink.addEventListener("mousedown", (e) => e.preventDefault());
+        btnRteLink.addEventListener("click", () => {
+          if (!storyEditor) return;
+          const url = prompt("Enter hyperlink URL (e.g. https://...):", "https://");
+          if (url && url.trim()) {
+            storyEditor.focus();
+            document.execCommand("createLink", false, url.trim());
+            syncEditorToHidden();
+          }
+        });
+      }
+
+      // Text Color Picker
+      if (textColorInput) {
+        textColorInput.addEventListener("input", (e) => {
+          const color = e.target.value;
+          if (textColorBar) textColorBar.style.background = color;
+          if (storyEditor) {
+            storyEditor.focus();
+            document.execCommand("foreColor", false, color);
+            syncEditorToHidden();
+          }
+        });
+      }
+
+      // Highlight / Background Color Picker
+      if (bgColorInput) {
+        bgColorInput.addEventListener("input", (e) => {
+          const color = e.target.value;
+          if (bgColorBar) bgColorBar.style.background = color;
+          if (storyEditor) {
+            storyEditor.focus();
+            try {
+              document.execCommand("hiliteColor", false, color);
+            } catch (err) {
+              document.execCommand("backColor", false, color);
+            }
+            syncEditorToHidden();
+          }
+        });
+      }
+
       // 6. Modal Open / Edit / Save Actions
       function openStoryModal(storyToEdit = null) {
         if (!isAdmin) {
@@ -1209,6 +1683,8 @@
         const modal = document.getElementById("storyModal");
         const modalTitle = document.getElementById("modalTitle");
         const photosContainer = document.getElementById("photosListContainer");
+        const editor = document.getElementById("storyContentEditor");
+        const hiddenInput = document.getElementById("storyContent");
         photosContainer.innerHTML = "";
 
         if (storyToEdit) {
@@ -1217,7 +1693,15 @@
           document.getElementById("storyTitle").value = storyToEdit.title;
           document.getElementById("storyVisitDate").value = storyToEdit.visit_date;
           document.getElementById("storyLocation").value = storyToEdit.location;
-          document.getElementById("storyContent").value = storyToEdit.content;
+          
+          const raw = storyToEdit.content || "";
+          const hasHtml = /<\/?(?:p|br|b|i|u|strong|em|s|mark|span|h[1-6]|ul|ol|li|blockquote|a|hr|div|font)[ >]/i.test(raw);
+          if (hasHtml) {
+            if (editor) editor.innerHTML = sanitizeRichHtml(raw);
+          } else {
+            if (editor) editor.innerHTML = escapeHtml(raw).split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, "<br>")}</p>`).join("");
+          }
+          if (hiddenInput && editor) hiddenInput.value = editor.innerHTML;
 
           if (Array.isArray(storyToEdit.photos)) {
             storyToEdit.photos.forEach((p) => addPhotoRow(p.url, p.caption));
@@ -1228,11 +1712,16 @@
           document.getElementById("storyId").value = "";
           // Default visit date to today
           document.getElementById("storyVisitDate").value = new Date().toISOString().split("T")[0];
+          if (editor) editor.innerHTML = "";
+          if (hiddenInput) hiddenInput.value = "";
           // Provide 1 empty photo row ready to use
           addPhotoRow();
         }
 
         modal.classList.add("active");
+        setTimeout(() => {
+          document.getElementById("storyTitle").focus();
+        }, 120);
       }
 
       function closeStoryModal() {
@@ -1280,6 +1769,15 @@
           return;
         }
 
+        const editor = document.getElementById("storyContentEditor");
+        const content = editor ? editor.innerHTML.trim() : "";
+        const textContent = editor ? editor.textContent.trim() : "";
+        if (!textContent && (!editor || !editor.querySelector("img, hr"))) {
+          alert("Please write some content for the story.");
+          if (editor) editor.focus();
+          return;
+        }
+
         const submitBtn = document.getElementById("btnSaveStory");
         submitBtn.disabled = true;
         submitBtn.textContent = "Saving...";
@@ -1288,7 +1786,6 @@
         const title = document.getElementById("storyTitle").value.trim();
         const visit_date = document.getElementById("storyVisitDate").value;
         const location = document.getElementById("storyLocation").value.trim();
-        const content = document.getElementById("storyContent").value.trim();
 
         // Collect photos
         const photoRows = document.querySelectorAll(".photo-row-item");
@@ -1454,13 +1951,16 @@
         setAdminState(false, "");
       }
 
-      document.getElementById("btnAuthToggle").addEventListener("click", () => {
-        if (isAdmin) {
-          handleLogout();
-        } else {
-          openLoginModal();
-        }
-      });
+      const btnAuthToggle = document.getElementById("btnAuthToggle");
+      if (btnAuthToggle) {
+        btnAuthToggle.addEventListener("click", () => {
+          if (isAdmin) {
+            handleLogout();
+          } else {
+            openLoginModal();
+          }
+        });
+      }
 
       // Keyboard shortcut Ctrl+Shift+A (or Cmd+Shift+A) to toggle Login/Logout
       window.addEventListener("keydown", (e) => {
