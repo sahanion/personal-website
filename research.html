@@ -34,6 +34,22 @@
       html {
         min-height: 100%;
         scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: var(--line) transparent;
+      }
+
+      html::-webkit-scrollbar {
+        width: 6px;
+      }
+      html::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      html::-webkit-scrollbar-thumb {
+        background: var(--line);
+        border-radius: 999px;
+      }
+      html::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
       }
 
       body {
@@ -56,7 +72,8 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        padding: 28px clamp(24px, 5vw, 80px) 36px;
+        padding: clamp(80px, 10vh, 100px) clamp(24px, 5vw, 80px) clamp(70px, 8vh, 85px);
+        box-sizing: border-box;
         isolation: isolate;
       }
 
@@ -76,8 +93,6 @@
 
       .site-header,
       .site-footer {
-        position: relative;
-        z-index: 10;
         display: grid;
         align-items: center;
         font-family: var(--mono);
@@ -87,8 +102,17 @@
       }
 
       .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
         grid-template-columns: 1fr auto 1fr;
-        align-self: stretch;
+        padding: 24px clamp(24px, 5vw, 80px) 16px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
       }
 
       .brand {
@@ -162,7 +186,7 @@
         position: relative;
         z-index: 10;
         width: min(100%, 1160px);
-        margin: 5vh auto 6vh;
+        margin: 0 auto;
         flex: 1 0 auto;
       }
 
@@ -582,65 +606,92 @@
         100% { stroke-dashoffset: 0; }
       }
 
-      /* Interactive Fig 4: Photobioreactor Column */
-      .algal-disc {
-        cursor: pointer;
-        transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1), fill 250ms ease;
-        transform-origin: center;
+      /* Interactive Fig 4: Minimal Photobioreactor Column */
+      .meniscus-wave {
+        transition: stroke 300ms ease;
+        animation: waveMeniscus 4s ease-in-out infinite;
       }
-      .algal-disc:hover {
-        transform: scale(1.45);
-        fill: #5eb888;
+      @keyframes waveMeniscus {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(1.5px); }
       }
-      .photon-beam {
-        transition: stroke 250ms ease, stroke-width 250ms ease;
-      }
-      .graphics-frame:hover .photon-beam {
-        animation: photonGlint 1.6s ease-in-out infinite alternate;
-      }
-      @keyframes photonGlint {
-        0% { opacity: 0.4; stroke-width: 1.8px; stroke: #ffe3a3; }
-        100% { opacity: 1; stroke-width: 3px; stroke: #ffae90; }
-      }
-      @keyframes bubbleFloat {
-        0% { transform: translateY(0); opacity: 0; }
-        25% { opacity: 0.9; }
-        80% { opacity: 0.9; }
-        100% { transform: translateY(-115px); opacity: 0; }
-      }
-      .rising-bubble-1 { animation: bubbleFloat 3.1s ease-in infinite; }
-      .rising-bubble-2 { animation: bubbleFloat 2.5s ease-in 0.8s infinite; }
-      .rising-bubble-3 { animation: bubbleFloat 3.6s ease-in 1.5s infinite; }
-      .rising-bubble-4 { animation: bubbleFloat 2.8s ease-in 2.2s infinite; }
 
-      /* Click Reaction Keyframes & State */
-      @keyframes pulseGlow {
-        0% { transform: scale(1); filter: brightness(1); }
-        50% { transform: scale(1.35); filter: brightness(1.5) drop-shadow(0 0 8px var(--accent)); }
-        100% { transform: scale(1); filter: brightness(1); }
+      .probe-tip {
+        transition: fill 250ms ease, filter 250ms ease;
       }
-      .anim-pulse {
-        animation: pulseGlow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
-        transform-origin: center;
+      .graphics-frame[data-figure="bioreactor"]:hover .probe-tip {
+        fill: #ffd269;
+        filter: drop-shadow(0 0 4px rgba(255, 210, 105, 0.7));
       }
 
       @keyframes sensorFlash {
-        0% { fill: #cae9ed; filter: none; }
-        50% { fill: #5ba8b8; filter: drop-shadow(0 0 8px rgba(91, 168, 184, 0.9)); }
-        100% { fill: #cae9ed; filter: none; }
+        0% { fill: #ffe3a3; filter: none; }
+        50% { fill: #5ba8b8; filter: drop-shadow(0 0 6px rgba(91, 168, 184, 0.8)); }
+        100% { fill: #ffe3a3; filter: none; }
       }
       .anim-flash {
         animation: sensorFlash 0.5s ease-out;
       }
 
-      @keyframes spawnedBubble {
-        0% { transform: translateY(0) scale(0.6); opacity: 0; }
-        20% { opacity: 0.9; }
-        85% { opacity: 0.85; }
-        100% { transform: translateY(-130px) scale(1.1); opacity: 0; }
+      /* LED Chip Interactive States & Glow Keyframes */
+      .pbr-led-chip {
+        cursor: pointer;
+        transform-box: fill-box;
+        transform-origin: center;
+        transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 250ms ease;
       }
-      .spawned-bubble {
-        animation: spawnedBubble 2.2s ease-out forwards;
+      .pbr-led-chip:hover {
+        transform: scale(1.45);
+      }
+      .pbr-led-chip.led-teal {
+        fill: #5ba8b8;
+      }
+      .pbr-led-chip.led-coral {
+        fill: #e07a68;
+      }
+      .pbr-led-chip.led-teal:hover {
+        filter: drop-shadow(0 0 5px rgba(91, 168, 184, 0.9));
+      }
+      .pbr-led-chip.led-coral:hover {
+        filter: drop-shadow(0 0 5px rgba(224, 122, 104, 0.9));
+      }
+
+      @keyframes ledGlowTeal {
+        0% { transform: scale(1); filter: none; }
+        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(91, 168, 184, 0.95)); fill: #7fd7e8; }
+        100% { transform: scale(1); filter: none; }
+      }
+      @keyframes ledGlowCoral {
+        0% { transform: scale(1); filter: none; }
+        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(224, 122, 104, 0.95)); fill: #ff9d8b; }
+        100% { transform: scale(1); filter: none; }
+      }
+      .anim-glow-teal {
+        animation: ledGlowTeal 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .anim-glow-coral {
+        animation: ledGlowCoral 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+
+      /* Photon rays connecting LEDs to the vessel */
+      .photon-ray {
+        transition: opacity 300ms ease, stroke-width 300ms ease;
+        opacity: 0.25;
+      }
+      .graphics-frame[data-figure="bioreactor"]:hover .photon-ray {
+        opacity: 0.55;
+      }
+      .photon-ray.active-glow {
+        opacity: 0.95 !important;
+        stroke-width: 1.6px !important;
+      }
+
+      @keyframes waftVapor {
+        0% { transform: translateY(0); opacity: 0.65; }
+        100% { transform: translateY(-7px); opacity: 0; }
+      }
+      .gas-waft {
+        animation: waftVapor 2.4s ease-out infinite;
       }
 
       /* Toolkit Section */
@@ -697,16 +748,24 @@
       }
 
       .site-footer {
-        grid-template-columns: auto minmax(40px, 1fr) auto;
-        align-self: stretch;
-        padding-top: 24px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px clamp(24px, 5vw, 80px) 20px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid var(--line);
         color: var(--muted);
       }
 
       .footer-rule {
         flex: 1;
-        max-width: 180px;
         height: 1px;
         margin: 0 18px;
         background: var(--line);
@@ -728,18 +787,18 @@
       }
 
       @media (max-width: 860px) {
-        .page { padding: 22px 20px 28px; }
-        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; }
+        .page { padding: 64px 20px 52px; }
+        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; padding: 14px 20px 10px; }
         .top-nav { grid-column: 1 / -1; grid-row: 2; gap: 0 15px; }
         .nav-link { font-size: 9px; }
         .field { font-size: 8px; }
-        main { margin: 6vh auto 5vh; }
+        main { margin: 0 auto; }
         h1 { font-size: clamp(3.8rem, 14vw, 5.6rem); line-height: 0.85; }
         .research-hero { grid-template-columns: 1fr; gap: 20px; }
         .research-block { grid-template-columns: 1fr; gap: 28px; padding-bottom: 44px; }
         .graphics-frame { order: -1; }
         .pub-citation-box { flex-direction: column; align-items: flex-start; gap: 10px; }
-        .site-footer { font-size: 8px; }
+        .site-footer { padding: 10px 20px 12px; font-size: 8px; }
         .footer-rule { max-width: 50px; margin: 0 8px; }
       }
 
@@ -798,7 +857,6 @@
           <a class="nav-link" href="cv.html">CV</a>
           <a class="nav-link" href="contact.html">Contact</a>
         </nav>
-        <span class="field">Biotechnology</span>
       </header>
 
       <main>
@@ -1093,46 +1151,195 @@
               </ul>
             </div>
 
-            <!-- Scientific SVG Graphic 4: Photobioreactor Vessel & Carbon Fixation -->
-            <div class="graphics-frame" data-figure="bioreactor" aria-label="Photobioreactor column interactive visualization">
-              <svg class="graphics-svg" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Reactor Column -->
-                <rect x="125" y="40" width="110" height="180" rx="16" fill="rgba(189, 232, 208, 0.35)" stroke="#5ba8b8" stroke-width="2" />
+            <!-- Scientific SVG Graphic 4: Engineered Algal Photobioreactor Column -->
+            <div class="graphics-frame" data-figure="bioreactor" aria-label="Minimal photobioreactor column with microsparging and fluid circulation">
+              <svg class="graphics-svg" viewBox="0 0 380 295" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Minimal subtle fluid tint -->
+                  <linearGradient id="pbrLiquidGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#cae9ed" stop-opacity="0.5" />
+                    <stop offset="100%" stop-color="#bfe4f0" stop-opacity="0.75" />
+                  </linearGradient>
 
-                <!-- Liquid culture fill -->
-                <path d="M126 95 Q150 90 180 95 T234 95 L234 205 C234 214 225 219 216 219 L144 219 C135 219 126 214 126 205 Z" fill="rgba(142, 219, 177, 0.45)" />
+                  <!-- Clip path constraining sparged bubbles strictly within the vessel liquid -->
+                  <clipPath id="pbrLiquidClip">
+                    <rect x="136" y="85" width="108" height="141" rx="4" />
+                  </clipPath>
+                </defs>
 
-                <!-- Light irradiation arrows -->
-                <g stroke="#ffe3a3" stroke-width="2" stroke-linecap="round">
-                  <line class="photon-beam" x1="75" y1="80" x2="115" y2="105" />
-                  <line class="photon-beam" x1="70" y1="120" x2="115" y2="130" />
-                  <line class="photon-beam" x1="75" y1="160" x2="115" y2="155" />
-                  <line class="photon-beam" x1="285" y1="80" x2="245" y2="105" />
-                  <line class="photon-beam" x1="290" y1="120" x2="245" y2="130" />
-                  <line class="photon-beam" x1="285" y1="160" x2="245" y2="155" />
+                <!-- 1. Lateral Schematic LED Array Mounts (Minimal Technical Bars) -->
+                <!-- Left Illumination Array -->
+                <g class="pbr-led-panel left-panel">
+                  <rect x="70" y="75" width="10" height="130" rx="2" fill="#f0ede6" stroke="#d9d9d1" stroke-width="1.2" />
+                  <!-- Minimal photon rays -->
+                  <line x1="80" y1="90" x2="135" y2="90" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="115" x2="135" y2="115" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="140" x2="135" y2="140" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="165" x2="135" y2="165" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="190" x2="135" y2="190" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+
+                  <!-- LED chips -->
+                  <circle cx="75" cy="90" r="2.8" class="pbr-led-chip led-teal" />
+                  <circle cx="75" cy="115" r="2.8" class="pbr-led-chip led-coral" />
+                  <circle cx="75" cy="140" r="2.8" class="pbr-led-chip led-teal" />
+                  <circle cx="75" cy="165" r="2.8" class="pbr-led-chip led-coral" />
+                  <circle cx="75" cy="190" r="2.8" class="pbr-led-chip led-teal" />
                 </g>
 
-                <!-- Sparging Bubbles (CO2) -->
-                <g fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.8" opacity="0.85">
-                  <circle class="rising-bubble-1" cx="180" cy="205" r="3" />
-                  <circle class="rising-bubble-2" cx="170" cy="185" r="4" />
-                  <circle class="rising-bubble-3" cx="192" cy="165" r="3.5" />
-                  <circle class="rising-bubble-4" cx="165" cy="140" r="5" />
-                  <circle class="rising-bubble-1" cx="185" cy="120" r="4" />
-                  <circle class="rising-bubble-2" cx="175" cy="102" r="3" />
+                <!-- Right Illumination Array -->
+                <g class="pbr-led-panel right-panel">
+                  <rect x="300" y="75" width="10" height="130" rx="2" fill="#f0ede6" stroke="#d9d9d1" stroke-width="1.2" />
+                  <!-- Minimal photon rays -->
+                  <line x1="245" y1="90" x2="300" y2="90" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="115" x2="300" y2="115" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="140" x2="300" y2="140" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="165" x2="300" y2="165" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="190" x2="300" y2="190" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
+
+                  <!-- LED chips -->
+                  <circle cx="305" cy="90" r="2.8" class="pbr-led-chip led-coral" />
+                  <circle cx="305" cy="115" r="2.8" class="pbr-led-chip led-teal" />
+                  <circle cx="305" cy="140" r="2.8" class="pbr-led-chip led-coral" />
+                  <circle cx="305" cy="165" r="2.8" class="pbr-led-chip led-teal" />
+                  <circle cx="305" cy="190" r="2.8" class="pbr-led-chip led-coral" />
                 </g>
 
-                <!-- Algal cells (green discs) -->
-                <g fill="#5ba8b8">
-                  <circle class="algal-disc" cx="150" cy="125" r="5" fill="#8edbb1" />
-                  <circle class="algal-disc" cx="205" cy="135" r="6" fill="#8edbb1" />
-                  <circle class="algal-disc" cx="155" cy="170" r="5.5" fill="#8edbb1" />
-                  <circle class="algal-disc" cx="190" cy="185" r="4.5" fill="#8edbb1" />
+                <!-- 2. Photobioreactor Column Body (Minimal Clean Architectural Theme) -->
+                <!-- Vessel Background / Outer Column Body -->
+                <rect x="135" y="45" width="110" height="185" rx="8" fill="#fffaf4" stroke="#5ba8b8" stroke-width="2" />
+
+                <!-- Liquid Culture Mass -->
+                <path d="M136 86 C155 83 175 89 190 86 C205 83 225 89 244 86 L244 226 C244 231 236 235 220 236 L160 236 C144 235 136 231 136 226 Z" fill="url(#pbrLiquidGrad)" />
+                <path class="meniscus-wave" d="M136 86 C155 83 175 89 190 86 C205 83 225 89 244 86" stroke="#5ba8b8" stroke-width="1.8" fill="none" />
+
+                <!-- Graduated Volume Scale Ticks (Right Wall, minimal etched marks) -->
+                <g stroke="#707670" stroke-width="1" opacity="0.5">
+                  <line x1="233" y1="100" x2="241" y2="100" stroke-width="1.4" />
+                  <line x1="236" y1="112" x2="241" y2="112" />
+                  <line x1="236" y1="124" x2="241" y2="124" />
+                  <line x1="233" y1="136" x2="241" y2="136" stroke-width="1.4" />
+                  <line x1="236" y1="148" x2="241" y2="148" />
+                  <line x1="236" y1="160" x2="241" y2="160" />
+                  <line x1="233" y1="172" x2="241" y2="172" stroke-width="1.4" />
+                  <line x1="236" y1="184" x2="241" y2="184" />
+                  <line x1="236" y1="196" x2="241" y2="196" />
+                  <line x1="233" y1="208" x2="241" y2="208" stroke-width="1.4" />
                 </g>
 
-                <!-- Base and Ports -->
-                <rect x="155" y="225" width="50" height="15" rx="3" fill="#d9d9d1" stroke="#707670" />
-                <line x1="180" y1="240" x2="180" y2="255" stroke="#707670" stroke-width="2" />
+                <!-- 3. Microsparger Assembly at Column Base -->
+                <!-- Sintered Porous Sparger Disc -->
+                <rect x="156" y="222" width="68" height="6" rx="2" fill="#d9d9d1" stroke="#707670" stroke-width="1" />
+                <g fill="#707670" opacity="0.7">
+                  <circle cx="163" cy="225" r="0.8" />
+                  <circle cx="170" cy="225" r="0.8" />
+                  <circle cx="177" cy="225" r="0.8" />
+                  <circle cx="184" cy="225" r="0.8" />
+                  <circle cx="190" cy="225" r="0.8" />
+                  <circle cx="196" cy="225" r="0.8" />
+                  <circle cx="203" cy="225" r="0.8" />
+                  <circle cx="210" cy="225" r="0.8" />
+                  <circle cx="217" cy="225" r="0.8" />
+                </g>
+
+                <!-- 4. Sparging Bubbles Moving Up Inside Liquid (Native SVG animate: continuous, smooth, clipped inside fluid) -->
+                <g class="sparging-bubbles" clip-path="url(#pbrLiquidClip)">
+                  <!-- Column Stream 1 (Left) -->
+                  <circle cx="168" cy="220" r="2.6" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="168; 170; 167; 168" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="173" cy="220" r="3.4" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="173; 171; 174; 173" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
+                  </circle>
+
+                  <!-- Column Stream 2 (Center-Left) -->
+                  <circle cx="179" cy="220" r="2.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.5s" begin="-2.4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.5s" begin="-2.4s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="184" cy="220" r="3.8" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="184; 186; 183; 184" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
+                  </circle>
+
+                  <!-- Column Stream 3 (Center Plume) -->
+                  <circle cx="190" cy="220" r="2.8" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="190; 189; 192; 190" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="192" cy="220" r="4.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="192; 194; 191; 192" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
+                  </circle>
+
+                  <!-- Column Stream 4 (Center-Right) -->
+                  <circle cx="198" cy="220" r="2.0" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.4s" begin="-1.2s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.4s" begin="-1.2s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="203" cy="220" r="3.6" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="203; 201; 204; 203" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
+                  </circle>
+
+                  <!-- Column Stream 5 (Right) -->
+                  <circle cx="209" cy="220" r="2.4" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
+                    <animate attributeName="cx" values="209; 211; 208; 209" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="214" cy="220" r="3.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                    <animate attributeName="cy" from="220" to="86" dur="3.3s" begin="-2.1s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.3s" begin="-2.1s" repeatCount="indefinite" />
+                  </circle>
+                </g>
+
+                <!-- 5. Minimal Base Stand & Tubing -->
+                <rect x="130" y="228" width="120" height="8" rx="2" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
+                <polygon points="152,236 228,236 236,252 144,252" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
+                <rect x="138" y="252" width="104" height="5" rx="1.5" fill="#707670" />
+
+                <!-- Gas Feed Tubing & Direction Arrow -->
+                <path d="M190 274 L190 236" stroke="#5ba8b8" stroke-width="2" stroke-linecap="round" />
+                <polygon points="190,258 187,264 193,264" fill="#5ba8b8" />
+
+                <!-- 6. Minimal Top Headplate & Probes -->
+                <rect x="130" y="41" width="120" height="8" rx="2" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
+
+                <!-- Port 1: Exhaust Gas Sterilizing Filter (Left) -->
+                <g class="pbr-port-filter">
+                  <line x1="150" y1="41" x2="150" y2="22" stroke="#707670" stroke-width="1.8" />
+                  <rect x="142" y="10" width="16" height="12" rx="2" fill="#fffaf4" stroke="#707670" stroke-width="1.2" />
+                  <line x1="150" y1="10" x2="150" y2="5" stroke="#707670" stroke-width="1.5" stroke-linecap="round" />
+                  <path class="gas-waft" d="M150 4 C148 1 152 -2 150 -5" stroke="#5ba8b8" stroke-width="1.2" fill="none" opacity="0.65" />
+                </g>
+
+                <!-- Port 2: Inoculum / Feed Port (Center-Left) -->
+                <g class="pbr-port-feed">
+                  <line x1="172" y1="41" x2="172" y2="28" stroke="#707670" stroke-width="1.8" />
+                  <rect x="168" y="22" width="8" height="6" rx="1.5" fill="#f0ede6" stroke="#707670" stroke-width="1" />
+                  <path d="M172 22 C172 16 164 12 155 12" stroke="#707670" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                </g>
+
+                <!-- Port 3: DO / pH Bioprocess Probe (Center-Right) -->
+                <g class="pbr-port-probe">
+                  <rect x="203" y="34" width="10" height="7" rx="1.5" fill="#f0ede6" stroke="#707670" stroke-width="1" />
+                  <line x1="208" y1="41" x2="208" y2="162" stroke="#707670" stroke-width="1.8" />
+                  <circle cx="208" cy="163" r="2.8" fill="#ffe3a3" stroke="#d7765d" stroke-width="1" class="probe-tip" />
+                </g>
+
+                <!-- Port 4: Aseptic Sampling Dip Tube (Right) -->
+                <g class="pbr-port-sample">
+                  <line x1="229" y1="41" x2="229" y2="205" stroke="#707670" stroke-width="1.2" stroke-dasharray="3 3" />
+                  <circle cx="229" cy="206" r="1.5" fill="#707670" />
+                </g>
               </svg>
             </div>
           </article>
@@ -1196,9 +1403,9 @@
       </main>
 
       <footer class="site-footer">
-        <span>Based in biotechnology</span>
+        <span>© SANTANU SAHA, <span id="year">2026</span></span>
         <span class="footer-rule" aria-hidden="true"></span>
-        <span>© <span id="year"></span> Santanu Saha</span>
+        <span>BOIDS</span>
       </footer>
     </div>
 
@@ -1348,45 +1555,124 @@
         });
       }
 
-      // 5. Figure 4: Photobioreactor Bubble Sparging & Algal Activation
+      // 5. Figure 4: Photobioreactor Dynamic Sparging & LED Actinic Activation
+      const bioCard = document.getElementById("bioreactor");
       const bioFrame = document.querySelector('.graphics-frame[data-figure="bioreactor"]');
       if (bioFrame) {
         const svg = bioFrame.querySelector("svg");
-        const algalDiscs = bioFrame.querySelectorAll(".algal-disc");
+        const probeTip = bioFrame.querySelector(".probe-tip");
+        const ledChips = bioFrame.querySelectorAll(".pbr-led-chip");
+        const photonRays = bioFrame.querySelectorAll(".photon-ray");
+        const meniscusWave = bioFrame.querySelector(".meniscus-wave");
 
-        bioFrame.addEventListener("click", () => {
-          algalDiscs.forEach((disc, idx) => {
+        const triggerBioInteraction = (e) => {
+          // If user clicked an external citation link or anchor, let navigation happen
+          if (e && e.target && e.target.closest("a")) return;
+
+          // 1. Cascading LED glow across both lateral illumination arrays
+          ledChips.forEach((chip, idx) => {
             setTimeout(() => {
-              disc.classList.remove("anim-pulse");
-              void disc.offsetWidth;
-              disc.classList.add("anim-pulse");
-            }, idx * 60);
+              const isTeal = chip.classList.contains("led-teal");
+              const glowClass = isTeal ? "anim-glow-teal" : "anim-glow-coral";
+              chip.classList.remove("anim-glow-teal", "anim-glow-coral");
+              void chip.offsetWidth;
+              chip.classList.add(glowClass);
+            }, idx * 45);
           });
 
-          const bubbleGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
-          bubbleGroup.setAttribute("fill", "#cae9ed");
-          bubbleGroup.setAttribute("stroke", "#5ba8b8");
-          bubbleGroup.setAttribute("stroke-width", "0.8");
+          // 2. Light up photon rays connecting LEDs to the column
+          photonRays.forEach((ray, idx) => {
+            setTimeout(() => {
+              ray.classList.add("active-glow");
+              setTimeout(() => {
+                ray.classList.remove("active-glow");
+              }, 750);
+            }, (idx % 5) * 45);
+          });
 
-          for (let i = 0; i < 6; i++) {
-            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            const cx = 158 + Math.random() * 44;
-            const cy = 205 + Math.random() * 8;
-            const r = 2.4 + Math.random() * 2.8;
-            circle.setAttribute("cx", cx.toFixed(1));
-            circle.setAttribute("cy", cy.toFixed(1));
-            circle.setAttribute("r", r.toFixed(1));
-            circle.classList.add("spawned-bubble");
-            circle.style.animationDelay = `${(i * 0.1).toFixed(2)}s`;
-            circle.style.animationDuration = `${(1.7 + Math.random() * 0.7).toFixed(2)}s`;
-            bubbleGroup.appendChild(circle);
+          // 3. Optical probe sensor reading flash
+          if (probeTip) {
+            probeTip.classList.remove("anim-flash");
+            void probeTip.offsetWidth;
+            probeTip.classList.add("anim-flash");
           }
 
-          svg.appendChild(bubbleGroup);
+          // 4. Wave meniscus excitation
+          if (meniscusWave) {
+            meniscusWave.style.animationDuration = "1.6s";
+            meniscusWave.style.stroke = "#cae9ed";
+            setTimeout(() => {
+              meniscusWave.style.animationDuration = "";
+              meniscusWave.style.stroke = "";
+            }, 2000);
+          }
+
+          // 5. Significant increase in rising microbubbles (surge of 24 microbubbles from sparger plate)
+          const burstGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          burstGroup.setAttribute("clip-path", "url(#pbrLiquidClip)");
+
+          const BUBBLE_COUNT = 24;
+          for (let i = 0; i < BUBBLE_COUNT; i++) {
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            // Distribute across sintered disc x: 160 to 220
+            const cx = 162 + Math.random() * 56;
+            const r = 1.6 + Math.random() * 2.6;
+            const dur = (1.5 + Math.random() * 0.9).toFixed(2);
+            // Staggered launch groups
+            const delay = (Math.floor(i / 4) * 0.12 + (i % 4) * 0.03).toFixed(2);
+            const sway = (Math.random() * 6 - 3).toFixed(1);
+
+            circle.setAttribute("cx", cx.toFixed(1));
+            circle.setAttribute("cy", "220");
+            circle.setAttribute("r", r.toFixed(1));
+            circle.setAttribute("fill", "#cae9ed");
+            circle.setAttribute("stroke", "#5ba8b8");
+            circle.setAttribute("stroke-width", "0.9");
+            circle.setAttribute("opacity", "0");
+
+            const animY = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animY.setAttribute("attributeName", "cy");
+            animY.setAttribute("from", "220");
+            animY.setAttribute("to", "86");
+            animY.setAttribute("dur", `${dur}s`);
+            animY.setAttribute("begin", `${delay}s`);
+            animY.setAttribute("fill", "freeze");
+
+            const animOp = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animOp.setAttribute("attributeName", "opacity");
+            animOp.setAttribute("values", "0; 0.95; 0.95; 0");
+            animOp.setAttribute("keyTimes", "0; 0.12; 0.88; 1");
+            animOp.setAttribute("dur", `${dur}s`);
+            animOp.setAttribute("begin", `${delay}s`);
+            animOp.setAttribute("fill", "freeze");
+
+            const animX = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+            animX.setAttribute("attributeName", "cx");
+            animX.setAttribute("values", `${cx.toFixed(1)}; ${(cx + parseFloat(sway)).toFixed(1)}; ${cx.toFixed(1)}`);
+            animX.setAttribute("dur", `${dur}s`);
+            animX.setAttribute("begin", `${delay}s`);
+            animX.setAttribute("fill", "freeze");
+
+            circle.appendChild(animY);
+            circle.appendChild(animOp);
+            circle.appendChild(animX);
+            burstGroup.appendChild(circle);
+          }
+
+          svg.appendChild(burstGroup);
           setTimeout(() => {
-            if (bubbleGroup.parentNode) bubbleGroup.parentNode.removeChild(bubbleGroup);
-          }, 2600);
-        });
+            if (burstGroup.parentNode) burstGroup.parentNode.removeChild(burstGroup);
+          }, 3600);
+        };
+
+        bioFrame.addEventListener("click", triggerBioInteraction);
+        if (bioCard) {
+          bioCard.addEventListener("click", (e) => {
+            if (!bioFrame.contains(e.target)) {
+              triggerBioInteraction(e);
+            }
+          });
+        }
       }
 
       // --- Boids Flocking Simulation (Right ~30% background) ---

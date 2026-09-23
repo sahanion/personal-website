@@ -34,12 +34,16 @@
 
       * { box-sizing: border-box; }
 
-      html { min-height: 100%; }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
 
       body {
-        min-height: 100vh;
-        margin: 0;
-        overflow-x: hidden;
+        height: 100vh;
+        height: 100dvh;
         color: var(--ink);
         background-color: var(--paper);
         background-image:
@@ -53,9 +57,14 @@
 
       .page {
         position: relative;
-        display: grid;
-        min-height: 100vh;
-        padding: 28px clamp(24px, 5vw, 80px) 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        height: 100dvh;
+        padding: 72px clamp(24px, 5vw, 80px) 64px;
+        overflow: hidden;
+        box-sizing: border-box;
         isolation: isolate;
       }
 
@@ -84,10 +93,17 @@
       }
 
       .site-header {
-        position: relative;
-        z-index: 10;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
         grid-template-columns: 1fr auto 1fr;
-        align-self: start;
+        padding: 24px clamp(24px, 5vw, 80px) 16px;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
       }
 
       .field {
@@ -113,12 +129,10 @@
       }
 
       main {
-        display: grid;
-        align-self: center;
         position: relative;
-        z-index: 1;
+        z-index: 10;
         width: min(100%, 1160px);
-        margin: 6vh auto 4vh;
+        margin: auto 0;
       }
 
       .eyebrow {
@@ -322,10 +336,10 @@
       }
 
       .corner-actions {
-        position: absolute;
-        z-index: 10;
+        position: fixed;
+        z-index: 25;
         right: clamp(24px, 5vw, 80px);
-        bottom: 19px;
+        bottom: 15px;
         display: flex;
         align-items: center;
         gap: 8px;
@@ -363,10 +377,10 @@
       }
 
       .creative-cue {
-        position: absolute;
-        z-index: 10;
+        position: fixed;
+        z-index: 25;
         right: clamp(24px, 5vw, 80px);
-        bottom: 58px;
+        bottom: 50px;
         max-width: 220px;
         margin: 0;
         color: var(--muted);
@@ -392,17 +406,25 @@
       }
 
       .site-footer {
-        position: relative;
-        z-index: 10;
-        grid-template-columns: auto minmax(40px, 1fr) auto;
-        align-self: end;
-        padding-right: 230px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px clamp(24px, 5vw, 80px) 20px;
+        padding-right: clamp(230px, 20vw, 280px);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid var(--line);
         color: var(--muted);
       }
 
       .footer-rule {
         flex: 1;
-        max-width: 180px;
         height: 1px;
         margin: 0 18px;
         background: var(--line);
@@ -412,12 +434,12 @@
         position: absolute;
         z-index: 2;
         pointer-events: none;
-        top: 44%;
+        top: 50%;
         right: -135px;
         width: min(49vw, 660px);
         aspect-ratio: 1;
         overflow: visible;
-        transform: translate3d(var(--molecule-x, 0px), var(--molecule-y, 0px), 0) translateY(-56%);
+        transform: translate3d(var(--molecule-x, 0px), var(--molecule-y, 0px), 0) translateY(-50%);
         transition: transform 650ms cubic-bezier(.2,.75,.25,1);
       }
 
@@ -448,6 +470,43 @@
       .molecule-art .orbital-p-one { transform: rotate(var(--cloud-primary-angle, 0deg)); }
       .molecule-art .orbital-p-two { transform: rotate(var(--cloud-secondary-angle, 90deg)); }
 
+      .molecule-art .orbital-pulse {
+        transform-box: view-box;
+        transform-origin: 260px 260px;
+        animation: orbitalBreathe 5s ease-in-out infinite;
+      }
+
+      .molecule-art .orbital-pulse-1 {
+        animation-duration: 4.4s;
+        animation-delay: 0s;
+      }
+
+      .molecule-art .orbital-pulse-2 {
+        animation-duration: 5.6s;
+        animation-delay: -1.8s;
+      }
+
+      .molecule-art .orbital-pulse-3 {
+        animation-duration: 4.8s;
+        animation-delay: -0.9s;
+      }
+
+      .molecule-art .orbital-pulse-4 {
+        animation-duration: 5.2s;
+        animation-delay: -2.6s;
+      }
+
+      @keyframes orbitalBreathe {
+        0%, 100% {
+          transform: scale(0.96);
+          opacity: 0.82;
+        }
+        50% {
+          transform: scale(1.045);
+          opacity: 1;
+        }
+      }
+
       .molecule-art .nucleus-core {
         fill: url(#nucleus-glow);
         opacity: 0.52;
@@ -477,22 +536,22 @@
       }
 
       @media (max-width: 680px) {
-        .page { padding: 22px 22px 20px; }
-        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; }
+        .page { padding: 64px 20px 56px; }
+        .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; padding: 14px 20px 10px; }
         .top-nav { grid-column: 1 / -1; grid-row: 2; gap: 0 15px; }
         .nav-link { font-size: 9px; }
         .field { font-size: 8px; }
-        main { margin: 13vh auto 7vh; }
+        main { margin: auto 0; }
         h1 { font-size: clamp(4.7rem, 22vw, 7rem); line-height: 0.78; }
-        .introduction { grid-template-columns: 1fr; gap: 24px; margin: 38px 0 0; }
+        .introduction { grid-template-columns: 1fr; gap: 24px; margin: 28px 0 0; }
         .label { text-align: left; text-align-last: auto; }
         nav { margin-top: 42px; }
         .orbital-field { top: 37%; right: -43%; width: 108vw; opacity: 0.9; }
-        .site-footer { padding-right: 160px; font-size: 7px; }
+        .site-footer { padding: 10px 20px 12px; padding-right: 150px; font-size: 7px; }
         .footer-rule { max-width: 64px; margin: 0 10px; }
-        .corner-actions { right: 22px; bottom: 17px; gap: 5px; }
+        .corner-actions { right: 20px; bottom: 10px; gap: 5px; }
         .mode-button { padding: 7px 8px; font-size: 8px; }
-        .creative-cue { right: 22px; bottom: 52px; max-width: 160px; font-size: 7px; }
+        .creative-cue { right: 20px; bottom: 40px; max-width: 160px; font-size: 7px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -510,7 +569,6 @@
           <a class="nav-link" href="cv.html">CV</a>
           <a class="nav-link" href="contact.html">Contact</a>
         </nav>
-        <span class="field">Biotechnology</span>
       </header>
 
       <div class="orbital-field">
@@ -523,17 +581,25 @@
             <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#fff1b8" /><stop offset="48%" stop-color="#f2c9e8" /><stop offset="100%" stop-color="#c6a8e9" /></radialGradient>
             <filter id="soft-cloud"><feGaussianBlur stdDeviation="2" /></filter>
           </defs>
-          <circle class="orbital-guide" cx="260" cy="260" r="82" />
-          <circle class="orbital-guide" cx="260" cy="260" r="150" />
-          <circle class="cloud" cx="260" cy="260" r="88" fill="url(#cloud-1s)" filter="url(#soft-cloud)" />
-          <circle class="cloud" cx="260" cy="260" r="162" fill="url(#cloud-2s)" filter="url(#soft-cloud)" />
+          <g class="orbital-pulse orbital-pulse-1">
+            <circle class="orbital-guide" cx="260" cy="260" r="82" />
+            <circle class="cloud" cx="260" cy="260" r="88" fill="url(#cloud-1s)" filter="url(#soft-cloud)" />
+          </g>
+          <g class="orbital-pulse orbital-pulse-2">
+            <circle class="orbital-guide" cx="260" cy="260" r="150" />
+            <circle class="cloud" cx="260" cy="260" r="162" fill="url(#cloud-2s)" filter="url(#soft-cloud)" />
+          </g>
           <g class="orbital orbital-p-one">
-            <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
-            <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
+            <g class="orbital-pulse orbital-pulse-3">
+              <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
+              <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-pink)" filter="url(#soft-cloud)" />
+            </g>
           </g>
           <g class="orbital orbital-p-two">
-            <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
-            <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
+            <g class="orbital-pulse orbital-pulse-4">
+              <ellipse class="cloud" cx="160" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
+              <ellipse class="cloud" cx="360" cy="260" rx="90" ry="42" fill="url(#cloud-mint)" filter="url(#soft-cloud)" />
+            </g>
           </g>
           <path class="nucleus-core" d="M260 231 C278 231 290 244 289 260 C291 276 277 289 260 289 C242 290 229 277 231 260 C229 244 243 231 260 231Z" />
           <path class="nucleus-shell" d="M244 250 C252 240 270 239 279 250 M241 270 C252 280 269 280 280 269" />
@@ -564,9 +630,9 @@
       </main>
 
       <footer class="site-footer">
-        <span>Based in biotechnology</span>
+        <span>© SANTANU SAHA, <span id="year">2026</span></span>
         <span class="footer-rule" aria-hidden="true"></span>
-        <span>© <span id="year"></span></span>
+        <span>CARBON IS LIFE</span>
       </footer>
 
       <p class="creative-cue" id="creative-cue" aria-live="polite"></p>
