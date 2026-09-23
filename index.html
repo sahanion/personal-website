@@ -328,81 +328,23 @@
         cursor: pointer;
       }
 
+      .brand {
+        font-weight: 500;
+        transition: color 200ms ease;
+      }
+      .brand:hover {
+        color: var(--accent);
+      }
+
+      .nav-link.active {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
       .interest:focus-visible,
-      .mode-button:focus-visible,
       .nav-link:focus-visible {
         outline: 1px solid var(--accent);
         outline-offset: 4px;
-      }
-
-      .corner-actions {
-        position: fixed;
-        z-index: 25;
-        right: clamp(24px, 5vw, 80px);
-        bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .mode-button {
-        display: inline-flex;
-        align-items: center;
-        text-decoration: none;
-        padding: 8px 11px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        color: var(--muted);
-        background: rgba(245, 244, 239, 0.65);
-        cursor: pointer;
-        font-family: var(--mono);
-        font-size: 9px;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        transition: border-color 250ms ease, background 250ms ease, color 250ms ease, transform 250ms ease;
-      }
-
-      .mode-button:hover,
-      .mode-button[aria-pressed="true"] {
-        border-color: var(--accent);
-        color: var(--ink);
-        background: var(--accent-soft);
-        transform: translateY(-2px);
-      }
-
-      .mode-button[data-mode="travel"]:hover,
-      .mode-button[data-mode="travel"][aria-pressed="true"] {
-        border-color: var(--accent);
-        background: var(--accent-soft);
-      }
-
-      .creative-cue {
-        position: fixed;
-        z-index: 25;
-        right: clamp(24px, 5vw, 80px);
-        bottom: 50px;
-        max-width: 220px;
-        margin: 0;
-        color: var(--muted);
-        font-family: var(--mono);
-        font-size: 8px;
-        letter-spacing: 0.04em;
-        line-height: 1.45;
-        opacity: 0;
-        text-align: right;
-        text-transform: uppercase;
-        transform: translateY(4px);
-        transition: opacity 300ms ease, transform 300ms ease;
-      }
-
-      .creative-cue.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .page[data-mode="travel"] {
-        --accent: #5ba8b8;
-        --accent-soft: #cae9ed;
       }
 
       .site-footer {
@@ -415,7 +357,6 @@
         align-items: center;
         justify-content: space-between;
         padding: 16px clamp(24px, 5vw, 80px) 20px;
-        padding-right: clamp(230px, 20vw, 280px);
         background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
@@ -547,11 +488,8 @@
         .label { text-align: left; text-align-last: auto; }
         nav { margin-top: 42px; }
         .orbital-field { top: 37%; right: -43%; width: 108vw; opacity: 0.9; }
-        .site-footer { padding: 10px 20px 12px; padding-right: 150px; font-size: 7px; }
+        .site-footer { padding: 10px 20px 12px; font-size: 7px; }
         .footer-rule { max-width: 64px; margin: 0 10px; }
-        .corner-actions { right: 20px; bottom: 10px; gap: 5px; }
-        .mode-button { padding: 7px 8px; font-size: 8px; }
-        .creative-cue { right: 20px; bottom: 40px; max-width: 160px; font-size: 7px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -563,12 +501,13 @@
     <div class="grain" aria-hidden="true"></div>
     <div class="page">
       <header class="site-header">
-        <span>Santanu Saha</span>
+        <a class="brand" href="index.html">Santanu Saha</a>
         <nav class="top-nav" aria-label="Primary navigation">
+          <a class="nav-link active" href="index.html">Home</a>
           <a class="nav-link" href="research.html">Research</a>
           <a class="nav-link" href="cv.html">CV</a>
-          <a class="nav-link" href="travel.html">Travel Stories</a>
           <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="travel.html">Travel Stories</a>
         </nav>
       </header>
 
@@ -635,18 +574,12 @@
         <span class="footer-rule" aria-hidden="true"></span>
         <span>CARBON IS LIFE</span>
       </footer>
-
-      <p class="creative-cue" id="creative-cue" aria-live="polite"></p>
-      <div class="corner-actions" aria-label="Creative archives">
-        <a class="mode-button" href="travel.html" data-mode="travel">Travel Stories</a>
-      </div>
     </div>
     <script>
       document.getElementById("year").textContent = new Date().getFullYear();
 
       const page = document.querySelector(".page");
       const researchCue = document.querySelector(".research-cue");
-      const creativeCue = document.getElementById("creative-cue");
       const orbitalField = document.querySelector(".orbital-field");
       let targetCloudAngle = 0;
       let currentCloudAngle = 0;
@@ -697,32 +630,6 @@
         interest.addEventListener("pointerenter", updateCue);
         interest.addEventListener("focus", updateCue);
         interest.addEventListener("click", updateCue);
-      });
-
-      const modeDescriptions = {
-        travel: "Travel stories — journals, photographs, and notes from places explored."
-      };
-
-      document.querySelectorAll(".mode-button").forEach((button) => {
-        const mode = button.dataset.mode;
-
-        const showCue = () => {
-          page.dataset.mode = mode;
-          button.setAttribute("aria-pressed", "true");
-          creativeCue.textContent = modeDescriptions[mode] || "";
-          creativeCue.classList.add("is-visible");
-        };
-
-        const hideCue = () => {
-          page.dataset.mode = "";
-          button.setAttribute("aria-pressed", "false");
-          creativeCue.classList.remove("is-visible");
-        };
-
-        button.addEventListener("pointerenter", showCue);
-        button.addEventListener("pointerleave", hideCue);
-        button.addEventListener("focus", showCue);
-        button.addEventListener("blur", hideCue);
       });
     </script>
   </body>

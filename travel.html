@@ -755,13 +755,13 @@
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="research.html">Research</a>
         <a class="nav-link" href="cv.html">CV</a>
-        <a class="nav-link active" href="travel.html">Travel Stories</a>
         <a class="nav-link" href="contact.html">Contact</a>
+        <a class="nav-link active" href="travel.html">Travel Stories</a>
       </nav>
       <div class="header-right">
         <span class="status-pill admin-only" id="dbStatusBadge">
           <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Demo Store</span>
+          <span id="statusText">Local Store</span>
         </span>
         <button class="btn-auth" id="btnAuthToggle" title="Author Login (Ctrl+Shift+A)">
           <span id="authIcon">🔒</span> <span id="authLabel">Author Login</span>
@@ -919,7 +919,7 @@ create policy "Authenticated author can delete"
           </details>
 
           <div class="modal-footer">
-            <button type="button" class="btn" id="btnClearSettings">Clear / Use Demo</button>
+            <button type="button" class="btn" id="btnClearSettings">Clear Settings</button>
             <button type="submit" class="btn btn-primary">Save & Connect</button>
           </div>
         </form>
@@ -940,16 +940,13 @@ create policy "Authenticated author can delete"
 
         <form id="loginForm">
           <div class="form-group" id="loginEmailGroup">
-            <label class="form-label" for="loginEmail">Email (Supabase Auth)</label>
-            <input class="form-input" type="email" id="loginEmail" placeholder="e.g. santanu@example.com" />
+            <label class="form-label" for="loginEmail">Author Email *</label>
+            <input class="form-input" type="email" id="loginEmail" required placeholder="e.g. santanu.bt15@gmail.com" autocomplete="username" />
           </div>
 
           <div class="form-group">
-            <label class="form-label" for="loginPassword">Password / Passcode *</label>
-            <input class="form-input" type="password" id="loginPassword" required placeholder="Enter password or passcode" autocomplete="current-password" />
-            <p style="font-size: 10.5px; color: var(--muted); margin: 6px 0 0; font-family: var(--mono);">
-              Demo passcode: <code style="background: rgba(24,32,30,0.06); padding: 2px 4px; border-radius: 3px;">santanu2026</code>
-            </p>
+            <label class="form-label" for="loginPassword">Password *</label>
+            <input class="form-input" type="password" id="loginPassword" required placeholder="Enter author password" autocomplete="current-password" />
           </div>
 
           <div id="loginFeedback" style="display: none; padding: 10px 12px; margin-bottom: 16px; border-radius: 6px; font-size: 12px; font-family: var(--mono);"></div>
@@ -1059,7 +1056,7 @@ create policy "Authenticated author can delete"
       }
 
       async function checkAuth() {
-        // 1. If Supabase is connected, check active Supabase Auth session
+        // Check active Supabase Auth session
         if (isSupabaseActive && supabaseClient) {
           try {
             const { data: { session } } = await supabaseClient.auth.getSession();
@@ -1071,15 +1068,7 @@ create policy "Authenticated author can delete"
             console.warn("Supabase auth check:", e);
           }
         }
-
-        // 2. Fallback: check browser sessionStorage for passcode session
-        const localAuth = sessionStorage.getItem("ss_author_authenticated");
-        if (localAuth === "true") {
-          const storedEmail = sessionStorage.getItem("ss_author_email") || "Author (Passcode)";
-          setAdminState(true, storedEmail);
-        } else {
-          setAdminState(false, "");
-        }
+        setAdminState(false, "");
       }
 
       function initDatabase() {
@@ -1096,7 +1085,7 @@ create policy "Authenticated author can delete"
             supabaseClient.auth.onAuthStateChange((event, session) => {
               if (session && session.user) {
                 setAdminState(true, session.user.email || "Author");
-              } else if (sessionStorage.getItem("ss_author_authenticated") !== "true") {
+              } else {
                 setAdminState(false, "");
               }
             });
@@ -1518,7 +1507,7 @@ create policy "Authenticated author can delete"
         loginForm.reset();
         loginModal.classList.add("active");
         setTimeout(() => {
-          document.getElementById("loginPassword").focus();
+          document.getElementById("loginEmail").focus();
         }, 120);
       }
 
@@ -1540,47 +1529,36 @@ create policy "Authenticated author can delete"
         submitBtn.textContent = "Verifying...";
         feedback.style.display = "none";
 
-        // Try Supabase Auth first if Supabase is connected and email is provided
-        if (isSupabaseActive && supabaseClient && email) {
-          try {
-            const { data, error } = await supabaseClient.auth.signInWithPassword({
-              email,
-              password
-            });
-            if (error) throw error;
-
-            setAdminState(true, data.user.email || email);
-            closeLoginModal();
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Sign In";
-            return;
-          } catch (err) {
-            console.warn("Supabase auth failed, trying passcode fallback:", err.message);
-          }
-        }
-
-        // Local fallback passcode
-        if (password === "santanu2026") {
-          sessionStorage.setItem("ss_author_authenticated", "true");
-          sessionStorage.setItem("ss_author_email", email || "santanu (passcode)");
-          setAdminState(true, email || "Author");
-          closeLoginModal();
+        if (!isSupabaseActive || !supabaseClient) {
+          feedback.style.display = "block";
+          feedback.style.background = "rgba(215, 118, 93, 0.12)";
+          feedback.style.color = "#d7765d";
+          feedback.style.border = "1px solid rgba(215, 118, 93, 0.3)";
+          feedback.textContent = "Supabase is not connected. Please connect your Supabase project in Settings first.";
           submitBtn.disabled = false;
           submitBtn.textContent = "Sign In";
           return;
         }
 
-        // Authentication failure
-        feedback.style.display = "block";
-        feedback.style.background = "rgba(215, 118, 93, 0.12)";
-        feedback.style.color = "#d7765d";
-        feedback.style.border = "1px solid rgba(215, 118, 93, 0.3)";
-        feedback.textContent = isSupabaseActive
-          ? "Invalid login. Use Supabase credentials or demo passcode: santanu2026"
-          : "Incorrect passcode. (Demo passcode: santanu2026)";
+        try {
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+          if (error) throw error;
 
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Sign In";
+          setAdminState(true, data.user.email || email);
+          closeLoginModal();
+        } catch (err) {
+          feedback.style.display = "block";
+          feedback.style.background = "rgba(215, 118, 93, 0.12)";
+          feedback.style.color = "#d7765d";
+          feedback.style.border = "1px solid rgba(215, 118, 93, 0.3)";
+          feedback.textContent = err.message || "Invalid email or password.";
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In";
+        }
       });
 
       async function handleLogout() {
@@ -1592,8 +1570,6 @@ create policy "Authenticated author can delete"
             console.warn("Supabase signout failed:", err);
           }
         }
-        sessionStorage.removeItem("ss_author_authenticated");
-        sessionStorage.removeItem("ss_author_email");
         setAdminState(false, "");
       }
 
