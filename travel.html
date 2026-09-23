@@ -790,9 +790,6 @@
           </div>
           <div class="toolbar-right">
             <span class="status-pill" id="storyCountBadge">0 Stories</span>
-            <button class="btn btn-sm admin-only" id="btnOpenSettings" title="Configure Supabase Database">
-              <span>⚙ Connect Supabase</span>
-            </button>
           </div>
         </div>
       </section>
@@ -861,70 +858,6 @@
       </div>
     </div>
 
-    <!-- Supabase Settings Modal -->
-    <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
-      <div class="modal-box" style="max-width: 580px;">
-        <div class="modal-header">
-          <h2 class="modal-title" id="settingsTitle">Supabase Database Setup</h2>
-          <button class="modal-close" id="btnCloseSettings" aria-label="Close settings">✕</button>
-        </div>
-
-        <p style="font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-top: 0;">
-          Connect your free Supabase project to sync stories across devices. If left empty, stories will continue to be safely stored in your local browser store.
-        </p>
-
-        <form id="settingsForm">
-          <div class="form-group">
-            <label class="form-label" for="sbUrl">Supabase Project URL</label>
-            <input class="form-input" type="url" id="sbUrl" placeholder="https://xyzcompany.supabase.co" />
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="sbKey">Supabase Public Anon Key</label>
-            <input class="form-input" type="text" id="sbKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." />
-          </div>
-
-          <details style="margin: 16px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; color: var(--muted);">
-            <summary style="cursor: pointer; font-family: var(--mono); color: var(--accent);">SQL to create table & secure RLS (click to expand)</summary>
-            <pre style="margin-top: 10px; background: #fafaf8; padding: 10px; border-radius: 6px; overflow-x: auto; font-family: var(--mono); font-size: 11px;">-- 1. Create travel stories table
-create table if not exists travel_stories (
-  id uuid default gen_random_uuid() primary key,
-  title text not null,
-  location text not null,
-  visit_date date not null,
-  content text not null,
-  photos jsonb default '[]'::jsonb,
-  created_at timestamptz default now()
-);
-
--- 2. Enable Row Level Security (RLS)
-alter table travel_stories enable row level security;
-
--- 3. Public read policy: Anyone can view stories
-create policy "Public can view stories"
-  on travel_stories for select
-  using (true);
-
--- 4. Author write policies: Only authenticated users can write/edit/delete
-create policy "Authenticated author can insert"
-  on travel_stories for insert
-  with check (auth.role() = 'authenticated');
-
-create policy "Authenticated author can update"
-  on travel_stories for update
-  using (auth.role() = 'authenticated');
-
-create policy "Authenticated author can delete"
-  on travel_stories for delete
-  using (auth.role() = 'authenticated');</pre>
-          </details>
-
-          <div class="modal-footer">
-            <button type="button" class="btn" id="btnClearSettings">Clear Settings</button>
-            <button type="submit" class="btn btn-primary">Save & Connect</button>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- Author Login Modal -->
     <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
@@ -1024,8 +957,8 @@ create policy "Authenticated author can delete"
       ];
 
       // 2. Storage, Supabase Client & Author Auth Setup
-      const DEFAULT_SB_URL = ""; // Populate with your https://<ref>.supabase.co
-      const DEFAULT_SB_KEY = ""; // Populate with your public anon key
+      const SUPABASE_URL = "https://ihahwjaqfcdteyjgkpwi.supabase.co";
+      const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYWh3amFxZmNkdGV5amdrcHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxNjEzMDIsImV4cCI6MjEwNTczNzMwMn0.xbwyey8xOmguCMWFzmmx8ohON2qjO1a9pZ61xbeTvro";
 
       let supabaseClient = null;
       let isSupabaseActive = false;
@@ -1072,12 +1005,9 @@ create policy "Authenticated author can delete"
       }
 
       function initDatabase() {
-        const storedUrl = localStorage.getItem("sb_travel_url") || DEFAULT_SB_URL;
-        const storedKey = localStorage.getItem("sb_travel_key") || DEFAULT_SB_KEY;
-
-        if (storedUrl && storedKey && window.supabase) {
+        if (SUPABASE_URL && SUPABASE_ANON_KEY && window.supabase) {
           try {
-            supabaseClient = window.supabase.createClient(storedUrl, storedKey);
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             isSupabaseActive = true;
             updateDbStatus(true, "Supabase Live");
 
@@ -1092,11 +1022,11 @@ create policy "Authenticated author can delete"
           } catch (err) {
             console.warn("Supabase init failed, falling back to local store:", err);
             isSupabaseActive = false;
-            updateDbStatus(false, "Local Store");
+            updateDbStatus(false, "Offline Store");
           }
         } else {
           isSupabaseActive = false;
-          updateDbStatus(false, "Local Store");
+          updateDbStatus(false, "Offline Store");
         }
       }
 
@@ -1437,56 +1367,7 @@ create policy "Authenticated author can delete"
         modal.setAttribute("aria-hidden", "true");
       });
 
-      // 8. Settings Modal (Connect Supabase)
-      const btnOpenSettings = document.getElementById("btnOpenSettings");
-      const settingsModal = document.getElementById("settingsModal");
-      const btnCloseSettings = document.getElementById("btnCloseSettings");
-
-      btnOpenSettings.addEventListener("click", () => {
-        if (!isAdmin) {
-          openLoginModal();
-          return;
-        }
-        document.getElementById("sbUrl").value = localStorage.getItem("sb_travel_url") || DEFAULT_SB_URL || "";
-        document.getElementById("sbKey").value = localStorage.getItem("sb_travel_key") || DEFAULT_SB_KEY || "";
-        settingsModal.classList.add("active");
-      });
-
-      btnCloseSettings.addEventListener("click", () => {
-        settingsModal.classList.remove("active");
-      });
-
-      document.getElementById("settingsForm").addEventListener("submit", (e) => {
-        e.preventDefault();
-        const url = document.getElementById("sbUrl").value.trim();
-        const key = document.getElementById("sbKey").value.trim();
-
-        if (url && key) {
-          localStorage.setItem("sb_travel_url", url);
-          localStorage.setItem("sb_travel_key", key);
-        } else {
-          localStorage.removeItem("sb_travel_url");
-          localStorage.removeItem("sb_travel_key");
-        }
-
-        settingsModal.classList.remove("active");
-        initDatabase();
-        checkAuth();
-        loadStories();
-      });
-
-      document.getElementById("btnClearSettings").addEventListener("click", () => {
-        localStorage.removeItem("sb_travel_url");
-        localStorage.removeItem("sb_travel_key");
-        document.getElementById("sbUrl").value = "";
-        document.getElementById("sbKey").value = "";
-        settingsModal.classList.remove("active");
-        initDatabase();
-        checkAuth();
-        loadStories();
-      });
-
-      // 9. Sorting Toggle
+      // 8. Sorting Toggle
       document.getElementById("btnSortToggle").addEventListener("click", () => {
         sortDescending = !sortDescending;
         document.getElementById("sortLabel").textContent = sortDescending
@@ -1602,7 +1483,6 @@ create policy "Authenticated author can delete"
       // Close modals on clicking backdrop
       window.addEventListener("click", (e) => {
         if (e.target === document.getElementById("storyModal")) closeStoryModal();
-        if (e.target === document.getElementById("settingsModal")) settingsModal.classList.remove("active");
         if (e.target === document.getElementById("loginModal")) closeLoginModal();
       });
 
@@ -1610,7 +1490,6 @@ create policy "Authenticated author can delete"
       window.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
           closeStoryModal();
-          settingsModal.classList.remove("active");
           closeLoginModal();
           document.getElementById("lightboxModal").classList.remove("active");
         }
