@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Santanu Saha — Travel Stories" />
+    <meta name="description" content="Santanu Saha — Travel Stories & Field Notes" />
     <title>Travel Stories — Santanu Saha</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap");
 
       :root {
         --paper: #ffffff;
@@ -15,6 +16,8 @@
         --muted: #707670;
         --line: #e2e2dc;
         --accent: #5ba8b8;
+        --accent-soft: rgba(91, 168, 184, 0.12);
+        --card-bg: rgba(255, 255, 255, 0.88);
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
         --mono: "DM Mono", monospace;
@@ -50,52 +53,37 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(255, 199, 178, 0.08), transparent 28rem),
-          radial-gradient(circle at 12% 88%, rgba(191, 228, 240, 0.08), transparent 26rem);
+          radial-gradient(circle at 85% 12%, rgba(255, 199, 178, 0.09), transparent 28rem),
+          radial-gradient(circle at 10% 85%, rgba(191, 228, 240, 0.09), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
 
       a { color: inherit; text-decoration: none; }
 
-      .page {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 100vh;
-        padding: clamp(80px, 10vh, 100px) clamp(24px, 5vw, 80px) clamp(70px, 8vh, 85px);
-        box-sizing: border-box;
-        isolation: isolate;
-      }
-
-      .page::before,
-      .page::after {
-        display: none;
-      }
-
       .grain {
         position: fixed;
         z-index: 1;
         inset: 0;
         pointer-events: none;
-        opacity: 0.2;
+        opacity: 0.18;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.08'/%3E%3C/svg%3E");
       }
 
+      /* Site Header (Fixed) */
       .site-header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: 20;
+        z-index: 40;
         display: grid;
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
         padding: 24px clamp(24px, 5vw, 80px) 16px;
         background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-bottom: 1px solid var(--line);
         font-family: var(--mono);
         font-size: 10px;
@@ -107,7 +95,6 @@
         font-weight: 500;
         transition: color 200ms ease;
       }
-
       .brand:hover {
         color: var(--accent);
       }
@@ -121,14 +108,18 @@
       .nav-link {
         display: inline-flex;
         align-items: center;
-        gap: 9px;
+        gap: 7px;
         padding: 4px 0;
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: 0.04em;
         text-transform: uppercase;
+        transition: color 180ms ease;
       }
-
+      .nav-link.active {
+        color: var(--accent);
+        font-weight: 500;
+      }
       .nav-link::before {
         color: var(--accent);
         content: "↗";
@@ -137,117 +128,591 @@
         transform: translate(-5px, 4px);
         transition: opacity 220ms ease, transform 220ms ease;
       }
-
       .nav-link:hover::before,
       .nav-link:focus-visible::before {
         opacity: 1;
         transform: translate(0, 0);
       }
 
-      .field {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--muted);
+      .header-right {
         justify-self: end;
-      }
-
-      .field::before {
-        width: 6px;
-        height: 6px;
-        border: 1px solid var(--accent);
-        border-radius: 50%;
-        background: var(--accent);
-        content: "";
-      }
-
-      main {
-        position: relative;
-        z-index: 10;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: min(100%, 640px);
-        margin: auto 0;
-      }
-
-      .error-code {
-        display: inline-flex;
         align-items: center;
         gap: 12px;
-        margin: 0 0 14px;
+      }
+
+      /* Main Page Container */
+      .page-wrap {
+        position: relative;
+        z-index: 10;
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: clamp(96px, 12vh, 120px) clamp(20px, 4vw, 40px) 100px;
+      }
+
+      /* Hero Section */
+      .travel-hero {
+        margin-bottom: 48px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 12px;
         color: var(--muted);
         font-family: var(--mono);
         font-size: 11px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
       }
-
-      .error-code::before {
-        width: 28px;
+      .eyebrow::before {
+        width: 20px;
         height: 1px;
         background: currentColor;
         content: "";
       }
 
-      h1 {
-        margin: 0 0 16px;
+      .travel-title {
+        margin: 0 0 14px;
         font-family: var(--serif);
-        font-size: clamp(3.5rem, 8vw, 6.5rem);
+        font-size: clamp(3rem, 6vw, 4.8rem);
         font-weight: 400;
-        letter-spacing: -0.05em;
-        line-height: 0.95;
+        letter-spacing: -0.04em;
+        line-height: 1;
       }
-
-      h1 em {
+      .travel-title em {
         font-style: italic;
-        color: var(--muted);
+        color: var(--accent);
       }
 
-      .error-message {
-        margin: 0 0 32px;
+      .travel-lead {
+        max-width: 680px;
+        margin: 0 0 28px;
         color: var(--muted);
-        font-family: var(--mono);
-        font-size: 13px;
-        letter-spacing: 0.02em;
-        line-height: 1.6;
+        font-size: 15px;
+        line-height: 1.65;
       }
 
-      .btn-back {
+      /* Control Toolbar */
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .toolbar-left,
+      .toolbar-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        width: fit-content;
-        padding: 10px 18px;
+        padding: 8px 16px;
         border: 1px solid var(--line);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.85);
+        background: var(--card-bg);
+        color: var(--ink);
         font-family: var(--mono);
-        font-size: 10.5px;
-        letter-spacing: 0.05em;
+        font-size: 11px;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
-        transition: all 220ms ease;
+        cursor: pointer;
+        transition: all 200ms ease;
       }
-
-      .btn-back:hover {
+      .btn:hover {
         border-color: var(--ink);
         background: var(--ink);
         color: var(--paper);
-        transform: translateX(-3px);
       }
 
+      .btn-primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
+      }
+      .btn-primary:hover {
+        background: #4792a1;
+        border-color: #4792a1;
+        color: #ffffff;
+        transform: translateY(-1px);
+      }
+
+      .btn-sm {
+        padding: 5px 12px;
+        font-size: 10px;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: rgba(24, 32, 30, 0.04);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10.5px;
+      }
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #5ba8b8;
+      }
+      .status-dot.connected {
+        background: #39b54a;
+        box-shadow: 0 0 6px rgba(57, 181, 74, 0.6);
+      }
+
+      /* Admin-Only Elements (Hidden unless logged in as Author) */
+      .admin-only {
+        display: none !important;
+      }
+      body.is-admin .admin-only {
+        display: inline-flex !important;
+      }
+      body.is-admin .admin-only.block {
+        display: block !important;
+      }
+
+      .btn-auth {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(24, 32, 30, 0.04);
+        border: 1px solid var(--line);
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        cursor: pointer;
+        transition: all 180ms ease;
+      }
+      .btn-auth:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+        background: #ffffff;
+      }
+      body.is-admin .btn-auth {
+        background: var(--accent-soft);
+        border-color: rgba(91, 168, 184, 0.4);
+        color: var(--accent);
+      }
+
+      /* Story Stream / Cards */
+      .stories-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+      }
+
+      .story-card {
+        position: relative;
+        padding: clamp(24px, 4vw, 40px);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--card-bg);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 8px 30px -10px rgba(24, 32, 30, 0.05);
+        transition: border-color 220ms ease, box-shadow 220ms ease;
+      }
+      .story-card:hover {
+        border-color: rgba(91, 168, 184, 0.6);
+        box-shadow: 0 14px 40px -12px rgba(24, 32, 30, 0.1);
+      }
+
+      .story-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .story-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .date-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 11px;
+        border-radius: 6px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .location-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+      }
+
+      .story-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-icon {
+        padding: 5px 10px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 10.5px;
+        cursor: pointer;
+        transition: all 180ms ease;
+      }
+      .btn-icon:hover {
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+      .btn-icon.delete:hover {
+        color: #d7765d;
+        border-color: #d7765d;
+      }
+
+      .story-title {
+        margin: 0 0 18px;
+        font-family: var(--serif);
+        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-weight: 400;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+      }
+
+      .story-content {
+        color: #2b3532;
+        font-size: 15px;
+        line-height: 1.75;
+        margin-bottom: 28px;
+        white-space: pre-line;
+      }
+      .story-content p {
+        margin: 0 0 14px;
+      }
+
+      /* Auto-arranged Photo Galleries */
+      .photo-gallery {
+        display: grid;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      /* 1 Photo: Full-width Hero */
+      .gallery-single {
+        grid-template-columns: 1fr;
+      }
+      .gallery-single .photo-figure {
+        max-height: 520px;
+      }
+
+      /* 2 Photos: 2 Columns */
+      .gallery-pair {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+
+      /* 3+ Photos: Responsive grid */
+      .gallery-multi {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+
+      .photo-figure {
+        margin: 0;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: #f4f6f4;
+        transition: transform 220ms ease, border-color 220ms ease;
+      }
+      .photo-figure:hover {
+        border-color: var(--accent);
+      }
+
+      .photo-thumb-wrap {
+        width: 100%;
+        overflow: hidden;
+        cursor: zoom-in;
+        background: #f0ede6;
+      }
+
+      .photo-img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        display: block;
+        transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .gallery-single .photo-img {
+        height: auto;
+        max-height: 500px;
+      }
+      .photo-figure:hover .photo-img {
+        transform: scale(1.035);
+      }
+
+      .photo-caption {
+        padding: 9px 12px;
+        font-family: var(--mono);
+        font-size: 10.5px;
+        color: var(--muted);
+        line-height: 1.45;
+        background: rgba(255, 255, 255, 0.95);
+        border-top: 1px solid var(--line);
+      }
+      .photo-caption::before {
+        content: "↳ ";
+        color: var(--accent);
+      }
+
+      /* Empty State */
+      .empty-feed {
+        text-align: center;
+        padding: 80px 20px;
+        border: 1px dashed var(--line);
+        border-radius: 16px;
+        color: var(--muted);
+      }
+      .empty-feed p {
+        font-size: 14px;
+        margin: 10px 0 20px;
+      }
+
+      /* Modal Dialogues (Form & Settings) */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(24, 32, 30, 0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 250ms ease;
+      }
+      .modal-backdrop.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal-box {
+        position: relative;
+        width: min(100%, 720px);
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: clamp(24px, 4vw, 36px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+        transform: translateY(12px) scale(0.98);
+        transition: transform 250ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .modal-backdrop.active .modal-box {
+        transform: translateY(0) scale(1);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .modal-title {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 26px;
+        font-weight: 400;
+      }
+      .modal-close {
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: var(--muted);
+        line-height: 1;
+        padding: 4px;
+      }
+      .modal-close:hover {
+        color: var(--ink);
+      }
+
+      /* Form Controls */
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-label {
+        display: block;
+        margin-bottom: 7px;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        font-family: var(--sans);
+        font-size: 14px;
+        color: var(--ink);
+        background: #fafaf8;
+        transition: border-color 180ms ease, background 180ms ease;
+      }
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        background: #ffffff;
+      }
+      .form-textarea {
+        min-height: 130px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+
+      /* Dynamic Photo Rows in Form */
+      .photos-builder {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .photo-row-item {
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fafaf8;
+      }
+      .photo-preview-box {
+        width: 80px;
+        height: 60px;
+        border-radius: 4px;
+        background: #e6e6e0;
+        object-fit: cover;
+        display: block;
+      }
+      .photo-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .btn-del-photo {
+        background: transparent;
+        border: 1px solid transparent;
+        color: var(--muted);
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 4px;
+      }
+      .btn-del-photo:hover {
+        color: #d7765d;
+        border-color: #d7765d;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      /* Lightbox Modal */
+      .lightbox-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        background: rgba(14, 18, 17, 0.94);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 220ms ease;
+      }
+      .lightbox-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .lightbox-img {
+        max-width: 90vw;
+        max-height: 80vh;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        object-fit: contain;
+      }
+      .lightbox-caption {
+        margin-top: 14px;
+        color: #e2e2dc;
+        font-family: var(--mono);
+        font-size: 12px;
+        text-align: center;
+        max-width: 600px;
+      }
+
+      /* Site Footer */
       .site-footer {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 20;
+        z-index: 40;
         display: flex;
         align-items: center;
         padding: 16px clamp(24px, 5vw, 80px) 20px;
         background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-top: 1px solid var(--line);
         color: var(--muted);
         font-family: var(--mono);
@@ -265,43 +730,920 @@
       }
 
       @media (max-width: 640px) {
-        .page { padding: 64px 20px 52px; }
-        .site-header { grid-template-columns: 1fr auto; gap: 8px 12px; padding: 14px 20px 10px; }
-        .field { justify-self: end; }
+        .form-row { grid-template-columns: 1fr; }
+        .photo-row-item { grid-template-columns: 1fr; }
+        .photo-preview-box { width: 100%; height: 120px; }
+        .site-header {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          gap: 10px 14px;
+          padding: 14px 20px 10px;
+        }
+        .header-right { display: flex; }
         .site-footer { padding: 10px 20px 12px; font-size: 8px; }
       }
     </style>
   </head>
   <body>
     <div class="grain" aria-hidden="true"></div>
-    <div class="page">
-      <header class="site-header">
-        <a class="brand" href="index.html">Santanu Saha</a>
-        <nav class="top-nav" aria-label="Primary">
-          <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="research.html">Research</a>
-          <a class="nav-link" href="cv.html">CV</a>
-          <a class="nav-link" href="contact.html">Contact</a>
-        </nav>
-      </header>
 
-      <main>
-        <p class="error-code">Error 404</p>
-        <h1>Not <em>Found</em></h1>
-        <p class="error-message">
-          The requested page was not found on this server.
+    <!-- Header Navigation -->
+    <header class="site-header">
+      <a class="brand" href="index.html">Santanu Saha</a>
+      <nav class="top-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="research.html">Research</a>
+        <a class="nav-link" href="cv.html">CV</a>
+        <a class="nav-link active" href="travel.html">Travel Stories</a>
+        <a class="nav-link" href="contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <span class="status-pill admin-only" id="dbStatusBadge">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">Demo Store</span>
+        </span>
+        <button class="btn-auth" id="btnAuthToggle" title="Author Login (Ctrl+Shift+A)">
+          <span id="authIcon">🔒</span> <span id="authLabel">Author Login</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="page-wrap">
+      <section class="travel-hero">
+        <p class="eyebrow">Field Journals & Travelogue</p>
+        <h1 class="travel-title">Travel <em>Stories</em></h1>
+        <p class="travel-lead">
+          Chronological field notes, reflections, and photographs from journeys across landscapes, cultures, and research expeditions. Arranged strictly by the time explored.
         </p>
-        <a class="btn-back" href="index.html">← Back to Home</a>
-      </main>
 
-      <footer class="site-footer">
-        <span>© SANTANU SAHA, <span id="year">2026</span></span>
-      </footer>
+        <!-- Controls Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <button class="btn btn-primary admin-only" id="btnNewStory">
+              <span>+ New Story</span>
+            </button>
+            <button class="btn btn-sm" id="btnSortToggle" title="Toggle sorting order">
+              <span id="sortLabel">↓ Newest Visits First</span>
+            </button>
+          </div>
+          <div class="toolbar-right">
+            <span class="status-pill" id="storyCountBadge">0 Stories</span>
+            <button class="btn btn-sm admin-only" id="btnOpenSettings" title="Configure Supabase Database">
+              <span>⚙ Connect Supabase</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chronological Story Feed -->
+      <main id="storiesContainer" class="stories-feed" aria-live="polite">
+        <!-- Rendered dynamically via JavaScript -->
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <span>© SANTANU SAHA, <span id="year">2026</span></span>
+      <span class="footer-rule" aria-hidden="true"></span>
+      <span>TRAVEL STORIES</span>
+    </footer>
+
+    <!-- Story Editor Modal Form -->
+    <div class="modal-backdrop" id="storyModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">Add Travel Story</h2>
+          <button class="modal-close" id="btnCloseModal" aria-label="Close form">✕</button>
+        </div>
+
+        <form id="storyForm">
+          <input type="hidden" id="storyId" />
+
+          <div class="form-group">
+            <label class="form-label" for="storyTitle">Trip / Story Title *</label>
+            <input class="form-input" type="text" id="storyTitle" required placeholder="e.g. Crossing the High Passes of Spiti Valley" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="storyVisitDate">Date Visited (Chronological sorting) *</label>
+              <input class="form-input" type="date" id="storyVisitDate" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="storyLocation">Location *</label>
+              <input class="form-input" type="text" id="storyLocation" required placeholder="e.g. Himachal Pradesh, India" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="storyContent">Travel Story / Blog Text *</label>
+            <textarea class="form-textarea" id="storyContent" required placeholder="Write your travelogue, reflections, notes on culture, environment, or personal anecdotes..."></textarea>
+          </div>
+
+          <!-- Dynamic Photos Section -->
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label class="form-label" style="margin-bottom: 0;">Photographs (GitHub or Image Links)</label>
+              <button type="button" class="btn btn-sm" id="btnAddPhotoRow">+ Add Photo</button>
+            </div>
+            <div class="photos-builder" id="photosListContainer">
+              <!-- Dynamically populated photo rows -->
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn" id="btnCancelStory">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="btnSaveStory">Save Story</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Supabase Settings Modal -->
+    <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+      <div class="modal-box" style="max-width: 580px;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="settingsTitle">Supabase Database Setup</h2>
+          <button class="modal-close" id="btnCloseSettings" aria-label="Close settings">✕</button>
+        </div>
+
+        <p style="font-size: 13.5px; color: var(--muted); line-height: 1.6; margin-top: 0;">
+          Connect your free Supabase project to sync stories across devices. If left empty, stories will continue to be safely stored in your local browser store.
+        </p>
+
+        <form id="settingsForm">
+          <div class="form-group">
+            <label class="form-label" for="sbUrl">Supabase Project URL</label>
+            <input class="form-input" type="url" id="sbUrl" placeholder="https://xyzcompany.supabase.co" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sbKey">Supabase Public Anon Key</label>
+            <input class="form-input" type="text" id="sbKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." />
+          </div>
+
+          <details style="margin: 16px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 12px; color: var(--muted);">
+            <summary style="cursor: pointer; font-family: var(--mono); color: var(--accent);">SQL to create table & secure RLS (click to expand)</summary>
+            <pre style="margin-top: 10px; background: #fafaf8; padding: 10px; border-radius: 6px; overflow-x: auto; font-family: var(--mono); font-size: 11px;">-- 1. Create travel stories table
+create table if not exists travel_stories (
+  id uuid default gen_random_uuid() primary key,
+  title text not null,
+  location text not null,
+  visit_date date not null,
+  content text not null,
+  photos jsonb default '[]'::jsonb,
+  created_at timestamptz default now()
+);
+
+-- 2. Enable Row Level Security (RLS)
+alter table travel_stories enable row level security;
+
+-- 3. Public read policy: Anyone can view stories
+create policy "Public can view stories"
+  on travel_stories for select
+  using (true);
+
+-- 4. Author write policies: Only authenticated users can write/edit/delete
+create policy "Authenticated author can insert"
+  on travel_stories for insert
+  with check (auth.role() = 'authenticated');
+
+create policy "Authenticated author can update"
+  on travel_stories for update
+  using (auth.role() = 'authenticated');
+
+create policy "Authenticated author can delete"
+  on travel_stories for delete
+  using (auth.role() = 'authenticated');</pre>
+          </details>
+
+          <div class="modal-footer">
+            <button type="button" class="btn" id="btnClearSettings">Clear / Use Demo</button>
+            <button type="submit" class="btn btn-primary">Save & Connect</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Author Login Modal -->
+    <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <div class="modal-box" style="max-width: 440px;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="loginTitle">Author Login</h2>
+          <button class="modal-close" id="btnCloseLogin" aria-label="Close login">✕</button>
+        </div>
+
+        <p style="font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 0;">
+          Sign in to access author controls: creating, editing, and deleting stories, and database settings.
+        </p>
+
+        <form id="loginForm">
+          <div class="form-group" id="loginEmailGroup">
+            <label class="form-label" for="loginEmail">Email (Supabase Auth)</label>
+            <input class="form-input" type="email" id="loginEmail" placeholder="e.g. santanu@example.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password / Passcode *</label>
+            <input class="form-input" type="password" id="loginPassword" required placeholder="Enter password or passcode" autocomplete="current-password" />
+            <p style="font-size: 10.5px; color: var(--muted); margin: 6px 0 0; font-family: var(--mono);">
+              Demo passcode: <code style="background: rgba(24,32,30,0.06); padding: 2px 4px; border-radius: 3px;">santanu2026</code>
+            </p>
+          </div>
+
+          <div id="loginFeedback" style="display: none; padding: 10px 12px; margin-bottom: 16px; border-radius: 6px; font-size: 12px; font-family: var(--mono);"></div>
+
+          <div class="modal-footer" style="margin-top: 16px;">
+            <button type="button" class="btn" id="btnCancelLogin">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitLogin">Sign In</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Lightbox Zoom Modal -->
+    <div class="lightbox-modal" id="lightboxModal" aria-hidden="true">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged photo" />
+      <p class="lightbox-caption" id="lightboxCaption"></p>
     </div>
 
     <script>
+      // 1. Initial State & Sample Fallback Stories
       document.getElementById("year").textContent = new Date().getFullYear();
+
+      const INITIAL_STORIES = [
+        {
+          id: "spiti-valley-2024",
+          title: "The Silent Geometry of Cold Deserts & Monasteries",
+          location: "Spiti Valley, Himachal Pradesh",
+          visit_date: "2024-09-18",
+          content: "Ascending through Kunzum Pass into Spiti Valley is a stark transition into another geological epoch. The bare mountain scree reveals millions of years of marine sedimentary folds from the ancient Tethys Sea.\n\nSpent mornings listening to ritual chants at Key Monastery, where 1,000-year-old mud-brick structures hang suspended above the turquoise Spiti River braided over glacial gravels.",
+          photos: [
+            {
+              url: "https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=1200&q=80",
+              caption: "Wind-sculpted sedimentary peaks rising over the Spiti River basin at dawn."
+            },
+            {
+              url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80",
+              caption: "Key Monastery perched high on the barren hill terrace."
+            }
+          ]
+        },
+        {
+          id: "kyoto-arashiyama-2023",
+          title: "Bamboo Groves, Moss Gardens, and Solitary Kyoto Paths",
+          location: "Kyoto & Uji, Japan",
+          visit_date: "2023-11-04",
+          content: "In autumn, Kyoto shifts toward subtle ochres and vermilions. Early walks through the Sagano bamboo paths before daylight reveal how acoustics shape architecture in traditional Japanese sanctuaries.\n\nIn Uji, traditional green tea roasting aromas fill the cobblestones alongside ancient river locks that have controlled mountain runoff for seven centuries.",
+          photos: [
+            {
+              url: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=80",
+              caption: "Late afternoon light filtering through the stone lanterns of Higashiyama."
+            },
+            {
+              url: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80",
+              caption: "Reflections in the temple ponds amidst early maple autumn foliage."
+            },
+            {
+              url: "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=800&q=80",
+              caption: "Morning mist rising over the Katsura River bridge."
+            }
+          ]
+        },
+        {
+          id: "western-ghats-2022",
+          title: "Monsoon Mist & Endemic Canopy in the Shola Forests",
+          location: "Western Ghats, Karnataka",
+          visit_date: "2022-07-22",
+          content: "The Southwestern Monsoon arrives with immense hydrologic force. The montane evergreen forests (Sholas) act as giant sponges, trapping precipitation and discharging clean water that feeds southern India's river systems.\n\nObserved bioluminescent fungi glowing in decayed tree barks at midnight during continuous drizzle.",
+          photos: [
+            {
+              url: "https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1200&q=80",
+              caption: "Cloud layer rolling over the endemic montane shola-grassland mosaic."
+            }
+          ]
+        }
+      ];
+
+      // 2. Storage, Supabase Client & Author Auth Setup
+      const DEFAULT_SB_URL = ""; // Populate with your https://<ref>.supabase.co
+      const DEFAULT_SB_KEY = ""; // Populate with your public anon key
+
+      let supabaseClient = null;
+      let isSupabaseActive = false;
+      let stories = [];
+      let sortDescending = true;
+      let isAdmin = false;
+      let adminEmail = "";
+
+      function setAdminState(active, email = "") {
+        isAdmin = active;
+        adminEmail = email;
+        const authIcon = document.getElementById("authIcon");
+        const authLabel = document.getElementById("authLabel");
+        const btnAuth = document.getElementById("btnAuthToggle");
+
+        if (active) {
+          document.body.classList.add("is-admin");
+          if (authIcon) authIcon.textContent = "🔓";
+          if (authLabel) authLabel.textContent = "Sign Out";
+          if (btnAuth) btnAuth.title = `Signed in as ${email || "Author"}. Click to sign out.`;
+        } else {
+          document.body.classList.remove("is-admin");
+          if (authIcon) authIcon.textContent = "🔒";
+          if (authLabel) authLabel.textContent = "Author Login";
+          if (btnAuth) btnAuth.title = "Author Login (Ctrl+Shift+A)";
+        }
+        renderStories();
+      }
+
+      async function checkAuth() {
+        // 1. If Supabase is connected, check active Supabase Auth session
+        if (isSupabaseActive && supabaseClient) {
+          try {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session && session.user) {
+              setAdminState(true, session.user.email || "Author");
+              return;
+            }
+          } catch (e) {
+            console.warn("Supabase auth check:", e);
+          }
+        }
+
+        // 2. Fallback: check browser sessionStorage for passcode session
+        const localAuth = sessionStorage.getItem("ss_author_authenticated");
+        if (localAuth === "true") {
+          const storedEmail = sessionStorage.getItem("ss_author_email") || "Author (Passcode)";
+          setAdminState(true, storedEmail);
+        } else {
+          setAdminState(false, "");
+        }
+      }
+
+      function initDatabase() {
+        const storedUrl = localStorage.getItem("sb_travel_url") || DEFAULT_SB_URL;
+        const storedKey = localStorage.getItem("sb_travel_key") || DEFAULT_SB_KEY;
+
+        if (storedUrl && storedKey && window.supabase) {
+          try {
+            supabaseClient = window.supabase.createClient(storedUrl, storedKey);
+            isSupabaseActive = true;
+            updateDbStatus(true, "Supabase Live");
+
+            // Listen for Supabase auth state changes
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+              if (session && session.user) {
+                setAdminState(true, session.user.email || "Author");
+              } else if (sessionStorage.getItem("ss_author_authenticated") !== "true") {
+                setAdminState(false, "");
+              }
+            });
+          } catch (err) {
+            console.warn("Supabase init failed, falling back to local store:", err);
+            isSupabaseActive = false;
+            updateDbStatus(false, "Local Store");
+          }
+        } else {
+          isSupabaseActive = false;
+          updateDbStatus(false, "Local Store");
+        }
+      }
+
+      function updateDbStatus(connected, label) {
+        const dot = document.getElementById("statusDot");
+        const text = document.getElementById("statusText");
+        if (connected) {
+          dot.classList.add("connected");
+        } else {
+          dot.classList.remove("connected");
+        }
+        text.textContent = label;
+      }
+
+      // 3. Load Stories (from Supabase or LocalStorage)
+      async function loadStories() {
+        if (isSupabaseActive && supabaseClient) {
+          try {
+            const { data, error } = await supabaseClient
+              .from("travel_stories")
+              .select("*")
+              .order("visit_date", { ascending: !sortDescending });
+
+            if (error) throw error;
+            stories = data || [];
+          } catch (err) {
+            console.error("Error reading Supabase travel_stories:", err);
+            loadFromLocalStorage();
+          }
+        } else {
+          loadFromLocalStorage();
+        }
+
+        renderStories();
+      }
+
+      function loadFromLocalStorage() {
+        const local = localStorage.getItem("ss_travel_stories");
+        if (local) {
+          try {
+            stories = JSON.parse(local);
+          } catch (e) {
+            stories = [...INITIAL_STORIES];
+          }
+        } else {
+          stories = [...INITIAL_STORIES];
+          saveToLocalStorage();
+        }
+        sortStoriesInMemory();
+      }
+
+      function saveToLocalStorage() {
+        localStorage.setItem("ss_travel_stories", JSON.stringify(stories));
+      }
+
+      function sortStoriesInMemory() {
+        stories.sort((a, b) => {
+          const dateA = new Date(a.visit_date).getTime();
+          const dateB = new Date(b.visit_date).getTime();
+          return sortDescending ? dateB - dateA : dateA - dateB;
+        });
+      }
+
+      const PLACEHOLDER_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'%3E%3Crect fill='%23f0ede6' width='300' height='200'/%3E%3Ctext fill='%23707670' font-family='monospace' font-size='12' x='50%25' y='50%25' text-anchor='middle'%3EPhoto Unavailable%3C/text%3E%3C/svg%3E";
+      const PREVIEW_THUMB = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='60'%3E%3Crect fill='%23e6e6e0' width='80' height='60'/%3E%3Ctext fill='%23999' font-family='monospace' font-size='9' x='50%25' y='55%25' text-anchor='middle'%3EPreview%3C/text%3E%3C/svg%3E";
+
+      // 4. Render Stories to DOM
+      function renderStories() {
+        const container = document.getElementById("storiesContainer");
+        const countBadge = document.getElementById("storyCountBadge");
+        countBadge.textContent = `${stories.length} ${stories.length === 1 ? "Story" : "Stories"}`;
+
+        if (!stories || stories.length === 0) {
+          container.innerHTML = `
+            <div class="empty-feed">
+              <p>No travel stories published yet.</p>
+              ${isAdmin ? '<button class="btn btn-primary" onclick="openStoryModal()">+ Add Your First Story</button>' : ''}
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = stories.map((story) => {
+          // Format the visited date
+          const dateObj = new Date(story.visit_date);
+          const formattedDate = !isNaN(dateObj.getTime())
+            ? dateObj.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+            : story.visit_date;
+
+          // Process photos array
+          const photos = Array.isArray(story.photos) ? story.photos : [];
+          let galleryClass = "gallery-single";
+          if (photos.length === 2) galleryClass = "gallery-pair";
+          if (photos.length >= 3) galleryClass = "gallery-multi";
+
+          const galleryHtml = photos.length > 0 ? `
+            <div class="photo-gallery ${galleryClass}">
+              ${photos.map((p, idx) => `
+                <figure class="photo-figure">
+                  <div class="photo-thumb-wrap" onclick="openLightbox('${escapeHtml(p.url)}', '${escapeHtml(p.caption || '')}')">
+                    <img class="photo-img" src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                  </div>
+                  ${p.caption ? `<figcaption class="photo-caption">${escapeHtml(p.caption)}</figcaption>` : ""}
+                </figure>
+              `).join("")}
+            </div>
+          ` : "";
+
+          const actionsHtml = isAdmin ? `
+            <div class="story-actions">
+              <button class="btn-icon" onclick="editStory('${story.id}')" title="Edit story and photos">✎ Edit</button>
+              <button class="btn-icon delete" onclick="deleteStory('${story.id}')" title="Delete story">✕</button>
+            </div>
+          ` : "";
+
+          return `
+            <article class="story-card" id="story-${story.id}">
+              <header class="story-header">
+                <div class="story-meta">
+                  <span class="date-badge">📅 ${formattedDate}</span>
+                  <span class="location-badge">📍 ${escapeHtml(story.location || "")}</span>
+                </div>
+                ${actionsHtml}
+              </header>
+
+              <h2 class="story-title">${escapeHtml(story.title)}</h2>
+              <div class="story-content">${escapeHtml(story.content).replace(/\n\n/g, "</p><p>")}</div>
+
+              ${galleryHtml}
+            </article>
+          `;
+        }).join("");
+      }
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      // 5. Dynamic Photo Row Builder in Modal
+      function addPhotoRow(url = "", caption = "") {
+        const container = document.getElementById("photosListContainer");
+        const rowId = "photo-row-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
+
+        const row = document.createElement("div");
+        row.className = "photo-row-item";
+        row.id = rowId;
+
+        row.innerHTML = `
+          <img class="photo-preview-box" src="${url || PREVIEW_THUMB}" alt="Preview" onerror="this.src='${PREVIEW_THUMB}'" />
+          <div class="photo-inputs">
+            <input class="form-input photo-url-input" type="url" placeholder="Photo URL (GitHub raw, Imgur, or direct link)" value="${escapeHtml(url)}" style="padding: 6px 10px; font-size: 12.5px;" />
+            <input class="form-input photo-caption-input" type="text" placeholder="Photo Caption (e.g. Sunset over the pass)" value="${escapeHtml(caption)}" style="padding: 6px 10px; font-size: 12px;" />
+          </div>
+          <button type="button" class="btn-del-photo" onclick="document.getElementById('${rowId}').remove()" title="Remove photo">✕</button>
+        `;
+
+        const urlInput = row.querySelector(".photo-url-input");
+        const previewImg = row.querySelector(".photo-preview-box");
+        urlInput.addEventListener("input", () => {
+          const val = urlInput.value.trim();
+          previewImg.src = val ? val : PREVIEW_THUMB;
+        });
+
+        container.appendChild(row);
+      }
+
+      // 6. Modal Open / Edit / Save Actions
+      function openStoryModal(storyToEdit = null) {
+        if (!isAdmin) {
+          openLoginModal();
+          return;
+        }
+
+        const modal = document.getElementById("storyModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const photosContainer = document.getElementById("photosListContainer");
+        photosContainer.innerHTML = "";
+
+        if (storyToEdit) {
+          modalTitle.textContent = "Edit Travel Story";
+          document.getElementById("storyId").value = storyToEdit.id;
+          document.getElementById("storyTitle").value = storyToEdit.title;
+          document.getElementById("storyVisitDate").value = storyToEdit.visit_date;
+          document.getElementById("storyLocation").value = storyToEdit.location;
+          document.getElementById("storyContent").value = storyToEdit.content;
+
+          if (Array.isArray(storyToEdit.photos)) {
+            storyToEdit.photos.forEach((p) => addPhotoRow(p.url, p.caption));
+          }
+        } else {
+          modalTitle.textContent = "New Travel Story";
+          document.getElementById("storyForm").reset();
+          document.getElementById("storyId").value = "";
+          // Default visit date to today
+          document.getElementById("storyVisitDate").value = new Date().toISOString().split("T")[0];
+          // Provide 1 empty photo row ready to use
+          addPhotoRow();
+        }
+
+        modal.classList.add("active");
+      }
+
+      function closeStoryModal() {
+        document.getElementById("storyModal").classList.remove("active");
+      }
+
+      function editStory(id) {
+        if (!isAdmin) {
+          openLoginModal();
+          return;
+        }
+        const target = stories.find((s) => s.id === id);
+        if (target) {
+          openStoryModal(target);
+        }
+      }
+
+      async function deleteStory(id) {
+        if (!isAdmin) {
+          openLoginModal();
+          return;
+        }
+        if (!confirm("Are you sure you want to delete this travel story?")) return;
+
+        if (isSupabaseActive && supabaseClient) {
+          try {
+            const { error } = await supabaseClient.from("travel_stories").delete().eq("id", id);
+            if (error) throw error;
+          } catch (err) {
+            alert("Error deleting from Supabase: " + err.message);
+            return;
+          }
+        }
+
+        stories = stories.filter((s) => s.id !== id);
+        saveToLocalStorage();
+        renderStories();
+      }
+
+      // Story Form Submission
+      document.getElementById("storyForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!isAdmin) {
+          openLoginModal();
+          return;
+        }
+
+        const submitBtn = document.getElementById("btnSaveStory");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Saving...";
+
+        const id = document.getElementById("storyId").value.trim() || ("story-" + Date.now());
+        const title = document.getElementById("storyTitle").value.trim();
+        const visit_date = document.getElementById("storyVisitDate").value;
+        const location = document.getElementById("storyLocation").value.trim();
+        const content = document.getElementById("storyContent").value.trim();
+
+        // Collect photos
+        const photoRows = document.querySelectorAll(".photo-row-item");
+        const photos = [];
+        photoRows.forEach((row) => {
+          const u = row.querySelector(".photo-url-input").value.trim();
+          const c = row.querySelector(".photo-caption-input").value.trim();
+          if (u) {
+            photos.push({ url: u, caption: c });
+          }
+        });
+
+        const storyPayload = {
+          title,
+          visit_date,
+          location,
+          content,
+          photos
+        };
+
+        if (isSupabaseActive && supabaseClient) {
+          try {
+            const isEditing = document.getElementById("storyId").value.trim();
+            if (isEditing) {
+              const { error } = await supabaseClient
+                .from("travel_stories")
+                .update(storyPayload)
+                .eq("id", id);
+              if (error) throw error;
+            } else {
+              const { error } = await supabaseClient
+                .from("travel_stories")
+                .insert([storyPayload]);
+              if (error) throw error;
+            }
+          } catch (err) {
+            alert("Supabase write error: " + err.message + "\nSaving locally instead.");
+          }
+        }
+
+        // Always sync locally as well
+        const existingIdx = stories.findIndex((s) => s.id === id);
+        if (existingIdx >= 0) {
+          stories[existingIdx] = { id, ...storyPayload };
+        } else {
+          stories.unshift({ id, ...storyPayload });
+        }
+
+        sortStoriesInMemory();
+        saveToLocalStorage();
+        renderStories();
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Save Story";
+        closeStoryModal();
+
+        // Smooth scroll to updated/new story
+        const el = document.getElementById("story-" + id);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
+      // 7. Lightbox Zoom
+      function openLightbox(url, caption) {
+        const modal = document.getElementById("lightboxModal");
+        const img = document.getElementById("lightboxImg");
+        const cap = document.getElementById("lightboxCaption");
+        img.src = url;
+        cap.textContent = caption;
+        modal.classList.add("active");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      document.getElementById("lightboxModal").addEventListener("click", () => {
+        const modal = document.getElementById("lightboxModal");
+        modal.classList.remove("active");
+        modal.setAttribute("aria-hidden", "true");
+      });
+
+      // 8. Settings Modal (Connect Supabase)
+      const btnOpenSettings = document.getElementById("btnOpenSettings");
+      const settingsModal = document.getElementById("settingsModal");
+      const btnCloseSettings = document.getElementById("btnCloseSettings");
+
+      btnOpenSettings.addEventListener("click", () => {
+        if (!isAdmin) {
+          openLoginModal();
+          return;
+        }
+        document.getElementById("sbUrl").value = localStorage.getItem("sb_travel_url") || DEFAULT_SB_URL || "";
+        document.getElementById("sbKey").value = localStorage.getItem("sb_travel_key") || DEFAULT_SB_KEY || "";
+        settingsModal.classList.add("active");
+      });
+
+      btnCloseSettings.addEventListener("click", () => {
+        settingsModal.classList.remove("active");
+      });
+
+      document.getElementById("settingsForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const url = document.getElementById("sbUrl").value.trim();
+        const key = document.getElementById("sbKey").value.trim();
+
+        if (url && key) {
+          localStorage.setItem("sb_travel_url", url);
+          localStorage.setItem("sb_travel_key", key);
+        } else {
+          localStorage.removeItem("sb_travel_url");
+          localStorage.removeItem("sb_travel_key");
+        }
+
+        settingsModal.classList.remove("active");
+        initDatabase();
+        checkAuth();
+        loadStories();
+      });
+
+      document.getElementById("btnClearSettings").addEventListener("click", () => {
+        localStorage.removeItem("sb_travel_url");
+        localStorage.removeItem("sb_travel_key");
+        document.getElementById("sbUrl").value = "";
+        document.getElementById("sbKey").value = "";
+        settingsModal.classList.remove("active");
+        initDatabase();
+        checkAuth();
+        loadStories();
+      });
+
+      // 9. Sorting Toggle
+      document.getElementById("btnSortToggle").addEventListener("click", () => {
+        sortDescending = !sortDescending;
+        document.getElementById("sortLabel").textContent = sortDescending
+          ? "↓ Newest Visits First"
+          : "↑ Oldest Visits First";
+        sortStoriesInMemory();
+        renderStories();
+      });
+
+      // 10. Author Login / Sign Out Modal Handlers
+      const loginModal = document.getElementById("loginModal");
+      const btnCloseLogin = document.getElementById("btnCloseLogin");
+      const btnCancelLogin = document.getElementById("btnCancelLogin");
+      const loginForm = document.getElementById("loginForm");
+
+      function openLoginModal() {
+        document.getElementById("loginFeedback").style.display = "none";
+        loginForm.reset();
+        loginModal.classList.add("active");
+        setTimeout(() => {
+          document.getElementById("loginPassword").focus();
+        }, 120);
+      }
+
+      function closeLoginModal() {
+        loginModal.classList.remove("active");
+      }
+
+      if (btnCloseLogin) btnCloseLogin.addEventListener("click", closeLoginModal);
+      if (btnCancelLogin) btnCancelLogin.addEventListener("click", closeLoginModal);
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+        const feedback = document.getElementById("loginFeedback");
+        const submitBtn = document.getElementById("btnSubmitLogin");
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Verifying...";
+        feedback.style.display = "none";
+
+        // Try Supabase Auth first if Supabase is connected and email is provided
+        if (isSupabaseActive && supabaseClient && email) {
+          try {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+              email,
+              password
+            });
+            if (error) throw error;
+
+            setAdminState(true, data.user.email || email);
+            closeLoginModal();
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Sign In";
+            return;
+          } catch (err) {
+            console.warn("Supabase auth failed, trying passcode fallback:", err.message);
+          }
+        }
+
+        // Local fallback passcode
+        if (password === "santanu2026") {
+          sessionStorage.setItem("ss_author_authenticated", "true");
+          sessionStorage.setItem("ss_author_email", email || "santanu (passcode)");
+          setAdminState(true, email || "Author");
+          closeLoginModal();
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Sign In";
+          return;
+        }
+
+        // Authentication failure
+        feedback.style.display = "block";
+        feedback.style.background = "rgba(215, 118, 93, 0.12)";
+        feedback.style.color = "#d7765d";
+        feedback.style.border = "1px solid rgba(215, 118, 93, 0.3)";
+        feedback.textContent = isSupabaseActive
+          ? "Invalid login. Use Supabase credentials or demo passcode: santanu2026"
+          : "Incorrect passcode. (Demo passcode: santanu2026)";
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
+      });
+
+      async function handleLogout() {
+        if (!confirm("Sign out of Author mode?")) return;
+        if (isSupabaseActive && supabaseClient) {
+          try {
+            await supabaseClient.auth.signOut();
+          } catch (err) {
+            console.warn("Supabase signout failed:", err);
+          }
+        }
+        sessionStorage.removeItem("ss_author_authenticated");
+        sessionStorage.removeItem("ss_author_email");
+        setAdminState(false, "");
+      }
+
+      document.getElementById("btnAuthToggle").addEventListener("click", () => {
+        if (isAdmin) {
+          handleLogout();
+        } else {
+          openLoginModal();
+        }
+      });
+
+      // Keyboard shortcut Ctrl+Shift+A (or Cmd+Shift+A) to toggle Login/Logout
+      window.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+          e.preventDefault();
+          if (isAdmin) {
+            handleLogout();
+          } else {
+            openLoginModal();
+          }
+        }
+      });
+
+      // Event Listeners for Story Modal
+      document.getElementById("btnNewStory").addEventListener("click", () => openStoryModal());
+      document.getElementById("btnCloseModal").addEventListener("click", closeStoryModal);
+      document.getElementById("btnCancelStory").addEventListener("click", closeStoryModal);
+      document.getElementById("btnAddPhotoRow").addEventListener("click", () => addPhotoRow());
+
+      // Close modals on clicking backdrop
+      window.addEventListener("click", (e) => {
+        if (e.target === document.getElementById("storyModal")) closeStoryModal();
+        if (e.target === document.getElementById("settingsModal")) settingsModal.classList.remove("active");
+        if (e.target === document.getElementById("loginModal")) closeLoginModal();
+      });
+
+      // Escape key to close modals
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeStoryModal();
+          settingsModal.classList.remove("active");
+          closeLoginModal();
+          document.getElementById("lightboxModal").classList.remove("active");
+        }
+      });
+
+      // Initialize
+      initDatabase();
+      checkAuth();
+      loadStories();
     </script>
   </body>
 </html>
-
