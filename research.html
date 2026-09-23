@@ -13,10 +13,10 @@
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
 
       :root {
-        --paper: #fffaf4;
+        --paper: #ffffff;
         --ink: #18201e;
         --muted: #707670;
-        --line: #d9d9d1;
+        --line: #e2e2dc;
         --accent: #5ba8b8;
         --accent-soft: #cae9ed;
         --pastel-peach: #ffc7b2;
@@ -43,9 +43,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 86% 16%, rgba(255, 199, 178, 0.72), transparent 26rem),
-          radial-gradient(circle at 11% 91%, rgba(191, 228, 240, 0.72), transparent 24rem),
-          radial-gradient(circle at 57% 53%, rgba(219, 204, 245, 0.48), transparent 29rem);
+          radial-gradient(circle at 88% 14%, rgba(255, 199, 178, 0.08), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(191, 228, 240, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -63,27 +62,7 @@
 
       .page::before,
       .page::after {
-        position: fixed;
-        z-index: 0;
-        width: clamp(140px, 18vw, 240px);
-        aspect-ratio: 1;
-        border-radius: 50%;
-        content: "";
-        filter: blur(2px);
-        opacity: 0.62;
-        pointer-events: none;
-      }
-
-      .page::before {
-        top: 14%;
-        left: 17%;
-        background: radial-gradient(circle at 34% 30%, rgba(255, 227, 163, 0.72), rgba(255, 227, 163, 0.08) 68%, transparent 70%);
-      }
-
-      .page::after {
-        right: 16%;
-        bottom: 24%;
-        background: radial-gradient(circle at 50% 50%, rgba(189, 232, 208, 0.64), rgba(189, 232, 208, 0.05) 68%, transparent 70%);
+        display: none;
       }
 
       .grain {
