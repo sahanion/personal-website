@@ -312,25 +312,121 @@
       }
 
       /* Story Stream / Cards */
+      /* Story Stream / Big Cards */
       .stories-feed {
         display: flex;
         flex-direction: column;
-        gap: 60px;
+        gap: 56px;
       }
 
       .story-card {
         position: relative;
-        padding: clamp(24px, 4vw, 40px);
         border: 1px solid var(--line);
-        border-radius: 16px;
+        border-radius: 20px;
         background: var(--card-bg);
         backdrop-filter: blur(8px);
-        box-shadow: 0 8px 30px -10px rgba(24, 32, 30, 0.05);
-        transition: border-color 220ms ease, box-shadow 220ms ease;
+        -webkit-backdrop-filter: blur(8px);
+        box-shadow: 0 12px 36px -12px rgba(24, 32, 30, 0.08);
+        overflow: hidden;
+        transition: border-color 260ms ease, box-shadow 260ms ease, transform 260ms ease;
+      }
+      .story-card.is-collapsed {
+        cursor: pointer;
       }
       .story-card:hover {
-        border-color: rgba(91, 168, 184, 0.6);
-        box-shadow: 0 14px 40px -12px rgba(24, 32, 30, 0.1);
+        border-color: rgba(91, 168, 184, 0.5);
+        box-shadow: 0 18px 46px -12px rgba(24, 32, 30, 0.14);
+      }
+      .story-card.is-expanded {
+        border-color: rgba(91, 168, 184, 0.45);
+        box-shadow: 0 24px 64px -16px rgba(24, 32, 30, 0.16);
+      }
+
+      /* Preview Photos Banner (1 or 2 featured photos) */
+      .card-preview-media {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        background: #f0ede6;
+        user-select: none;
+      }
+      .preview-single {
+        height: clamp(280px, 44vh, 420px);
+      }
+      .preview-single img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 550ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .story-card.is-collapsed:hover .preview-single img {
+        transform: scale(1.025);
+      }
+      .preview-hero-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px 20px;
+        background: linear-gradient(to top, rgba(20, 26, 25, 0.8), transparent);
+        color: #f4f4f0;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.02em;
+        backdrop-filter: blur(2px);
+      }
+
+      .preview-pair {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3px;
+        height: clamp(260px, 40vh, 360px);
+        background: var(--line);
+      }
+      .preview-img-wrap {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        background: #f0ede6;
+      }
+      .preview-pair img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 550ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .story-card.is-collapsed:hover .preview-pair img {
+        transform: scale(1.025);
+      }
+
+      .more-photos-badge {
+        position: absolute;
+        bottom: 14px;
+        right: 14px;
+        z-index: 2;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(18, 24, 22, 0.82);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        pointer-events: none;
+      }
+
+      /* Card Content Inner */
+      .card-inner {
+        padding: clamp(24px, 4vw, 40px);
       }
 
       .story-header {
@@ -339,7 +435,7 @@
         align-items: center;
         justify-content: space-between;
         gap: 12px;
-        margin-bottom: 16px;
+        margin-bottom: 14px;
       }
 
       .story-meta {
@@ -364,7 +460,8 @@
         text-transform: uppercase;
       }
 
-      .location-badge {
+      .location-badge,
+      .photo-count-badge {
         display: inline-flex;
         align-items: center;
         gap: 5px;
@@ -400,12 +497,102 @@
       }
 
       .story-title {
-        margin: 0 0 18px;
+        margin: 0 0 14px;
         font-family: var(--serif);
-        font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+        font-size: clamp(2rem, 3.8vw, 2.75rem);
         font-weight: 400;
         line-height: 1.15;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+        transition: color 200ms ease;
+      }
+      .story-card.is-collapsed:hover .story-title {
+        color: var(--accent);
+      }
+
+      /* First 1-2 lines excerpt */
+      .card-excerpt {
+        color: #495450;
+        font-size: 15.5px;
+        line-height: 1.65;
+        margin: 0 0 18px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .story-card.is-expanded .card-excerpt {
+        display: none;
+      }
+
+      /* CTA Row */
+      .card-cta-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 14px;
+        border-top: 1px solid rgba(24, 32, 30, 0.08);
+      }
+      .btn-read-toggle {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: #ffffff;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 200ms ease;
+      }
+      .story-card.is-collapsed:hover .btn-read-toggle,
+      .btn-read-toggle:hover {
+        border-color: var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .story-card.is-expanded .btn-read-toggle {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #ffffff;
+      }
+      .read-time-hint {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      /* Expanded Section */
+      .card-expanded-content {
+        display: none;
+        margin-top: 24px;
+        animation: fadeInStory 350ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      .story-card.is-expanded .card-expanded-content {
+        display: block;
+      }
+
+      @keyframes fadeInStory {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .story-content-divider {
+        height: 1px;
+        background: var(--line);
+        margin: 0 0 24px;
+        opacity: 0.6;
       }
 
       .story-content {
@@ -472,60 +659,101 @@
         border-radius: 3px;
       }
 
-      /* Auto-arranged Photo Galleries */
+      /* Photo Galleries (up to 4 photos per story) */
+      .expanded-gallery-wrap {
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .expanded-gallery-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        font-family: var(--mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .gallery-title {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .gallery-subtitle {
+        color: var(--muted);
+        font-size: 10px;
+      }
+
       .photo-gallery {
         display: grid;
         gap: 16px;
-        margin-top: 24px;
       }
-
-      /* 1 Photo: Full-width Hero */
+      /* 1 Photo */
       .gallery-single {
         grid-template-columns: 1fr;
       }
-      .gallery-single .photo-figure {
-        max-height: 520px;
-      }
-
-      /* 2 Photos: 2 Columns */
+      /* 2 Photos */
       .gallery-pair {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: 1fr 1fr;
       }
-
-      /* 3+ Photos: Responsive grid */
-      .gallery-multi {
+      /* 3 Photos */
+      .gallery-three {
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      }
+      /* 4 Photos: 2x2 Grid */
+      .gallery-four {
+        grid-template-columns: 1fr 1fr;
       }
 
       .photo-figure {
         margin: 0;
         overflow: hidden;
-        border-radius: 10px;
+        border-radius: 12px;
         border: 1px solid var(--line);
         background: #f4f6f4;
-        transition: transform 220ms ease, border-color 220ms ease;
+        transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
       }
       .photo-figure:hover {
         border-color: var(--accent);
+        box-shadow: 0 8px 24px rgba(24, 32, 30, 0.08);
       }
 
       .photo-thumb-wrap {
+        position: relative;
         width: 100%;
         overflow: hidden;
         cursor: zoom-in;
         background: #f0ede6;
       }
+      .photo-zoom-hint {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: rgba(18, 24, 22, 0.75);
+        color: #ffffff;
+        font-family: var(--mono);
+        font-size: 10px;
+        opacity: 0;
+        transform: translateY(-4px);
+        transition: all 180ms ease;
+        pointer-events: none;
+      }
+      .photo-figure:hover .photo-zoom-hint {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
       .photo-img {
         width: 100%;
-        height: 260px;
+        height: 280px;
         object-fit: cover;
         display: block;
-        transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
       }
       .gallery-single .photo-img {
-        height: auto;
-        max-height: 500px;
+        height: clamp(300px, 48vh, 480px);
       }
       .photo-figure:hover .photo-img {
         transform: scale(1.035);
@@ -543,6 +771,37 @@
       .photo-caption::before {
         content: "↳ ";
         color: var(--accent);
+      }
+
+      /* Collapse Action at Bottom of Story */
+      .card-collapse-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .btn-collapse-story {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: #ffffff;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 200ms ease;
+      }
+      .btn-collapse-story:hover {
+        background: var(--ink);
+        border-color: var(--ink);
+        color: var(--paper);
+        transform: translateY(-1px);
       }
 
       /* Empty State */
@@ -961,6 +1220,21 @@
         .form-row { grid-template-columns: 1fr; }
         .photo-row-item { grid-template-columns: 1fr; }
         .photo-preview-box { width: 100%; height: 120px; }
+        .preview-pair {
+          grid-template-columns: 1fr 1fr;
+          height: 200px;
+        }
+        .preview-single {
+          height: 220px;
+        }
+        .gallery-pair,
+        .gallery-three,
+        .gallery-four {
+          grid-template-columns: 1fr;
+        }
+        .photo-img {
+          height: 220px;
+        }
         .site-header {
           display: flex;
           flex-wrap: wrap;
@@ -1126,8 +1400,9 @@
 
           <!-- Dynamic Photos Section -->
           <div class="form-group">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <label class="form-label" style="margin-bottom: 0;">Photographs (GitHub or Image Links)</label>
+              <label class="form-label" style="margin-bottom: 0;">
+                Photographs (Max 4) <span id="photoCountNotice" style="font-weight: 400; text-transform: none; color: var(--accent);">(0/4)</span>
+              </label>
               <button type="button" class="btn btn-sm" id="btnAddPhotoRow">+ Add Photo</button>
             </div>
             <div class="photos-builder" id="photosListContainer">
@@ -1466,7 +1741,82 @@
         return sanitizeRichHtml(content);
       }
 
-      // 4. Render Stories to DOM
+      // Helpers for Big Card excerpts & reading time
+      function getExcerpt(content) {
+        if (!content) return "";
+        try {
+          const temp = document.createElement("div");
+          temp.innerHTML = content;
+          const text = temp.textContent || temp.innerText || "";
+          return text.trim().replace(/\s+/g, " ");
+        } catch (e) {
+          return String(content).replace(/<[^>]*>/g, " ").trim().replace(/\s+/g, " ");
+        }
+      }
+
+      function estimateReadingTime(content) {
+        if (!content) return 1;
+        const text = getExcerpt(content);
+        const wordCount = text.split(/\s+/).filter(Boolean).length;
+        return Math.max(1, Math.ceil(wordCount / 180));
+      }
+
+      // Card Expand / Collapse Toggle
+      function toggleStoryCard(id, event) {
+        if (event) {
+          event.stopPropagation();
+        }
+        const card = document.getElementById("story-" + id);
+        if (!card) return;
+
+        const isExpanded = card.classList.contains("is-expanded");
+        if (isExpanded) {
+          card.classList.remove("is-expanded");
+          card.classList.add("is-collapsed");
+          card.setAttribute("aria-expanded", "false");
+          const readBtn = card.querySelector(".btn-read-toggle .read-text");
+          const readArrow = card.querySelector(".btn-read-toggle .read-arrow");
+          if (readBtn) readBtn.textContent = "Read Full Story";
+          if (readArrow) readArrow.textContent = "↓";
+
+          // If scrolled down past the card top, smoothly scroll back into view
+          const rect = card.getBoundingClientRect();
+          if (rect.top < 80) {
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          card.classList.add("is-expanded");
+          card.classList.remove("is-collapsed");
+          card.setAttribute("aria-expanded", "true");
+          const readBtn = card.querySelector(".btn-read-toggle .read-text");
+          const readArrow = card.querySelector(".btn-read-toggle .read-arrow");
+          if (readBtn) readBtn.textContent = "Collapse Story";
+          if (readArrow) readArrow.textContent = "↑";
+        }
+      }
+
+      function handleCardClick(id, event) {
+        const card = document.getElementById("story-" + id);
+        if (!card) return;
+
+        // If card is already expanded, do not collapse on general reading clicks
+        if (card.classList.contains("is-expanded")) {
+          return;
+        }
+
+        // If clicked on an interactive element or selecting text, ignore
+        if (event.target.closest("button, a, input, select, textarea")) {
+          return;
+        }
+        const selection = window.getSelection().toString();
+        if (selection && selection.length > 0) {
+          return;
+        }
+
+        toggleStoryCard(id, event);
+      }
+
+      // 4. Render Stories to DOM as Big Cards
       function renderStories() {
         const container = document.getElementById("storiesContainer");
         const countBadge = document.getElementById("storyCountBadge");
@@ -1489,46 +1839,116 @@
             ? dateObj.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
             : story.visit_date;
 
-          // Process photos array
-          const photos = Array.isArray(story.photos) ? story.photos : [];
-          let galleryClass = "gallery-single";
-          if (photos.length === 2) galleryClass = "gallery-pair";
-          if (photos.length >= 3) galleryClass = "gallery-multi";
+          // Photos array (capped at 4)
+          const allPhotos = Array.isArray(story.photos) ? story.photos.slice(0, MAX_PHOTOS) : [];
+          const readTime = estimateReadingTime(story.content);
+          const excerpt = getExcerpt(story.content);
 
-          const galleryHtml = photos.length > 0 ? `
-            <div class="photo-gallery ${galleryClass}">
-              ${photos.map((p, idx) => `
-                <figure class="photo-figure">
-                  <div class="photo-thumb-wrap" onclick="openLightbox('${escapeHtml(p.url)}', '${escapeHtml(p.caption || '')}')">
-                    <img class="photo-img" src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
-                  </div>
-                  ${p.caption ? `<figcaption class="photo-caption">${escapeHtml(p.caption)}</figcaption>` : ""}
-                </figure>
-              `).join("")}
+          // 1. Featured Preview Media (1 or 2 photos in preview banner)
+          let previewMediaHtml = "";
+          if (allPhotos.length === 1) {
+            previewMediaHtml = `
+              <div class="card-preview-media preview-single">
+                <img src="${escapeHtml(allPhotos[0].url)}" alt="${escapeHtml(allPhotos[0].caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                ${allPhotos[0].caption ? `<div class="preview-hero-caption">${escapeHtml(allPhotos[0].caption)}</div>` : ""}
+              </div>
+            `;
+          } else if (allPhotos.length >= 2) {
+            const extraCount = allPhotos.length - 2;
+            previewMediaHtml = `
+              <div class="card-preview-media preview-pair">
+                <div class="preview-img-wrap">
+                  <img src="${escapeHtml(allPhotos[0].url)}" alt="${escapeHtml(allPhotos[0].caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                </div>
+                <div class="preview-img-wrap">
+                  <img src="${escapeHtml(allPhotos[1].url)}" alt="${escapeHtml(allPhotos[1].caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                  ${extraCount > 0 ? `<span class="more-photos-badge">📷 +${extraCount} more</span>` : ""}
+                </div>
+              </div>
+            `;
+          }
+
+          // Admin Actions
+          const actionsHtml = isAdmin ? `
+            <div class="story-actions">
+              <button class="btn-icon" onclick="event.stopPropagation(); editStory('${story.id}')" title="Edit story and photos">✎ Edit</button>
+              <button class="btn-icon delete" onclick="event.stopPropagation(); deleteStory('${story.id}')" title="Delete story">✕</button>
             </div>
           ` : "";
 
-          const actionsHtml = isAdmin ? `
-            <div class="story-actions">
-              <button class="btn-icon" onclick="editStory('${story.id}')" title="Edit story and photos">✎ Edit</button>
-              <button class="btn-icon delete" onclick="deleteStory('${story.id}')" title="Delete story">✕</button>
+          // Full Photo Gallery in Expanded View (all photos, up to 4)
+          let galleryClass = "gallery-single";
+          if (allPhotos.length === 2) galleryClass = "gallery-pair";
+          if (allPhotos.length === 3) galleryClass = "gallery-three";
+          if (allPhotos.length >= 4) galleryClass = "gallery-four";
+
+          const galleryHtml = allPhotos.length > 0 ? `
+            <div class="expanded-gallery-wrap">
+              <div class="expanded-gallery-header">
+                <span class="gallery-title">Field Photographs (${allPhotos.length})</span>
+                <span class="gallery-subtitle">Click photo to zoom</span>
+              </div>
+              <div class="photo-gallery ${galleryClass}">
+                ${allPhotos.map((p, idx) => `
+                  <figure class="photo-figure">
+                    <div class="photo-thumb-wrap" onclick="event.stopPropagation(); openLightbox('${escapeHtml(p.url)}', '${escapeHtml(p.caption || '')}')" title="Click to view full size">
+                      <img class="photo-img" src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption || story.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                      <div class="photo-zoom-hint">🔍 Expand</div>
+                    </div>
+                    ${p.caption ? `<figcaption class="photo-caption">${escapeHtml(p.caption)}</figcaption>` : ""}
+                  </figure>
+                `).join("")}
+              </div>
             </div>
           ` : "";
 
           return `
-            <article class="story-card" id="story-${story.id}">
-              <header class="story-header">
-                <div class="story-meta">
-                  <span class="date-badge">📅 ${formattedDate}</span>
-                  <span class="location-badge">📍 ${escapeHtml(story.location || "")}</span>
+            <article class="story-card is-collapsed" id="story-${story.id}" onclick="handleCardClick('${story.id}', event)" aria-expanded="false">
+              <!-- Featured Preview Media (1 or 2 photos) -->
+              ${previewMediaHtml}
+
+              <!-- Main Card Body -->
+              <div class="card-inner">
+                <header class="story-header">
+                  <div class="story-meta">
+                    <span class="date-badge">📅 ${formattedDate}</span>
+                    <span class="location-badge">📍 ${escapeHtml(story.location || "")}</span>
+                    ${allPhotos.length > 0 ? `<span class="photo-count-badge">📷 ${allPhotos.length} ${allPhotos.length === 1 ? 'photo' : 'photos'}</span>` : ""}
+                  </div>
+                  ${actionsHtml}
+                </header>
+
+                <h2 class="story-title">${escapeHtml(story.title)}</h2>
+
+                <!-- First 1-2 lines excerpt from the vlog -->
+                <p class="card-excerpt">${escapeHtml(excerpt)}</p>
+
+                <!-- Card CTA Bar -->
+                <div class="card-cta-bar">
+                  <button type="button" class="btn-read-toggle" onclick="event.stopPropagation(); toggleStoryCard('${story.id}')" aria-label="Toggle story expansion">
+                    <span class="read-text">Read Full Story</span>
+                    <span class="read-arrow">↓</span>
+                  </button>
+                  <span class="read-time-hint">${readTime} min read</span>
                 </div>
-                ${actionsHtml}
-              </header>
 
-              <h2 class="story-title">${escapeHtml(story.title)}</h2>
-              <div class="story-content">${formatStoryContent(story.content)}</div>
+                <!-- Expanded Full Blog Narrative & Gallery -->
+                <div class="card-expanded-content" onclick="event.stopPropagation()">
+                  <div class="story-content-divider"></div>
 
-              ${galleryHtml}
+                  <div class="story-content">
+                    ${formatStoryContent(story.content)}
+                  </div>
+
+                  ${galleryHtml}
+
+                  <div class="card-collapse-wrap">
+                    <button type="button" class="btn-collapse-story" onclick="event.stopPropagation(); toggleStoryCard('${story.id}')">
+                      <span>↑ Collapse Story</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </article>
           `;
         }).join("");
@@ -1544,9 +1964,41 @@
           .replace(/'/g, "&#039;");
       }
 
-      // 5. Dynamic Photo Row Builder in Modal
+      // 5. Dynamic Photo Row Builder in Modal (Cap at 4 photos)
+      const MAX_PHOTOS = 4;
+
+      function updatePhotoCounter() {
+        const container = document.getElementById("photosListContainer");
+        const count = container ? container.querySelectorAll(".photo-row-item").length : 0;
+        const btnAdd = document.getElementById("btnAddPhotoRow");
+        const notice = document.getElementById("photoCountNotice");
+
+        if (notice) {
+          notice.textContent = `(${count}/${MAX_PHOTOS})`;
+        }
+        if (btnAdd) {
+          if (count >= MAX_PHOTOS) {
+            btnAdd.disabled = true;
+            btnAdd.style.opacity = "0.5";
+            btnAdd.style.cursor = "not-allowed";
+            btnAdd.title = "Maximum 4 photos allowed per blog post";
+          } else {
+            btnAdd.disabled = false;
+            btnAdd.style.opacity = "1";
+            btnAdd.style.cursor = "pointer";
+            btnAdd.title = "Add another photo";
+          }
+        }
+      }
+
       function addPhotoRow(url = "", caption = "") {
         const container = document.getElementById("photosListContainer");
+        const currentCount = container.querySelectorAll(".photo-row-item").length;
+        if (currentCount >= MAX_PHOTOS) {
+          alert("Maximum 4 photos allowed per blog post.");
+          return;
+        }
+
         const rowId = "photo-row-" + Date.now() + "-" + Math.floor(Math.random() * 1000);
 
         const row = document.createElement("div");
@@ -1559,7 +2011,7 @@
             <input class="form-input photo-url-input" type="url" placeholder="Photo URL (GitHub raw, Imgur, or direct link)" value="${escapeHtml(url)}" style="padding: 6px 10px; font-size: 12.5px;" />
             <input class="form-input photo-caption-input" type="text" placeholder="Photo Caption (e.g. Sunset over the pass)" value="${escapeHtml(caption)}" style="padding: 6px 10px; font-size: 12px;" />
           </div>
-          <button type="button" class="btn-del-photo" onclick="document.getElementById('${rowId}').remove()" title="Remove photo">✕</button>
+          <button type="button" class="btn-del-photo" title="Remove photo">✕</button>
         `;
 
         const urlInput = row.querySelector(".photo-url-input");
@@ -1569,7 +2021,14 @@
           previewImg.src = val ? val : PREVIEW_THUMB;
         });
 
+        const delBtn = row.querySelector(".btn-del-photo");
+        delBtn.addEventListener("click", () => {
+          row.remove();
+          updatePhotoCounter();
+        });
+
         container.appendChild(row);
+        updatePhotoCounter();
       }
 
       // 5b. Rich Text Editor Initialization and Controls
@@ -1704,8 +2163,9 @@
           if (hiddenInput && editor) hiddenInput.value = editor.innerHTML;
 
           if (Array.isArray(storyToEdit.photos)) {
-            storyToEdit.photos.forEach((p) => addPhotoRow(p.url, p.caption));
+            storyToEdit.photos.slice(0, MAX_PHOTOS).forEach((p) => addPhotoRow(p.url, p.caption));
           }
+          updatePhotoCounter();
         } else {
           modalTitle.textContent = "New Travel Story";
           document.getElementById("storyForm").reset();
@@ -1716,6 +2176,7 @@
           if (hiddenInput) hiddenInput.value = "";
           // Provide 1 empty photo row ready to use
           addPhotoRow();
+          updatePhotoCounter();
         }
 
         modal.classList.add("active");
@@ -1787,10 +2248,11 @@
         const visit_date = document.getElementById("storyVisitDate").value;
         const location = document.getElementById("storyLocation").value.trim();
 
-        // Collect photos
+        // Collect photos (strictly capped at MAX_PHOTOS = 4)
         const photoRows = document.querySelectorAll(".photo-row-item");
         const photos = [];
         photoRows.forEach((row) => {
+          if (photos.length >= MAX_PHOTOS) return;
           const u = row.querySelector(".photo-url-input").value.trim();
           const c = row.querySelector(".photo-caption-input").value.trim();
           if (u) {
