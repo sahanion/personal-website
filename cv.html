@@ -16,12 +16,12 @@
         --paper: #EDE5AB;
         --ink: #392D2F;
         --muted: #5E5B6E;
-        --line: rgba(57, 45, 47, 0.15);
-        --accent: #479A68;
-        --accent-soft: rgba(71, 154, 104, 0.15);
+        --line: rgba(57, 45, 47, 0.16);
+        --accent: #392D2F;
+        --accent-soft: rgba(57, 45, 47, 0.10);
         --secondary: #9497B3;
-        --secondary-soft: rgba(148, 151, 179, 0.18);
-        --contrast: #392D2F;
+        --secondary-soft: rgba(148, 151, 179, 0.20);
+        --highlights: #392D2F;
         --card-bg: rgba(255, 255, 255, 0.52);
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
@@ -58,8 +58,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(71, 154, 104, 0.08), transparent 28rem),
-          radial-gradient(circle at 12% 88%, rgba(148, 151, 179, 0.16), transparent 26rem);
+          radial-gradient(circle at 88% 14%, rgba(148, 151, 179, 0.18), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(57, 45, 47, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -1057,13 +1057,13 @@
                 const py = y * CELL_SIZE + 1;
                 const size = CELL_SIZE - 2;
 
-                // Color palette transitioning from highlights green to secondary slate and contrast espresso
+                // Color palette: highlights #392D2F, secondary #9497B3, and muted periwinkle
                 if (age <= 2) {
-                  ctx.fillStyle = "rgba(71, 154, 104, 0.88)"; // --accent/highlights (#479A68)
+                  ctx.fillStyle = "rgba(57, 45, 47, 0.90)"; // highlights (#392D2F)
                 } else if (age <= 6) {
-                  ctx.fillStyle = "rgba(148, 151, 179, 0.85)"; // secondary slate periwinkle (#9497B3)
+                  ctx.fillStyle = "rgba(148, 151, 179, 0.85)"; // secondary (#9497B3)
                 } else {
-                  ctx.fillStyle = "rgba(57, 45, 47, 0.72)"; // contrast espresso (#392D2F)
+                  ctx.fillStyle = "rgba(112, 116, 148, 0.55)"; // soft slate periwinkle
                 }
 
                 if (ctx.roundRect) {

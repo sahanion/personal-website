@@ -16,11 +16,13 @@
         --paper: #EDE5AB;
         --ink: #392D2F;
         --muted: #5E5B6E;
-        --line: rgba(57, 45, 47, 0.15);
-        --accent: #479A68;
-        --accent-soft: rgba(71, 154, 104, 0.14);
+        --line: rgba(57, 45, 47, 0.16);
+        --accent: #392D2F;
+        --accent-soft: rgba(57, 45, 47, 0.10);
         --secondary: #9497B3;
-        --contrast: #392D2F;
+        --secondary-soft: rgba(148, 151, 179, 0.20);
+        --highlights: #392D2F;
+        --card-bg: rgba(255, 255, 255, 0.52);
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
         --mono: "DM Mono", monospace;
@@ -56,8 +58,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(71, 154, 104, 0.08), transparent 28rem),
-          radial-gradient(circle at 12% 88%, rgba(148, 151, 179, 0.12), transparent 26rem);
+          radial-gradient(circle at 88% 14%, rgba(148, 151, 179, 0.18), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(57, 45, 47, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -119,7 +121,7 @@
       }
 
       .brand:hover {
-        color: var(--accent);
+        color: var(--secondary);
       }
 
       .field {
@@ -224,7 +226,7 @@
         width: 114%;
         height: 114%;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(71, 154, 104, 0.20) 0%, rgba(148, 151, 179, 0.14) 50%, transparent 70%);
+        background: radial-gradient(circle, rgba(148, 151, 179, 0.28) 0%, rgba(57, 45, 47, 0.12) 50%, transparent 70%);
         filter: blur(16px);
         z-index: 0;
         pointer-events: none;
@@ -241,7 +243,7 @@
         box-shadow:
           0 0 0 1px var(--line),
           0 0 0 8px var(--accent-soft),
-          0 14px 32px -10px rgba(57, 45, 47, 0.16);
+          0 14px 32px -10px rgba(57, 45, 47, 0.18);
         background: #EDE5AB;
         transition: box-shadow 300ms ease, transform 300ms ease;
       }
@@ -251,7 +253,7 @@
         box-shadow:
           0 0 0 1px var(--accent),
           0 0 0 10px var(--accent-soft),
-          0 18px 38px -8px rgba(57, 45, 47, 0.24);
+          0 18px 38px -8px rgba(57, 45, 47, 0.26);
       }
 
       .portrait-photo {
@@ -325,7 +327,7 @@
       }
 
       .contact-card:hover .card-value {
-        color: var(--accent);
+        color: var(--secondary);
       }
 
       .social-heading {
@@ -379,8 +381,8 @@
 
       .social-pill:hover {
         border-color: var(--accent);
-        color: var(--contrast);
-        background: rgba(71, 154, 104, 0.16);
+        color: var(--accent);
+        background: rgba(148, 151, 179, 0.22);
         transform: translateY(-2px);
       }
 
@@ -427,6 +429,7 @@
 
       .nav-link.active {
         color: var(--accent);
+        font-weight: 600;
       }
 
       .nav-link:focus-visible,

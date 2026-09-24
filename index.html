@@ -16,12 +16,12 @@
         --paper: #EDE5AB;
         --ink: #392D2F;
         --muted: #5E5B6E;
-        --line: rgba(57, 45, 47, 0.15);
-        --accent: #479A68;
-        --accent-soft: rgba(71, 154, 104, 0.15);
+        --line: rgba(57, 45, 47, 0.16);
+        --accent: #392D2F;
+        --accent-soft: rgba(57, 45, 47, 0.10);
         --secondary: #9497B3;
-        --secondary-soft: rgba(148, 151, 179, 0.18);
-        --contrast: #392D2F;
+        --secondary-soft: rgba(148, 151, 179, 0.20);
+        --highlights: #392D2F;
         --card-bg: rgba(255, 255, 255, 0.52);
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
@@ -43,8 +43,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(71, 154, 104, 0.08), transparent 28rem),
-          radial-gradient(circle at 12% 88%, rgba(148, 151, 179, 0.16), transparent 26rem);
+          radial-gradient(circle at 88% 14%, rgba(148, 151, 179, 0.18), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(57, 45, 47, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -329,12 +329,12 @@
         transition: color 200ms ease;
       }
       .brand:hover {
-        color: var(--accent);
+        color: var(--secondary);
       }
 
       .nav-link.active {
         color: var(--accent);
-        font-weight: 500;
+        font-weight: 600;
       }
 
       .interest:focus-visible,
@@ -446,7 +446,7 @@
 
       .molecule-art .nucleus-core {
         fill: url(#nucleus-glow);
-        opacity: 0.85;
+        opacity: 0.90;
         stroke: #392D2F;
         stroke-width: 1.2;
       }
@@ -454,7 +454,7 @@
       .molecule-art .nucleus-shell {
         fill: none;
         opacity: 0.75;
-        stroke: #479A68;
+        stroke: #9497B3;
         stroke-width: 1;
       }
 
@@ -511,11 +511,11 @@
       <div class="orbital-field">
         <svg class="molecule-art" viewBox="0 0 520 520" role="img" aria-label="Carbon-12 electron-density model: 1s2, 2s2, 2p2">
           <defs>
-            <radialGradient id="cloud-1s"><stop offset="0%" stop-color="#479A68" stop-opacity="0.38" /><stop offset="100%" stop-color="#479A68" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-1s"><stop offset="0%" stop-color="#392D2F" stop-opacity="0.30" /><stop offset="100%" stop-color="#392D2F" stop-opacity="0" /></radialGradient>
             <radialGradient id="cloud-2s"><stop offset="46%" stop-color="#9497B3" stop-opacity="0" /><stop offset="70%" stop-color="#9497B3" stop-opacity="0.32" /><stop offset="100%" stop-color="#9497B3" stop-opacity="0" /></radialGradient>
-            <radialGradient id="cloud-pink"><stop offset="0%" stop-color="#479A68" stop-opacity="0.30" /><stop offset="100%" stop-color="#69b586" stop-opacity="0" /></radialGradient>
-            <radialGradient id="cloud-mint"><stop offset="0%" stop-color="#9497B3" stop-opacity="0.32" /><stop offset="100%" stop-color="#adb0cc" stop-opacity="0" /></radialGradient>
-            <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#554648" /><stop offset="60%" stop-color="#392D2F" /><stop offset="100%" stop-color="#241c1e" /></radialGradient>
+            <radialGradient id="cloud-pink"><stop offset="0%" stop-color="#392D2F" stop-opacity="0.25" /><stop offset="100%" stop-color="#9497B3" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-mint"><stop offset="0%" stop-color="#9497B3" stop-opacity="0.30" /><stop offset="100%" stop-color="#392D2F" stop-opacity="0" /></radialGradient>
+            <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#554648" /><stop offset="60%" stop-color="#392D2F" /><stop offset="100%" stop-color="#241C1E" /></radialGradient>
             <filter id="soft-cloud"><feGaussianBlur stdDeviation="2" /></filter>
           </defs>
           <g class="orbital-pulse orbital-pulse-1">
