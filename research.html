@@ -802,20 +802,20 @@
         .footer-rule { max-width: 50px; margin: 0 8px; }
       }
 
-      /* Boids Background Simulation (Wide atmospheric frame with right 20% zero-visibility fade) */
+      /* Boids Background Simulation (Right 30% background with left fade) */
       .boids-simulation-canvas-wrap {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
-        width: clamp(520px, 75vw, 1300px);
+        width: clamp(280px, 30vw, 460px);
         height: 100vh;
         z-index: 2;
         pointer-events: none;
         overflow: hidden;
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 15%, rgba(0, 0, 0, 0.7) 35%, black 50%, black 65%, rgba(0, 0, 0, 0.25) 76%, transparent 80%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 15%, rgba(0, 0, 0, 0.7) 35%, black 50%, black 65%, rgba(0, 0, 0, 0.25) 76%, transparent 80%, transparent 100%);
-        opacity: 0.75;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
+        opacity: 0.72;
       }
 
       #boidsCanvas {
@@ -826,8 +826,8 @@
 
       @media (max-width: 820px) {
         .boids-simulation-canvas-wrap {
-          width: 90vw;
-          opacity: 0.35;
+          width: 45vw;
+          opacity: 0.28;
         }
       }
 
@@ -1688,8 +1688,8 @@
         let animId = null;
 
         // Boid parameters (calm, organic bio-flocking)
-        const BOID_COUNT = 68;
-        const VISUAL_RANGE = 80;
+        const BOID_COUNT = 52;
+        const VISUAL_RANGE = 75;
         const PROTECTED_RANGE = 22;
         const CENTERING_FACTOR = 0.0006;
         const MATCHING_FACTOR = 0.04;
@@ -1729,7 +1729,7 @@
 
         class Boid {
           constructor() {
-            this.x = Math.random() * (width || 500);
+            this.x = Math.random() * (width || 300);
             this.y = Math.random() * (height || 600);
             const angle = Math.random() * Math.PI * 2;
             const speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
@@ -1763,18 +1763,18 @@
             if (this.y < 24) this.vy += TURN_FACTOR;
             if (this.y > height - 24) this.vy -= TURN_FACTOR;
 
-            // Right boundary: soft turn back as it enters the zero-visibility zone (past 80%)
-            if (this.x > width * 0.86) this.vx -= TURN_FACTOR * 1.25;
+            // Right boundary: soft turn back
+            if (this.x > width - 24) this.vx -= TURN_FACTOR;
 
             // Left boundary (fade area): soft steering to turn back right
-            if (this.x < width * 0.12) this.vx += TURN_FACTOR * 1.35;
+            if (this.x < 32) this.vx += TURN_FACTOR * 1.5;
 
             // Gentle wrap if pushed far out
             if (this.x < -30) {
-              this.x = width * 0.82;
+              this.x = width + 10;
               this.trail = [];
             } else if (this.x > width + 30) {
-              this.x = width * 0.15;
+              this.x = -10;
               this.trail = [];
             }
             if (this.y < -30) {
