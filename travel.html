@@ -3017,23 +3017,7 @@
         return baseY + wave;
       }
 
-      // Calm Wayfarers traversing smoothly ALONG contour trails
-      const WAYFARER_COUNT = 8;
-      const wayfarers = [];
-
-      for (let i = 0; i < WAYFARER_COUNT; i++) {
-        wayfarers.push({
-          contourIdx: i % CONTOUR_COUNT,
-          x: Math.random() * (width || 400),
-          speed: (0.26 + Math.random() * 0.22) * (i % 2 === 0 ? 1 : -1),
-          size: 1.8 + Math.random() * 0.8,
-          color: i % 3 === 0 ? "rgba(160, 106, 66, 0.85)" : "rgba(47, 106, 79, 0.85)",
-          glow: i % 3 === 0 ? "rgba(160, 106, 66, 0.2)" : "rgba(47, 106, 79, 0.2)",
-          trail: []
-        });
-      }
-
-      // Survey Waypoint Beacons
+      // Fixed Survey Waypoint Markers (Stationary in position)
       const waypoints = [
         { u: 0.72, v: 0.22, name: "▲ PASS 2,840M" },
         { u: 0.48, v: 0.54, name: "▲ RIDGE BASIN" },
@@ -3044,9 +3028,9 @@
         if (!isVisible || width === 0 || height === 0) return;
         ctx.clearRect(0, 0, width, height);
 
-        time += 0.007;
+        time += 0.005;
 
-        // 1. Subtle Cartographic Grid Guide Dots
+        // 1. Subtle Cartographic Grid Guide Dots (Fixed in position)
         ctx.fillStyle = "rgba(27, 36, 30, 0.05)";
         const DOT_GAP = 32;
         for (let x = DOT_GAP / 2; x < width; x += DOT_GAP) {
@@ -3099,20 +3083,19 @@
         }
         ctx.setLineDash([]);
 
-        // 3. Waypoint Beacons with Pulsing Radar Rings
-        waypoints.forEach((wp, wIdx) => {
+        // 3. Fixed Waypoint Dots (Stationary in position - never moving)
+        waypoints.forEach((wp) => {
           const wx = wp.u * width;
           const wy = wp.v * height;
-          const pulse = (time * 1.6 + wIdx * 1.2) % 2;
 
-          // Pulse ring
+          // Static outer ring
           ctx.beginPath();
-          ctx.arc(wx, wy, 4 + pulse * 14, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(47, 106, 79, ${Math.max(0, 0.35 - pulse * 0.17)})`;
+          ctx.arc(wx, wy, 5, 0, Math.PI * 2);
+          ctx.strokeStyle = "rgba(47, 106, 79, 0.35)";
           ctx.lineWidth = 0.8;
           ctx.stroke();
 
-          // Center pin
+          // Static center pinpoint dot
           ctx.beginPath();
           ctx.arc(wx, wy, 2.4, 0, Math.PI * 2);
           ctx.fillStyle = "#2F6A4F";
@@ -3123,89 +3106,6 @@
           ctx.font = "8px 'DM Mono', monospace";
           ctx.fillText(wp.name, wx + 8, wy + 3);
         });
-
-        // 4. Wayfarers traversing smoothly ALONG contour curves
-        wayfarers.forEach((wf) => {
-          wf.x += wf.speed;
-
-          // Boundary wrap with complete trail reset (prevents screen-spanning streak lines)
-          if (wf.speed > 0 && wf.x > width + 14) {
-            wf.x = -14;
-            wf.trail = [];
-          } else if (wf.speed < 0 && wf.x < -14) {
-            wf.x = width + 14;
-            wf.trail = [];
-          }
-
-          // Evaluate exact elevation on contour line
-          const cy = getElevationY(wf.contourIdx, wf.x, time);
-
-          // Trail history
-          wf.trail.push({ x: wf.x, y: cy });
-          if (wf.trail.length > 8) wf.trail.shift();
-
-          // Draw fading trail segments along the ridge
-          if (wf.trail.length > 1) {
-            for (let t = 1; t < wf.trail.length; t++) {
-              const p1 = wf.trail[t - 1];
-              const p2 = wf.trail[t];
-              const alpha = (t / wf.trail.length) * 0.32;
-              ctx.beginPath();
-              ctx.moveTo(p1.x, p1.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.strokeStyle = wf.color.replace("0.85", alpha.toFixed(3));
-              ctx.lineWidth = wf.size * 0.75;
-              ctx.stroke();
-            }
-          }
-
-          // Soft ambient glow halo
-          ctx.beginPath();
-          ctx.arc(wf.x, cy, wf.size * 2.2, 0, Math.PI * 2);
-          ctx.fillStyle = wf.glow;
-          ctx.fill();
-
-          // Core lantern dot
-          ctx.beginPath();
-          ctx.arc(wf.x, cy, wf.size, 0, Math.PI * 2);
-          ctx.fillStyle = wf.color;
-          ctx.fill();
-        });
-
-        // 5. Interactive Surveyor Crosshair at Pointer Position
-        if (pointer.active) {
-          ctx.save();
-          const px = pointer.x;
-          const py = pointer.y;
-
-          // Outer dashed surveyor ring
-          ctx.beginPath();
-          ctx.arc(px, py, 18, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(47, 106, 79, 0.4)";
-          ctx.lineWidth = 0.8;
-          ctx.setLineDash([2, 3]);
-          ctx.stroke();
-
-          // Reticle crosshair
-          ctx.beginPath();
-          ctx.moveTo(px - 10, py);
-          ctx.lineTo(px + 10, py);
-          ctx.moveTo(px, py - 10);
-          ctx.lineTo(px, py + 10);
-          ctx.strokeStyle = "rgba(160, 106, 66, 0.6)";
-          ctx.lineWidth = 0.8;
-          ctx.setLineDash([]);
-          ctx.stroke();
-
-          // Coordinates readout HUD
-          ctx.fillStyle = "rgba(47, 106, 79, 0.75)";
-          ctx.font = "8px 'DM Mono', monospace";
-          const mockLat = (27 + (py / height) * 0.8).toFixed(2);
-          const mockLng = (88 + (px / width) * 0.9).toFixed(2);
-          ctx.fillText(`GPS: ${mockLat}°N · ${mockLng}°E`, px + 14, py - 6);
-          ctx.fillText(`ELEV: ~${Math.floor(1800 + (py / height) * 1400)}M`, px + 14, py + 6);
-          ctx.restore();
-        }
 
         animationFrameId = requestAnimationFrame(draw);
       }
