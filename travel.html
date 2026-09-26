@@ -457,35 +457,7 @@
         100% { transform: scale(2.2); opacity: 0; }
       }
 
-      /* Field Journal Expedition Stamp on Cards */
-      .card-expedition-seal {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 2px 8px;
-        border-radius: 4px;
-        border: 1px dashed rgba(47, 106, 79, 0.35);
-        background: rgba(217, 229, 214, 0.35);
-        color: #1E4231;
-        font-family: var(--mono);
-        font-size: 9px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        font-weight: 600;
-        margin-left: auto;
-        user-select: none;
-        transform: rotate(-1.5deg);
-        transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
-      }
-      .story-card:hover .card-expedition-seal {
-        transform: rotate(0deg) scale(1.03);
-        border-color: var(--accent);
-        background: var(--accent-soft);
-      }
-      .seal-icon {
-        color: var(--accent);
-        font-size: 10px;
-      }
+
 
       /* Empty State Illustration */
       .empty-feed-art {
@@ -2473,10 +2445,6 @@
                     <span class="date-badge">📅 ${formattedDate}</span>
                     <span class="location-badge">📍 ${escapeHtml(story.location || "")}</span>
                     ${allPhotos.length > 0 ? `<span class="photo-count-badge">📷 ${allPhotos.length} ${allPhotos.length === 1 ? 'photo' : 'photos'}</span>` : ""}
-                    <div class="card-expedition-seal" title="Field Log Record">
-                      <span class="seal-icon">✦</span>
-                      <span>EXPEDITION #${stories.length - idx}</span>
-                    </div>
                   </div>
                   ${actionsHtml}
                 </header>
