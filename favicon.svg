@@ -1,12 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#18201e" />
+  <rect width="64" height="64" rx="16" fill="#1B241E" />
   <!-- Outer orbital ring -->
-  <circle cx="32" cy="32" r="22" fill="none" stroke="#cae9ed" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.6" />
-  <!-- P-orbital 1 -->
-  <ellipse cx="32" cy="32" rx="20" ry="9" fill="none" stroke="#5ba8b8" stroke-width="2" transform="rotate(-30 32 32)" />
-  <!-- P-orbital 2 -->
-  <ellipse cx="32" cy="32" rx="20" ry="9" fill="none" stroke="#ffae90" stroke-width="2" transform="rotate(30 32 32)" />
+  <circle cx="32" cy="32" r="22" fill="none" stroke="#D9E5D6" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.65" />
+  <!-- P-orbital 1 (Forest moss) -->
+  <ellipse cx="32" cy="32" rx="20" ry="9" fill="none" stroke="#2F6A4F" stroke-width="2" transform="rotate(-30 32 32)" />
+  <!-- P-orbital 2 (Cedar bark) -->
+  <ellipse cx="32" cy="32" rx="20" ry="9" fill="none" stroke="#A06A42" stroke-width="2" transform="rotate(30 32 32)" />
   <!-- Nucleus core -->
-  <circle cx="32" cy="32" r="5" fill="#ffe3a3" />
+  <circle cx="32" cy="32" r="5" fill="#D9E5D6" />
 </svg>
-
