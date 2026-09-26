@@ -13,16 +13,20 @@
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
 
       :root {
-        --paper: #FFFAFA;
-        --ink: #4A4A4A;
-        --muted: #767676;
-        --line: rgba(74, 74, 74, 0.12);
-        --accent: #F2C7C7;
-        --accent-soft: rgba(242, 199, 199, 0.35);
-        --highlights: #D5F3D8;
-        --highlights-soft: rgba(213, 243, 216, 0.45);
-        --second-accent: #4A4A4A;
-        --card-bg: rgba(255, 255, 255, 0.85);
+        --paper: #ffffff;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #e2e2dc;
+        --accent: #5ba8b8;
+        --accent-soft: #cae9ed;
+        --pastel-peach: #ffc7b2;
+        --pastel-blue: #bfe4f0;
+        --pastel-lilac: #dbccf5;
+        --pastel-yellow: #ffe3a3;
+        --pastel-mint: #bde8d0;
+        --coral: #d7765d;
+        --blue: #6f8ca6;
+        --lilac: #9a8ab7;
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
         --mono: "DM Mono", monospace;
@@ -43,8 +47,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(242, 199, 199, 0.22), transparent 30rem),
-          radial-gradient(circle at 12% 88%, rgba(213, 243, 216, 0.26), transparent 28rem);
+          radial-gradient(circle at 88% 14%, rgba(255, 199, 178, 0.08), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(191, 228, 240, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -96,7 +100,7 @@
         z-index: 20;
         grid-template-columns: 1fr auto 1fr;
         padding: 24px clamp(24px, 5vw, 80px) 16px;
-        background: rgba(255, 250, 250, 0.92);
+        background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--line);
@@ -136,7 +140,7 @@
         align-items: center;
         gap: 12px;
         margin: 0 0 22px;
-        color: var(--second-accent);
+        color: var(--accent);
         font-family: var(--mono);
         font-size: 10px;
         letter-spacing: 0.11em;
@@ -312,8 +316,8 @@
         height: 6px;
         flex: 0 0 auto;
         border-radius: 50%;
-        background: var(--highlights);
-        box-shadow: 0 0 0 4px var(--highlights-soft);
+        background: var(--accent);
+        box-shadow: 0 0 0 4px var(--accent-soft);
         content: "";
         transition: background 300ms ease, box-shadow 300ms ease;
       }
@@ -329,18 +333,17 @@
         transition: color 200ms ease;
       }
       .brand:hover {
-        color: var(--second-accent);
+        color: var(--accent);
       }
 
       .nav-link.active {
-        color: var(--ink);
-        font-weight: 600;
-        border-bottom: 2px solid var(--accent);
+        color: var(--accent);
+        font-weight: 500;
       }
 
       .interest:focus-visible,
       .nav-link:focus-visible {
-        outline: 1px solid var(--second-accent);
+        outline: 1px solid var(--accent);
         outline-offset: 4px;
       }
 
@@ -354,7 +357,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 16px clamp(24px, 5vw, 80px) 20px;
-        background: rgba(255, 250, 250, 0.92);
+        background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid var(--line);
@@ -396,7 +399,7 @@
 
       .molecule-art .orbital-guide {
         fill: none;
-        stroke: rgba(74, 74, 74, 0.18);
+        stroke: color-mix(in srgb, var(--accent) 38%, transparent);
         stroke-width: 1.2;
       }
 
@@ -447,21 +450,21 @@
 
       .molecule-art .nucleus-core {
         fill: url(#nucleus-glow);
-        opacity: 0.85;
-        stroke: var(--second-accent);
-        stroke-width: 1.2;
+        opacity: 0.52;
+        stroke: color-mix(in srgb, #ae87cd 52%, transparent);
+        stroke-width: 1;
       }
 
       .molecule-art .nucleus-shell {
         fill: none;
-        opacity: 0.65;
-        stroke: var(--second-accent);
+        opacity: 0.42;
+        stroke: #ae87cd;
         stroke-width: 0.8;
       }
 
       .molecule-art .atom-symbol {
-        fill: var(--second-accent);
-        opacity: 0.9;
+        fill: #755d91;
+        opacity: 0.7;
         font-family: var(--mono);
         font-size: 22px;
         letter-spacing: 0.04em;
@@ -511,12 +514,12 @@
       <div class="orbital-field">
         <svg class="molecule-art" viewBox="0 0 520 520" role="img" aria-label="Carbon-12 electron-density model: 1s2, 2s2, 2p2">
           <defs>
-            <radialGradient id="cloud-1s"><stop offset="0%" stop-color="#F2C7C7" stop-opacity="0.85" /><stop offset="100%" stop-color="#F2C7C7" stop-opacity="0" /></radialGradient>
-            <radialGradient id="cloud-2s"><stop offset="46%" stop-color="#D5F3D8" stop-opacity="0" /><stop offset="70%" stop-color="#bfe8c3" stop-opacity="0.65" /><stop offset="100%" stop-color="#D5F3D8" stop-opacity="0" /></radialGradient>
-            <radialGradient id="cloud-pink"><stop offset="0%" stop-color="#F2C7C7" stop-opacity="0.88" /><stop offset="100%" stop-color="#F2C7C7" stop-opacity="0" /></radialGradient>
-            <radialGradient id="cloud-mint"><stop offset="0%" stop-color="#b8eac0" stop-opacity="0.85" /><stop offset="100%" stop-color="#D5F3D8" stop-opacity="0" /></radialGradient>
-            <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#FFFAFA" /><stop offset="55%" stop-color="#F2C7C7" /><stop offset="100%" stop-color="#D5F3D8" /></radialGradient>
-            <filter id="soft-cloud"><feGaussianBlur stdDeviation="2.5" /></filter>
+            <radialGradient id="cloud-1s"><stop offset="0%" stop-color="#8fd8ea" stop-opacity="0.9" /><stop offset="100%" stop-color="#bfe4f0" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-2s"><stop offset="46%" stop-color="#dbcdf5" stop-opacity="0" /><stop offset="70%" stop-color="#c4a9ea" stop-opacity="0.68" /><stop offset="100%" stop-color="#dbcdf5" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-pink"><stop offset="0%" stop-color="#ffae90" stop-opacity="0.92" /><stop offset="100%" stop-color="#ffc7b2" stop-opacity="0" /></radialGradient>
+            <radialGradient id="cloud-mint"><stop offset="0%" stop-color="#8edbb1" stop-opacity="0.9" /><stop offset="100%" stop-color="#bde8d0" stop-opacity="0" /></radialGradient>
+            <radialGradient id="nucleus-glow"><stop offset="0%" stop-color="#fff1b8" /><stop offset="48%" stop-color="#f2c9e8" /><stop offset="100%" stop-color="#c6a8e9" /></radialGradient>
+            <filter id="soft-cloud"><feGaussianBlur stdDeviation="2" /></filter>
           </defs>
           <g class="orbital-pulse orbital-pulse-1">
             <circle class="orbital-guide" cx="260" cy="260" r="82" />

@@ -13,16 +13,17 @@
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
 
       :root {
-        --paper: #FFFAFA;
-        --ink: #4A4A4A;
-        --muted: #767676;
-        --line: rgba(74, 74, 74, 0.12);
-        --accent: #F2C7C7;
-        --accent-soft: rgba(242, 199, 199, 0.35);
-        --highlights: #D5F3D8;
-        --highlights-soft: rgba(213, 243, 216, 0.45);
-        --second-accent: #4A4A4A;
-        --card-bg: rgba(255, 255, 255, 0.85);
+        --paper: #ffffff;
+        --ink: #18201e;
+        --muted: #707670;
+        --line: #e2e2dc;
+        --accent: #5ba8b8;
+        --accent-soft: #cae9ed;
+        --pastel-peach: #ffc7b2;
+        --pastel-blue: #bfe4f0;
+        --pastel-lilac: #dbccf5;
+        --pastel-yellow: #ffe3a3;
+        --pastel-mint: #bde8d0;
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
         --mono: "DM Mono", monospace;
@@ -58,8 +59,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(242, 199, 199, 0.22), transparent 30rem),
-          radial-gradient(circle at 12% 88%, rgba(213, 243, 216, 0.26), transparent 28rem);
+          radial-gradient(circle at 88% 14%, rgba(255, 199, 178, 0.08), transparent 28rem),
+          radial-gradient(circle at 12% 88%, rgba(191, 228, 240, 0.08), transparent 26rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -109,7 +110,7 @@
         z-index: 20;
         grid-template-columns: 1fr auto 1fr;
         padding: 24px clamp(24px, 5vw, 80px) 16px;
-        background: rgba(255, 250, 250, 0.92);
+        background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--line);
@@ -121,7 +122,7 @@
       }
 
       .brand:hover {
-        color: var(--second-accent);
+        color: var(--accent);
       }
 
       .field {
@@ -172,7 +173,7 @@
         align-items: center;
         gap: 12px;
         margin: 0 0 20px;
-        color: var(--second-accent);
+        color: var(--accent);
         font-family: var(--mono);
         font-size: 10px;
         letter-spacing: 0.11em;
@@ -226,7 +227,7 @@
         width: 114%;
         height: 114%;
         border-radius: 50%;
-        background: radial-gradient(circle, var(--accent-soft) 0%, rgba(213, 243, 216, 0.35) 50%, transparent 70%);
+        background: radial-gradient(circle, var(--accent-soft) 0%, rgba(255, 199, 178, 0.28) 50%, transparent 70%);
         filter: blur(16px);
         z-index: 0;
         pointer-events: none;
@@ -243,7 +244,7 @@
         box-shadow:
           0 0 0 1px var(--line),
           0 0 0 8px var(--accent-soft),
-          0 18px 40px -12px rgba(74, 74, 74, 0.16);
+          0 18px 40px -12px rgba(24, 32, 30, 0.16);
         background: var(--paper);
         transition: box-shadow 300ms ease, transform 300ms ease;
       }
@@ -251,9 +252,9 @@
       .portrait-frame:hover {
         transform: scale(1.025);
         box-shadow:
-          0 0 0 1px var(--second-accent),
-          0 0 0 10px var(--highlights-soft),
-          0 22px 46px -10px rgba(74, 74, 74, 0.22);
+          0 0 0 1px var(--accent),
+          0 0 0 10px var(--accent-soft),
+          0 22px 46px -10px rgba(24, 32, 30, 0.22);
       }
 
       .portrait-photo {
@@ -287,14 +288,14 @@
         padding: 16px 18px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 250, 244, 0.65);
         backdrop-filter: blur(8px);
         transition: border-color 240ms ease, transform 240ms ease, background 240ms ease;
       }
 
       .contact-card:hover {
-        border-color: var(--second-accent);
-        background: #FFFFFF;
+        border-color: var(--accent);
+        background: rgba(255, 255, 255, 0.9);
         transform: translateY(-2px);
       }
 
@@ -326,7 +327,7 @@
       }
 
       .contact-card:hover .card-value {
-        color: var(--second-accent);
+        color: var(--accent);
       }
 
       .social-heading {
@@ -353,7 +354,7 @@
         border: 1px solid var(--line);
         border-radius: 999px;
         color: var(--ink);
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(245, 244, 239, 0.7);
         backdrop-filter: blur(6px);
         font-family: var(--mono);
         font-size: 11px;
@@ -372,14 +373,14 @@
       }
 
       .social-pill .external-arrow {
-        color: var(--second-accent);
+        color: var(--accent);
         font-size: 12px;
         opacity: 0.75;
         transition: transform 220ms ease, opacity 220ms ease;
       }
 
       .social-pill:hover {
-        border-color: var(--second-accent);
+        border-color: var(--accent);
         color: var(--ink);
         background: var(--accent-soft);
         transform: translateY(-2px);
@@ -427,15 +428,13 @@
       }
 
       .nav-link.active {
-        color: var(--ink);
-        font-weight: 600;
-        border-bottom: 2px solid var(--accent);
+        color: var(--accent);
       }
 
       .nav-link:focus-visible,
       .contact-card:focus-visible,
       .social-pill:focus-visible {
-        outline: 1px solid var(--second-accent);
+        outline: 1px solid var(--accent);
         outline-offset: 4px;
       }
 
@@ -449,7 +448,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 16px clamp(24px, 5vw, 80px) 20px;
-        background: rgba(255, 250, 250, 0.92);
+        background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid var(--line);
