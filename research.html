@@ -13,17 +13,16 @@
       @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap");
 
       :root {
-        --paper: #ffffff;
-        --ink: #18201e;
-        --muted: #707670;
-        --line: #e2e2dc;
-        --accent: #5ba8b8;
-        --accent-soft: #cae9ed;
-        --pastel-peach: #ffc7b2;
-        --pastel-blue: #bfe4f0;
-        --pastel-lilac: #dbccf5;
-        --pastel-yellow: #ffe3a3;
-        --pastel-mint: #bde8d0;
+        --paper: #FFFAFA;
+        --ink: #4A4A4A;
+        --muted: #767676;
+        --line: rgba(74, 74, 74, 0.12);
+        --accent: #F2C7C7;
+        --accent-soft: rgba(242, 199, 199, 0.35);
+        --highlights: #D5F3D8;
+        --highlights-soft: rgba(213, 243, 216, 0.45);
+        --second-accent: #4A4A4A;
+        --card-bg: rgba(255, 255, 255, 0.85);
         --serif: "Instrument Serif", Georgia, serif;
         --sans: "Manrope", Arial, sans-serif;
         --mono: "DM Mono", monospace;
@@ -59,8 +58,8 @@
         color: var(--ink);
         background-color: var(--paper);
         background-image:
-          radial-gradient(circle at 88% 14%, rgba(255, 199, 178, 0.08), transparent 28rem),
-          radial-gradient(circle at 12% 88%, rgba(191, 228, 240, 0.08), transparent 26rem);
+          radial-gradient(circle at 88% 14%, rgba(242, 199, 199, 0.22), transparent 30rem),
+          radial-gradient(circle at 12% 88%, rgba(213, 243, 216, 0.26), transparent 28rem);
         background-attachment: fixed;
         font-family: var(--sans);
       }
@@ -109,7 +108,7 @@
         z-index: 20;
         grid-template-columns: 1fr auto 1fr;
         padding: 24px clamp(24px, 5vw, 80px) 16px;
-        background: rgba(255, 255, 255, 0.92);
+        background: rgba(255, 250, 250, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--line);
@@ -121,7 +120,7 @@
       }
 
       .brand:hover {
-        color: var(--accent);
+        color: var(--second-accent);
       }
 
       .field {
@@ -179,7 +178,9 @@
       }
 
       .nav-link.active {
-        color: var(--accent);
+        color: var(--ink);
+        font-weight: 600;
+        border-bottom: 2px solid var(--accent);
       }
 
       main {
@@ -200,7 +201,7 @@
         align-items: center;
         gap: 12px;
         margin: 0 0 20px;
-        color: var(--accent);
+        color: var(--second-accent);
         font-family: var(--mono);
         font-size: 10px;
         letter-spacing: 0.11em;
@@ -253,7 +254,7 @@
       }
 
       .hero-statement strong {
-        color: var(--accent);
+        color: var(--second-accent);
         font-weight: 600;
       }
 
@@ -319,7 +320,7 @@
         gap: clamp(32px, 5vw, 64px);
         align-items: center;
         padding-bottom: 56px;
-        border-bottom: 1px solid rgba(217, 217, 209, 0.7);
+        border-bottom: 1px solid var(--line);
         opacity: 0;
         animation: rise 850ms 350ms cubic-bezier(.2,.8,.2,1) forwards;
       }
@@ -349,7 +350,7 @@
         margin: 4px 0 0;
         font-size: 14px;
         line-height: 1.65;
-        color: #2a3331;
+        color: var(--ink);
         text-align: justify;
         text-align-last: left;
       }
@@ -368,7 +369,7 @@
         padding-left: 18px;
         font-size: 13.5px;
         line-height: 1.55;
-        color: #38423f;
+        color: var(--ink);
       }
 
       .project-points li::before {
@@ -387,7 +388,7 @@
         padding: 14px 18px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(255, 255, 255, 0.65);
+        background: rgba(255, 255, 255, 0.85);
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -398,10 +399,10 @@
       }
 
       .pub-citation-box:hover {
-        border-color: var(--accent);
+        border-color: var(--second-accent);
         background: #ffffff;
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px -6px rgba(24, 32, 30, 0.08);
+        box-shadow: 0 8px 20px -6px rgba(74, 74, 74, 0.08);
       }
 
       .pub-citation-box strong {
@@ -416,7 +417,7 @@
         font-family: var(--mono);
         font-size: 11px;
         font-weight: 500;
-        color: var(--accent);
+        color: var(--second-accent);
         white-space: nowrap;
         display: inline-flex;
         align-items: center;
@@ -438,7 +439,7 @@
         padding: 24px;
         border: 1px solid var(--line);
         border-radius: 12px;
-        background: rgba(255, 250, 244, 0.7);
+        background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(8px);
         overflow: hidden;
         cursor: pointer;
@@ -449,8 +450,8 @@
       }
 
       .graphics-frame:hover {
-        border-color: var(--accent);
-        box-shadow: 0 18px 40px -12px rgba(24, 32, 30, 0.14), 0 0 24px rgba(91, 168, 184, 0.12);
+        border-color: var(--second-accent);
+        box-shadow: 0 18px 40px -12px rgba(74, 74, 74, 0.14), 0 0 24px rgba(242, 199, 199, 0.22);
       }
 
       .graphics-svg {
@@ -588,8 +589,8 @@
         cursor: pointer;
       }
       .gold-pad:hover {
-        fill: #ffd269 !important;
-        filter: drop-shadow(0 0 6px rgba(255, 210, 105, 0.85));
+        fill: var(--highlights) !important;
+        filter: drop-shadow(0 0 6px rgba(213, 243, 216, 0.85));
       }
       .signal-wave-path {
         stroke-dasharray: 8 5;
@@ -620,14 +621,14 @@
         transition: fill 250ms ease, filter 250ms ease;
       }
       .graphics-frame[data-figure="bioreactor"]:hover .probe-tip {
-        fill: #ffd269;
-        filter: drop-shadow(0 0 4px rgba(255, 210, 105, 0.7));
+        fill: var(--highlights);
+        filter: drop-shadow(0 0 4px rgba(213, 243, 216, 0.7));
       }
 
       @keyframes sensorFlash {
-        0% { fill: #ffe3a3; filter: none; }
-        50% { fill: #5ba8b8; filter: drop-shadow(0 0 6px rgba(91, 168, 184, 0.8)); }
-        100% { fill: #ffe3a3; filter: none; }
+        0% { fill: var(--highlights); filter: none; }
+        50% { fill: var(--accent); filter: drop-shadow(0 0 6px rgba(242, 199, 199, 0.8)); }
+        100% { fill: var(--highlights); filter: none; }
       }
       .anim-flash {
         animation: sensorFlash 0.5s ease-out;
@@ -644,26 +645,26 @@
         transform: scale(1.45);
       }
       .pbr-led-chip.led-teal {
-        fill: #5ba8b8;
+        fill: #D5F3D8;
       }
       .pbr-led-chip.led-coral {
-        fill: #e07a68;
+        fill: #F2C7C7;
       }
       .pbr-led-chip.led-teal:hover {
-        filter: drop-shadow(0 0 5px rgba(91, 168, 184, 0.9));
+        filter: drop-shadow(0 0 5px rgba(213, 243, 216, 0.9));
       }
       .pbr-led-chip.led-coral:hover {
-        filter: drop-shadow(0 0 5px rgba(224, 122, 104, 0.9));
+        filter: drop-shadow(0 0 5px rgba(242, 199, 199, 0.9));
       }
 
       @keyframes ledGlowTeal {
         0% { transform: scale(1); filter: none; }
-        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(91, 168, 184, 0.95)); fill: #7fd7e8; }
+        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(213, 243, 216, 0.95)); fill: #D5F3D8; }
         100% { transform: scale(1); filter: none; }
       }
       @keyframes ledGlowCoral {
         0% { transform: scale(1); filter: none; }
-        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(224, 122, 104, 0.95)); fill: #ff9d8b; }
+        35% { transform: scale(1.75); filter: drop-shadow(0 0 8px rgba(242, 199, 199, 0.95)); fill: #F2C7C7; }
         100% { transform: scale(1); filter: none; }
       }
       .anim-glow-teal {
@@ -715,13 +716,13 @@
         padding: 20px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: rgba(255, 250, 244, 0.5);
+        background: rgba(255, 255, 255, 0.85);
         transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
       }
 
       .toolkit-card:hover {
-        border-color: var(--accent);
-        background: rgba(255, 255, 255, 0.85);
+        border-color: var(--second-accent);
+        background: #ffffff;
         transform: translateY(-2px);
       }
 
@@ -731,7 +732,7 @@
         font-size: 11px;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--accent);
+        color: var(--second-accent);
       }
 
       .toolkit-list {
@@ -740,7 +741,7 @@
         list-style: none;
         font-size: 13px;
         line-height: 1.6;
-        color: #3b4543;
+        color: var(--ink);
       }
 
       .toolkit-list li {
@@ -757,7 +758,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 16px clamp(24px, 5vw, 80px) 20px;
-        background: rgba(255, 255, 255, 0.92);
+        background: rgba(255, 250, 250, 0.92);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         border-top: 1px solid var(--line);
@@ -911,8 +912,8 @@
               <svg class="graphics-svg" viewBox="0 0 360 270" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <radialGradient id="hexGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#cae9ed" stop-opacity="0.85" />
-                    <stop offset="100%" stop-color="#5ba8b8" stop-opacity="0.05" />
+                    <stop offset="0%" stop-color="#F2C7C7" stop-opacity="0.45" />
+                    <stop offset="100%" stop-color="#D5F3D8" stop-opacity="0.05" />
                   </radialGradient>
                   <filter id="softBlur"><feGaussianBlur stdDeviation="3" /></filter>
                 </defs>
@@ -921,21 +922,21 @@
                 <circle cx="180" cy="135" r="95" fill="url(#hexGlow)" filter="url(#softBlur)" />
 
                 <!-- Hexagonal COF Lattice Nodes -->
-                <g stroke="#5ba8b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
+                <g stroke="#4A4A4A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.88">
                   <!-- Center Hexagon -->
-                  <polygon class="hex-cell" points="180,95 215,115 215,155 180,175 145,155 145,115" fill="rgba(91, 168, 184, 0.05)" />
+                  <polygon class="hex-cell" points="180,95 215,115 215,155 180,175 145,155 145,115" fill="rgba(242, 199, 199, 0.12)" />
                   <!-- Surrounding Hexagons -->
-                  <polygon class="hex-cell" points="145,115 145,75 180,55 215,75 215,115 180,95" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
-                  <polygon class="hex-cell" points="110,135 145,115 145,155 110,175 75,155 75,135" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
-                  <polygon class="hex-cell" points="180,175 215,195 215,235 180,255 145,235 145,195" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
-                  <polygon class="hex-cell" points="215,115 250,95 285,115 285,155 250,175 215,155" fill="rgba(91, 168, 184, 0.03)" opacity="0.75" />
+                  <polygon class="hex-cell" points="145,115 145,75 180,55 215,75 215,115 180,95" fill="rgba(213, 243, 216, 0.12)" opacity="0.75" />
+                  <polygon class="hex-cell" points="110,135 145,115 145,155 110,175 75,155 75,135" fill="rgba(213, 243, 216, 0.12)" opacity="0.75" />
+                  <polygon class="hex-cell" points="180,175 215,195 215,235 180,255 145,235 145,195" fill="rgba(242, 199, 199, 0.12)" opacity="0.75" />
+                  <polygon class="hex-cell" points="215,115 250,95 285,115 285,155 250,175 215,155" fill="rgba(213, 243, 216, 0.12)" opacity="0.75" />
                   <!-- Connecting bonds -->
                   <line x1="215" y1="195" x2="250" y2="175" />
                   <line x1="145" y1="195" x2="110" y2="175" />
                 </g>
 
                 <!-- Molecular drug guests inside pores -->
-                <g fill="#d7765d" class="node-pulse">
+                <g fill="#F2C7C7" stroke="#4A4A4A" stroke-width="1.2" class="node-pulse">
                   <circle class="drug-node" cx="180" cy="135" r="7.5" />
                   <circle class="drug-node" cx="145" cy="75" r="5.5" opacity="0.8" />
                   <circle class="drug-node" cx="215" cy="75" r="5.5" opacity="0.8" />
@@ -948,66 +949,66 @@
                 <g class="ligands-group">
                   <!-- Branch 1 (Top) -->
                   <g class="ligand-branch" style="transform-origin: 180px 55px;">
-                    <line x1="180" y1="55" x2="180" y2="20" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="180" y1="55" x2="180" y2="20" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(180, 20)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                   <!-- Branch 2 (Top-Right) -->
                   <g class="ligand-branch" style="transform-origin: 285px 115px;">
-                    <line x1="285" y1="115" x2="320" y2="105" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="285" y1="115" x2="320" y2="105" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(320, 105)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                   <!-- Branch 3 (Bottom-Right) -->
                   <g class="ligand-branch" style="transform-origin: 285px 155px;">
-                    <line x1="285" y1="155" x2="322" y2="168" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="285" y1="155" x2="322" y2="168" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(322, 168)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                   <!-- Branch 4 (Bottom) -->
                   <g class="ligand-branch" style="transform-origin: 180px 255px;">
-                    <line x1="180" y1="255" x2="180" y2="272" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="180" y1="255" x2="180" y2="272" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(180, 272)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                   <!-- Branch 5 (Bottom-Left) -->
                   <g class="ligand-branch" style="transform-origin: 75px 155px;">
-                    <line x1="75" y1="155" x2="40" y2="168" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="75" y1="155" x2="40" y2="168" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(40, 168)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                   <!-- Branch 6 (Top-Left) -->
                   <g class="ligand-branch" style="transform-origin: 75px 135px;">
-                    <line x1="75" y1="135" x2="40" y2="120" stroke="#9a8ab7" stroke-width="1.6" stroke-dasharray="2 3" />
+                    <line x1="75" y1="135" x2="40" y2="120" stroke="#4A4A4A" stroke-width="1.6" stroke-dasharray="2 3" />
                     <g class="ligand-star" transform="translate(40, 120)">
-                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#9a8ab7" />
+                      <polygon points="0,-5.5 1.6,-1.7 5.5,-1.7 2.4,0.7 3.6,4.6 0,2.1 -3.6,4.6 -2.4,0.7 -5.5,-1.7 -1.6,-1.7" fill="#4A4A4A" />
                     </g>
                   </g>
                 </g>
 
                 <!-- Reticular coordination corner nodes -->
-                <g>
-                  <circle class="cof-corner-node" cx="180" cy="95" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="215" cy="115" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="215" cy="155" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="180" cy="175" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="145" cy="155" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="145" cy="115" r="4.5" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="180" cy="55" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="250" cy="95" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="285" cy="115" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="285" cy="155" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="250" cy="175" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="215" cy="235" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="180" cy="255" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="145" cy="235" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="75" cy="135" r="4" fill="#5ba8b8" />
-                  <circle class="cof-corner-node" cx="75" cy="155" r="4" fill="#5ba8b8" />
+                <g fill="#4A4A4A">
+                  <circle class="cof-corner-node" cx="180" cy="95" r="4.5" />
+                  <circle class="cof-corner-node" cx="215" cy="115" r="4.5" />
+                  <circle class="cof-corner-node" cx="215" cy="155" r="4.5" />
+                  <circle class="cof-corner-node" cx="180" cy="175" r="4.5" />
+                  <circle class="cof-corner-node" cx="145" cy="155" r="4.5" />
+                  <circle class="cof-corner-node" cx="145" cy="115" r="4.5" />
+                  <circle class="cof-corner-node" cx="180" cy="55" r="4" />
+                  <circle class="cof-corner-node" cx="250" cy="95" r="4" />
+                  <circle class="cof-corner-node" cx="285" cy="115" r="4" />
+                  <circle class="cof-corner-node" cx="285" cy="155" r="4" />
+                  <circle class="cof-corner-node" cx="250" cy="175" r="4" />
+                  <circle class="cof-corner-node" cx="215" cy="235" r="4" />
+                  <circle class="cof-corner-node" cx="180" cy="255" r="4" />
+                  <circle class="cof-corner-node" cx="145" cy="235" r="4" />
+                  <circle class="cof-corner-node" cx="75" cy="135" r="4" />
+                  <circle class="cof-corner-node" cx="75" cy="155" r="4" />
                 </g>
               </svg>
             </div>
@@ -1039,8 +1040,8 @@
               <svg class="graphics-svg" viewBox="0 0 360 270" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="fiberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#bfe4f0" />
-                    <stop offset="100%" stop-color="#cae9ed" />
+                    <stop offset="0%" stop-color="#D5F3D8" />
+                    <stop offset="100%" stop-color="#F2C7C7" />
                   </linearGradient>
                 </defs>
 
@@ -1056,23 +1057,23 @@
 
                 <!-- Embedded COF crystallites anchored on fibers -->
                 <g class="cof-crystal" transform="translate(130, 95)">
-                  <polygon points="0,-18 15,-9 15,9 0,18 -15,9 -15,-9" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
-                  <polygon points="0,-8 7,-4 7,4 0,8 -7,4 -7,-4" fill="#cae9ed" opacity="0.8" />
+                  <polygon points="0,-18 15,-9 15,9 0,18 -15,9 -15,-9" fill="#4A4A4A" stroke="#FFFAFA" stroke-width="1.8" />
+                  <polygon points="0,-8 7,-4 7,4 0,8 -7,4 -7,-4" fill="#F2C7C7" opacity="0.9" />
                 </g>
                 <g class="cof-crystal" transform="translate(210, 135)">
-                  <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
-                  <polygon points="0,-6 6,-3 6,3 0,6 -6,3 -6,-3" fill="#cae9ed" opacity="0.8" />
+                  <polygon points="0,-15 13,-7 13,7 0,15 -13,7 -13,-7" fill="#4A4A4A" stroke="#FFFAFA" stroke-width="1.8" />
+                  <polygon points="0,-6 6,-3 6,3 0,6 -6,3 -6,-3" fill="#F2C7C7" opacity="0.9" />
                 </g>
                 <g class="cof-crystal" transform="translate(160, 185)">
-                  <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.8" />
-                  <polygon points="0,-7 6.5,-3.5 6.5,3.5 0,7 -6.5,3.5 -6.5,-3.5" fill="#cae9ed" opacity="0.8" />
+                  <polygon points="0,-16 14,-8 14,8 0,16 -14,8 -14,-8" fill="#4A4A4A" stroke="#FFFAFA" stroke-width="1.8" />
+                  <polygon points="0,-7 6.5,-3.5 6.5,3.5 0,7 -6.5,3.5 -6.5,-3.5" fill="#F2C7C7" opacity="0.9" />
                 </g>
                 <g class="cof-crystal" transform="translate(260, 75)">
-                  <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#5ba8b8" stroke="#fffaf4" stroke-width="1.5" />
+                  <polygon points="0,-12 10,-6 10,6 0,12 -10,6 -10,-6" fill="#4A4A4A" stroke="#FFFAFA" stroke-width="1.5" />
                 </g>
 
-                <!-- Iodine molecules being adsorbed (purple spheres) -->
-                <g fill="#9a8ab7" class="node-pulse">
+                <!-- Iodine molecules being adsorbed (rose blush spheres) -->
+                <g fill="#F2C7C7" stroke="#4A4A4A" stroke-width="1" class="node-pulse">
                   <circle class="sorb-molecule" cx="120" cy="75" r="4.8" />
                   <circle class="sorb-molecule" cx="145" cy="78" r="4.2" />
                   <circle class="sorb-molecule" cx="225" cy="120" r="4.2" />
@@ -1083,9 +1084,9 @@
                 </g>
 
                 <!-- Sorption attraction field lines -->
-                <line x1="120" y1="75" x2="128" y2="85" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
-                <line x1="225" y1="120" x2="218" y2="128" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
-                <line x1="175" y1="165" x2="168" y2="175" stroke="#9a8ab7" stroke-dasharray="2 2" stroke-width="1.2" />
+                <line x1="120" y1="75" x2="128" y2="85" stroke="#4A4A4A" stroke-dasharray="2 2" stroke-width="1.2" opacity="0.5" />
+                <line x1="225" y1="120" x2="218" y2="128" stroke="#4A4A4A" stroke-dasharray="2 2" stroke-width="1.2" opacity="0.5" />
+                <line x1="175" y1="165" x2="168" y2="175" stroke="#4A4A4A" stroke-dasharray="2 2" stroke-width="1.2" opacity="0.5" />
               </svg>
             </div>
           </article>
@@ -1110,28 +1111,28 @@
             <div class="graphics-frame" data-figure="sensor" aria-label="Electrochemical biosensor strip interactive visualization">
               <svg class="graphics-svg" viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- Sensor strip body -->
-                <rect x="50" y="70" width="260" height="130" rx="10" fill="#fffaf4" stroke="#d9d9d1" stroke-width="2" />
+                <rect x="50" y="70" width="260" height="130" rx="10" fill="#FFFAFA" stroke="#4A4A4A" stroke-width="1.5" />
 
                 <!-- Working & Counter Electrodes -->
-                <rect class="sensor-electrode" x="75" y="100" width="130" height="18" rx="3" fill="#cae9ed" stroke="#5ba8b8" stroke-width="1.2" />
-                <rect class="sensor-electrode" x="75" y="128" width="130" height="18" rx="3" fill="#ffe3a3" stroke="#d7765d" stroke-width="1.2" opacity="0.7" />
-                <rect class="sensor-electrode" x="75" y="156" width="130" height="18" rx="3" fill="#dbccf5" stroke="#9a8ab7" stroke-width="1.2" opacity="0.7" />
+                <rect class="sensor-electrode" x="75" y="100" width="130" height="18" rx="3" fill="#F2C7C7" stroke="#4A4A4A" stroke-width="1.2" />
+                <rect class="sensor-electrode" x="75" y="128" width="130" height="18" rx="3" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="1.2" opacity="0.9" />
+                <rect class="sensor-electrode" x="75" y="156" width="130" height="18" rx="3" fill="rgba(74, 74, 74, 0.12)" stroke="#4A4A4A" stroke-width="1.2" />
 
                 <!-- Microfluidic sample chamber arc -->
-                <path d="M205 90 C235 90, 235 180, 205 180" fill="none" stroke="#5ba8b8" stroke-width="2.5" stroke-dasharray="4 3" />
+                <path d="M205 90 C235 90, 235 180, 205 180" fill="none" stroke="#4A4A4A" stroke-width="2" stroke-dasharray="4 3" opacity="0.5" />
 
                 <!-- Gold contact terminals -->
-                <rect class="gold-pad" x="260" y="98" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
-                <rect class="gold-pad" x="260" y="126" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
-                <rect class="gold-pad" x="260" y="154" width="30" height="14" rx="2" fill="#ffe3a3" stroke="#e0c27a" />
+                <rect class="gold-pad" x="260" y="98" width="30" height="14" rx="2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="1" />
+                <rect class="gold-pad" x="260" y="126" width="30" height="14" rx="2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="1" />
+                <rect class="gold-pad" x="260" y="154" width="30" height="14" rx="2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="1" />
 
                 <!-- Trace leads -->
-                <line x1="205" y1="109" x2="260" y2="105" stroke="#5ba8b8" stroke-width="1.5" />
-                <line x1="205" y1="137" x2="260" y2="133" stroke="#d7765d" stroke-width="1.5" />
-                <line x1="205" y1="165" x2="260" y2="161" stroke="#9a8ab7" stroke-width="1.5" />
+                <line x1="205" y1="109" x2="260" y2="105" stroke="#4A4A4A" stroke-width="1.5" />
+                <line x1="205" y1="137" x2="260" y2="133" stroke="#4A4A4A" stroke-width="1.5" />
+                <line x1="205" y1="165" x2="260" y2="161" stroke="#4A4A4A" stroke-width="1.5" />
 
                 <!-- Redox electron exchange wave -->
-                <path d="M85 88 Q110 75 135 88 T185 88" fill="none" stroke="#5ba8b8" stroke-width="1.8" class="signal-wave-path" />
+                <path d="M85 88 Q110 75 135 88 T185 88" fill="none" stroke="#4A4A4A" stroke-width="1.8" class="signal-wave-path" />
               </svg>
             </div>
           </article>
@@ -1158,8 +1159,8 @@
                 <defs>
                   <!-- Minimal subtle fluid tint -->
                   <linearGradient id="pbrLiquidGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#cae9ed" stop-opacity="0.5" />
-                    <stop offset="100%" stop-color="#bfe4f0" stop-opacity="0.75" />
+                    <stop offset="0%" stop-color="#D5F3D8" stop-opacity="0.6" />
+                    <stop offset="100%" stop-color="#F2C7C7" stop-opacity="0.45" />
                   </linearGradient>
 
                   <!-- Clip path constraining sparged bubbles strictly within the vessel liquid -->
@@ -1171,13 +1172,13 @@
                 <!-- 1. Lateral Schematic LED Array Mounts (Minimal Technical Bars) -->
                 <!-- Left Illumination Array -->
                 <g class="pbr-led-panel left-panel">
-                  <rect x="70" y="75" width="10" height="130" rx="2" fill="#f0ede6" stroke="#d9d9d1" stroke-width="1.2" />
+                  <rect x="70" y="75" width="10" height="130" rx="2" fill="rgba(74, 74, 74, 0.05)" stroke="rgba(74, 74, 74, 0.2)" stroke-width="1.2" />
                   <!-- Minimal photon rays -->
-                  <line x1="80" y1="90" x2="135" y2="90" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
-                  <line x1="80" y1="115" x2="135" y2="115" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-left" />
-                  <line x1="80" y1="140" x2="135" y2="140" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
-                  <line x1="80" y1="165" x2="135" y2="165" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-left" />
-                  <line x1="80" y1="190" x2="135" y2="190" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="90" x2="135" y2="90" stroke="#F2C7C7" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="115" x2="135" y2="115" stroke="#D5F3D8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="140" x2="135" y2="140" stroke="#F2C7C7" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="165" x2="135" y2="165" stroke="#D5F3D8" stroke-dasharray="3 3" class="photon-ray ray-left" />
+                  <line x1="80" y1="190" x2="135" y2="190" stroke="#F2C7C7" stroke-dasharray="3 3" class="photon-ray ray-left" />
 
                   <!-- LED chips -->
                   <circle cx="75" cy="90" r="2.8" class="pbr-led-chip led-teal" />
@@ -1189,13 +1190,13 @@
 
                 <!-- Right Illumination Array -->
                 <g class="pbr-led-panel right-panel">
-                  <rect x="300" y="75" width="10" height="130" rx="2" fill="#f0ede6" stroke="#d9d9d1" stroke-width="1.2" />
+                  <rect x="300" y="75" width="10" height="130" rx="2" fill="rgba(74, 74, 74, 0.05)" stroke="rgba(74, 74, 74, 0.2)" stroke-width="1.2" />
                   <!-- Minimal photon rays -->
-                  <line x1="245" y1="90" x2="300" y2="90" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
-                  <line x1="245" y1="115" x2="300" y2="115" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-right" />
-                  <line x1="245" y1="140" x2="300" y2="140" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
-                  <line x1="245" y1="165" x2="300" y2="165" stroke="#5ba8b8" stroke-dasharray="3 3" class="photon-ray ray-right" />
-                  <line x1="245" y1="190" x2="300" y2="190" stroke="#d7765d" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="90" x2="300" y2="90" stroke="#D5F3D8" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="115" x2="300" y2="115" stroke="#F2C7C7" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="140" x2="300" y2="140" stroke="#D5F3D8" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="165" x2="300" y2="165" stroke="#F2C7C7" stroke-dasharray="3 3" class="photon-ray ray-right" />
+                  <line x1="245" y1="190" x2="300" y2="190" stroke="#D5F3D8" stroke-dasharray="3 3" class="photon-ray ray-right" />
 
                   <!-- LED chips -->
                   <circle cx="305" cy="90" r="2.8" class="pbr-led-chip led-coral" />
@@ -1207,14 +1208,14 @@
 
                 <!-- 2. Photobioreactor Column Body (Minimal Clean Architectural Theme) -->
                 <!-- Vessel Background / Outer Column Body -->
-                <rect x="135" y="45" width="110" height="185" rx="8" fill="#fffaf4" stroke="#5ba8b8" stroke-width="2" />
+                <rect x="135" y="45" width="110" height="185" rx="8" fill="#FFFAFA" stroke="#4A4A4A" stroke-width="2" />
 
                 <!-- Liquid Culture Mass -->
                 <path d="M136 86 C155 83 175 89 190 86 C205 83 225 89 244 86 L244 226 C244 231 236 235 220 236 L160 236 C144 235 136 231 136 226 Z" fill="url(#pbrLiquidGrad)" />
-                <path class="meniscus-wave" d="M136 86 C155 83 175 89 190 86 C205 83 225 89 244 86" stroke="#5ba8b8" stroke-width="1.8" fill="none" />
+                <path class="meniscus-wave" d="M136 86 C155 83 175 89 190 86 C205 83 225 89 244 86" stroke="#4A4A4A" stroke-width="1.8" fill="none" />
 
                 <!-- Graduated Volume Scale Ticks (Right Wall, minimal etched marks) -->
-                <g stroke="#707670" stroke-width="1" opacity="0.5">
+                <g stroke="#4A4A4A" stroke-width="1" opacity="0.45">
                   <line x1="233" y1="100" x2="241" y2="100" stroke-width="1.4" />
                   <line x1="236" y1="112" x2="241" y2="112" />
                   <line x1="236" y1="124" x2="241" y2="124" />
@@ -1229,8 +1230,8 @@
 
                 <!-- 3. Microsparger Assembly at Column Base -->
                 <!-- Sintered Porous Sparger Disc -->
-                <rect x="156" y="222" width="68" height="6" rx="2" fill="#d9d9d1" stroke="#707670" stroke-width="1" />
-                <g fill="#707670" opacity="0.7">
+                <rect x="156" y="222" width="68" height="6" rx="2" fill="rgba(74, 74, 74, 0.08)" stroke="#4A4A4A" stroke-width="1" />
+                <g fill="#4A4A4A" opacity="0.55">
                   <circle cx="163" cy="225" r="0.8" />
                   <circle cx="170" cy="225" r="0.8" />
                   <circle cx="177" cy="225" r="0.8" />
@@ -1245,101 +1246,101 @@
                 <!-- 4. Sparging Bubbles Moving Up Inside Liquid (Native SVG animate: continuous, smooth, clipped inside fluid) -->
                 <g class="sparging-bubbles" clip-path="url(#pbrLiquidClip)">
                   <!-- Column Stream 1 (Left) -->
-                  <circle cx="168" cy="220" r="2.6" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="168" cy="220" r="2.6" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="168; 170; 167; 168" dur="3.1s" begin="-0.4s" repeatCount="indefinite" />
                   </circle>
-                  <circle cx="173" cy="220" r="3.4" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="173" cy="220" r="3.4" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="173; 171; 174; 173" dur="2.7s" begin="-1.7s" repeatCount="indefinite" />
                   </circle>
 
                   <!-- Column Stream 2 (Center-Left) -->
-                  <circle cx="179" cy="220" r="2.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="179" cy="220" r="2.2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.5s" begin="-2.4s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.5s" begin="-2.4s" repeatCount="indefinite" />
                   </circle>
-                  <circle cx="184" cy="220" r="3.8" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="184" cy="220" r="3.8" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="184; 186; 183; 184" dur="2.9s" begin="-0.9s" repeatCount="indefinite" />
                   </circle>
 
                   <!-- Column Stream 3 (Center Plume) -->
-                  <circle cx="190" cy="220" r="2.8" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="190" cy="220" r="2.8" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="190; 189; 192; 190" dur="2.5s" begin="-0.2s" repeatCount="indefinite" />
                   </circle>
-                  <circle cx="192" cy="220" r="4.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="192" cy="220" r="4.2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="192; 194; 191; 192" dur="3.2s" begin="-1.9s" repeatCount="indefinite" />
                   </circle>
 
                   <!-- Column Stream 4 (Center-Right) -->
-                  <circle cx="198" cy="220" r="2.0" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="198" cy="220" r="2.0" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.4s" begin="-1.2s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.4s" begin="-1.2s" repeatCount="indefinite" />
                   </circle>
-                  <circle cx="203" cy="220" r="3.6" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="203" cy="220" r="3.6" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="203; 201; 204; 203" dur="2.8s" begin="-2.6s" repeatCount="indefinite" />
                   </circle>
 
                   <!-- Column Stream 5 (Right) -->
-                  <circle cx="209" cy="220" r="2.4" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="209" cy="220" r="2.4" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
                     <animate attributeName="cx" values="209; 211; 208; 209" dur="3.0s" begin="-0.6s" repeatCount="indefinite" />
                   </circle>
-                  <circle cx="214" cy="220" r="3.2" fill="#cae9ed" stroke="#5ba8b8" stroke-width="0.9">
+                  <circle cx="214" cy="220" r="3.2" fill="#D5F3D8" stroke="#4A4A4A" stroke-width="0.8">
                     <animate attributeName="cy" from="220" to="86" dur="3.3s" begin="-2.1s" repeatCount="indefinite" />
                     <animate attributeName="opacity" values="0; 0.9; 0.9; 0" keyTimes="0; 0.12; 0.88; 1" dur="3.3s" begin="-2.1s" repeatCount="indefinite" />
                   </circle>
                 </g>
 
                 <!-- 5. Minimal Base Stand & Tubing -->
-                <rect x="130" y="228" width="120" height="8" rx="2" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
-                <polygon points="152,236 228,236 236,252 144,252" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
-                <rect x="138" y="252" width="104" height="5" rx="1.5" fill="#707670" />
+                <rect x="130" y="228" width="120" height="8" rx="2" fill="rgba(74, 74, 74, 0.06)" stroke="#4A4A4A" stroke-width="1.2" />
+                <polygon points="152,236 228,236 236,252 144,252" fill="rgba(74, 74, 74, 0.06)" stroke="#4A4A4A" stroke-width="1.2" />
+                <rect x="138" y="252" width="104" height="5" rx="1.5" fill="#4A4A4A" />
 
                 <!-- Gas Feed Tubing & Direction Arrow -->
-                <path d="M190 274 L190 236" stroke="#5ba8b8" stroke-width="2" stroke-linecap="round" />
-                <polygon points="190,258 187,264 193,264" fill="#5ba8b8" />
+                <path d="M190 274 L190 236" stroke="#4A4A4A" stroke-width="2" stroke-linecap="round" />
+                <polygon points="190,258 187,264 193,264" fill="#4A4A4A" />
 
                 <!-- 6. Minimal Top Headplate & Probes -->
-                <rect x="130" y="41" width="120" height="8" rx="2" fill="#f0ede6" stroke="#707670" stroke-width="1.2" />
+                <rect x="130" y="41" width="120" height="8" rx="2" fill="rgba(74, 74, 74, 0.06)" stroke="#4A4A4A" stroke-width="1.2" />
 
                 <!-- Port 1: Exhaust Gas Sterilizing Filter (Left) -->
                 <g class="pbr-port-filter">
-                  <line x1="150" y1="41" x2="150" y2="22" stroke="#707670" stroke-width="1.8" />
-                  <rect x="142" y="10" width="16" height="12" rx="2" fill="#fffaf4" stroke="#707670" stroke-width="1.2" />
-                  <line x1="150" y1="10" x2="150" y2="5" stroke="#707670" stroke-width="1.5" stroke-linecap="round" />
-                  <path class="gas-waft" d="M150 4 C148 1 152 -2 150 -5" stroke="#5ba8b8" stroke-width="1.2" fill="none" opacity="0.65" />
+                  <line x1="150" y1="41" x2="150" y2="22" stroke="#4A4A4A" stroke-width="1.8" />
+                  <rect x="142" y="10" width="16" height="12" rx="2" fill="#FFFAFA" stroke="#4A4A4A" stroke-width="1.2" />
+                  <line x1="150" y1="10" x2="150" y2="5" stroke="#4A4A4A" stroke-width="1.5" stroke-linecap="round" />
+                  <path class="gas-waft" d="M150 4 C148 1 152 -2 150 -5" stroke="#4A4A4A" stroke-width="1.2" fill="none" opacity="0.5" />
                 </g>
 
                 <!-- Port 2: Inoculum / Feed Port (Center-Left) -->
                 <g class="pbr-port-feed">
-                  <line x1="172" y1="41" x2="172" y2="28" stroke="#707670" stroke-width="1.8" />
-                  <rect x="168" y="22" width="8" height="6" rx="1.5" fill="#f0ede6" stroke="#707670" stroke-width="1" />
-                  <path d="M172 22 C172 16 164 12 155 12" stroke="#707670" stroke-width="1.6" fill="none" stroke-linecap="round" />
+                  <line x1="172" y1="41" x2="172" y2="28" stroke="#4A4A4A" stroke-width="1.8" />
+                  <rect x="168" y="22" width="8" height="6" rx="1.5" fill="rgba(74, 74, 74, 0.06)" stroke="#4A4A4A" stroke-width="1.2" />
+                  <path d="M172 22 C172 16 164 12 155 12" stroke="#4A4A4A" stroke-width="1.6" fill="none" stroke-linecap="round" />
                 </g>
 
                 <!-- Port 3: DO / pH Bioprocess Probe (Center-Right) -->
                 <g class="pbr-port-probe">
-                  <rect x="203" y="34" width="10" height="7" rx="1.5" fill="#f0ede6" stroke="#707670" stroke-width="1" />
-                  <line x1="208" y1="41" x2="208" y2="162" stroke="#707670" stroke-width="1.8" />
-                  <circle cx="208" cy="163" r="2.8" fill="#ffe3a3" stroke="#d7765d" stroke-width="1" class="probe-tip" />
+                  <rect x="203" y="34" width="10" height="7" rx="1.5" fill="rgba(74, 74, 74, 0.06)" stroke="#4A4A4A" stroke-width="1.2" />
+                  <line x1="208" y1="41" x2="208" y2="162" stroke="#4A4A4A" stroke-width="1.8" />
+                  <circle cx="208" cy="163" r="2.8" fill="#D5F3D8" stroke="#F2C7C7" stroke-width="1" class="probe-tip" />
                 </g>
 
                 <!-- Port 4: Aseptic Sampling Dip Tube (Right) -->
                 <g class="pbr-port-sample">
-                  <line x1="229" y1="41" x2="229" y2="205" stroke="#707670" stroke-width="1.2" stroke-dasharray="3 3" />
-                  <circle cx="229" cy="206" r="1.5" fill="#707670" />
+                  <line x1="229" y1="41" x2="229" y2="205" stroke="#4A4A4A" stroke-width="1.2" stroke-dasharray="3 3" />
+                  <circle cx="229" cy="206" r="1.5" fill="#4A4A4A" />
                 </g>
               </svg>
             </div>
@@ -1489,7 +1490,7 @@
           });
           hexCells.forEach((cell) => {
             cell.style.strokeWidth = "2.6px";
-            cell.style.fill = "rgba(91, 168, 184, 0.18)";
+            cell.style.fill = "rgba(242, 199, 199, 0.28)";
             setTimeout(() => {
               cell.style.strokeWidth = "";
               cell.style.fill = "";
@@ -1540,13 +1541,13 @@
             }, idx * 70);
           });
           goldPads.forEach((pad) => {
-            pad.style.fill = "#ffd269";
+            pad.style.fill = "#D5F3D8";
             setTimeout(() => { pad.style.fill = ""; }, 400);
           });
           if (signalWave) {
             signalWave.style.animationDuration = "0.2s";
             signalWave.style.strokeWidth = "3px";
-            signalWave.style.stroke = "#d7765d";
+            signalWave.style.stroke = "#4A4A4A";
             setTimeout(() => {
               signalWave.style.animationDuration = "";
               signalWave.style.strokeWidth = "";
@@ -1601,7 +1602,7 @@
           // 4. Wave meniscus excitation
           if (meniscusWave) {
             meniscusWave.style.animationDuration = "1.6s";
-            meniscusWave.style.stroke = "#cae9ed";
+            meniscusWave.style.stroke = "#D5F3D8";
             setTimeout(() => {
               meniscusWave.style.animationDuration = "";
               meniscusWave.style.stroke = "";
@@ -1626,9 +1627,9 @@
             circle.setAttribute("cx", cx.toFixed(1));
             circle.setAttribute("cy", "220");
             circle.setAttribute("r", r.toFixed(1));
-            circle.setAttribute("fill", "#cae9ed");
-            circle.setAttribute("stroke", "#5ba8b8");
-            circle.setAttribute("stroke-width", "0.9");
+            circle.setAttribute("fill", "#D5F3D8");
+            circle.setAttribute("stroke", "#4A4A4A");
+            circle.setAttribute("stroke-width", "0.8");
             circle.setAttribute("opacity", "0");
 
             const animY = document.createElementNS("http://www.w3.org/2000/svg", "animate");
@@ -1698,13 +1699,13 @@
         const MAX_SPEED = 2.8;
         const MIN_SPEED = 1.3;
 
-        // Theme-accurate palette matching Santanu's site
+        // Theme-accurate palette matching Santanu's site (#FFFAFA, #F2C7C7, #D5F3D8, #4A4A4A)
         const COLORS = [
-          "rgba(91, 168, 184, 0.78)",  // --accent (teal)
-          "rgba(111, 140, 166, 0.72)", // slate blue
-          "rgba(154, 138, 183, 0.65)", // soft lilac
-          "rgba(91, 168, 184, 0.55)",  // light teal
-          "rgba(202, 233, 237, 0.75)"  // soft cyan
+          "rgba(74, 74, 74, 0.75)",  // Charcoal slate
+          "rgba(215, 140, 140, 0.80)", // Soft blush / accent
+          "rgba(95, 168, 105, 0.78)", // Fresh mint / highlights
+          "rgba(74, 74, 74, 0.45)",  // Muted charcoal
+          "rgba(195, 125, 125, 0.65)"  // Rose blush tint
         ];
 
         // Mouse tracking for subtle avoidance
@@ -1915,7 +1916,7 @@
           ctx.clearRect(0, 0, width, height);
 
           // Subtle guide dots matching website theme
-          ctx.fillStyle = "rgba(112, 118, 112, 0.07)";
+          ctx.fillStyle = "rgba(74, 74, 74, 0.07)";
           const dotSpacing = 24;
           for (let y = 12; y < height; y += dotSpacing) {
             for (let x = 12; x < width; x += dotSpacing) {
