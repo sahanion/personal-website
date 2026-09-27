@@ -412,33 +412,7 @@
         color: var(--accent);
       }
 
-      .art-interaction-hint {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-top: 10px;
-        font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-        opacity: 0.85;
-        transition: color 250ms ease, opacity 250ms ease;
-        user-select: none;
-      }
-      .art-interaction-hint .hint-sparkle {
-        color: var(--earth-amber, #A06A42);
-        font-size: 10px;
-        display: inline-block;
-        transition: transform 300ms ease;
-      }
-      .travel-hero-stage:hover .art-interaction-hint {
-        color: var(--accent);
-        opacity: 1;
-      }
-      .travel-hero-stage:hover .art-interaction-hint .hint-sparkle {
-        transform: rotate(45deg) scale(1.15);
-      }
+
 
       .travel-panorama-field {
         width: 100%;
@@ -1893,13 +1867,10 @@
             <p class="travel-lead">
               I have always been drawn to places beyond the familiar. This is a collection of journeys, trails, photographs, and memories gathered along the way.
             </p>
-            <div class="art-interaction-hint" id="artInteractionHint">
-              <span class="hint-sparkle">✦</span> Click landscape to stir the breeze &amp; waters
-            </div>
           </div>
 
           <!-- Column 2: Panoramic Line-Drawing Landscape Motion Graphic (Right) -->
-          <div class="travel-panorama-field" id="travelInteractiveArt" role="button" tabindex="0" aria-label="Interactive Travel Landscape — Click or press Enter to stir wind and water" title="Click landscape to stir the breeze & water">
+          <div class="travel-panorama-field" id="travelInteractiveArt" role="button" tabindex="0" aria-label="Interactive Travel Landscape">
             <svg class="travel-panorama-svg" viewBox="0 0 680 250" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
 
               <!-- 0. Topographic Elevation Contour Lines -->
@@ -3550,12 +3521,10 @@
     (function initInteractiveLandscapeArt() {
       const artContainer = document.getElementById("travelInteractiveArt");
       const ripplesLayer = document.getElementById("dynamicInteractiveRipples");
-      const hintBadge = document.getElementById("artInteractionHint");
       if (!artContainer) return;
 
       const svg = artContainer.querySelector(".travel-panorama-svg");
       let gustTimeout = null;
-      let hintTimeout = null;
 
       function triggerLandscapeStir(clientX, clientY) {
         // 1. Calculate SVG coordinates
@@ -3615,15 +3584,6 @@
         gustTimeout = setTimeout(() => {
           artContainer.classList.remove("is-stirred");
         }, 2400);
-
-        // 4. Update hint feedback
-        if (hintBadge) {
-          hintBadge.innerHTML = '<span class="hint-sparkle" style="color:var(--accent);">✦</span> Wind &amp; waters stirred!';
-          if (hintTimeout) clearTimeout(hintTimeout);
-          hintTimeout = setTimeout(() => {
-            hintBadge.innerHTML = '<span class="hint-sparkle">✦</span> Click landscape to stir the breeze &amp; waters';
-          }, 3000);
-        }
       }
 
       // Click event
