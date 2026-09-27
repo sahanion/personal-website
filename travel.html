@@ -366,10 +366,10 @@
 
       .travel-hero-grid {
         display: grid;
-        grid-template-columns: 1fr minmax(260px, 320px);
+        grid-template-columns: 1.02fr 1.18fr;
         align-items: center;
-        gap: clamp(24px, 4vw, 48px);
-        margin-bottom: 28px;
+        gap: clamp(24px, 3.5vw, 48px);
+        margin-bottom: 32px;
       }
 
       .eyebrow-compass-icon {
@@ -379,60 +379,140 @@
         color: var(--accent);
       }
 
-
-
-      /* Cartographic Astrolabe Plate */
-      .travel-hero-art-wrap {
+      /* Landscape Motion Graphics (Inspired by hand-drawn mountain, sun, forest & river sketch) */
+      .travel-hero-visual {
+        position: relative;
+        width: 100%;
+        max-width: 580px;
+        margin: 0 auto;
+        overflow: visible;
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .travel-hero-art {
-        width: clamp(240px, 26vw, 320px);
-        height: clamp(240px, 26vw, 320px);
-        position: relative;
-        border-radius: 50%;
-        box-shadow:
-          0 0 0 1px var(--line),
-          0 0 0 8px rgba(47, 106, 79, 0.04),
-          0 20px 40px -15px rgba(27, 36, 30, 0.12);
-        background: radial-gradient(circle at 50% 50%, rgba(217, 229, 214, 0.45) 0%, rgba(246, 247, 242, 0.8) 70%, var(--paper) 100%);
-        transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms ease;
-        cursor: default;
-      }
-      .travel-hero-art * {
-        cursor: default;
-      }
-      .travel-hero-art:hover {
-        transform: scale(1.025);
-        box-shadow:
-          0 0 0 1px var(--accent),
-          0 0 0 10px rgba(47, 106, 79, 0.08),
-          0 24px 50px -12px rgba(47, 106, 79, 0.18);
-      }
-      .hero-astrolabe-svg {
-        width: 100%;
-        height: 100%;
-        display: block;
+        user-select: none;
       }
 
-      .expedition-trail {
-        transition: stroke 240ms ease;
+      .travel-landscape-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 8px 24px rgba(27, 36, 30, 0.04));
+        transition: transform 300ms ease-out;
       }
-      .travel-hero-art:hover .expedition-trail {
-        stroke: var(--accent);
-        animation: trailMarch 1.2s linear infinite;
+
+      /* 1. Golden Sun Breathing Warmth */
+      .sun-aura {
+        animation: sunAuraGlow 7s ease-in-out infinite alternate;
+        transform-origin: 300px 116px;
       }
-      @keyframes trailMarch {
-        to { stroke-dashoffset: -14; }
+      @keyframes sunAuraGlow {
+        0% { transform: scale(0.96); opacity: 0.65; }
+        100% { transform: scale(1.05); opacity: 0.95; }
       }
-      .summit-pulse {
-        animation: beaconPulse 2.4s ease-out infinite;
-        transform-origin: 230px 118px;
+
+      .sun-disc {
+        animation: sunDiscBreath 7s ease-in-out infinite alternate;
+        transform-origin: 300px 116px;
       }
-      @keyframes beaconPulse {
-        0% { transform: scale(0.6); opacity: 0.9; }
-        100% { transform: scale(2.2); opacity: 0; }
+      @keyframes sunDiscBreath {
+        0% { transform: scale(0.99); }
+        100% { transform: scale(1.015); }
+      }
+
+      /* 2. Gliding Alpine Birds */
+      .motion-birds {
+        animation: birdsDrift 14s ease-in-out infinite alternate;
+      }
+      @keyframes birdsDrift {
+        0% { transform: translate(0, 0); }
+        50% { transform: translate(12px, -3px); }
+        100% { transform: translate(4px, 2px); }
+      }
+
+      /* 3. Forest Breeze Sway (Organic, tranquil, individual anchor points) */
+      .sketch-tree {
+        transition: transform 400ms ease-out;
+      }
+
+      .tree-left-small {
+        animation: treeSway 5.8s ease-in-out infinite alternate;
+        transform-origin: 80px 272px;
+      }
+
+      .tree-left-deciduous {
+        animation: treeSway 7.2s ease-in-out infinite alternate -1.6s;
+        transform-origin: 135px 273px;
+      }
+
+      .tree-mid-left-pine {
+        animation: treeSway 6.5s ease-in-out infinite alternate -3.1s;
+        transform-origin: 215px 274px;
+      }
+
+      .tree-center-pine {
+        animation: treeSwayCenter 6.0s ease-in-out infinite alternate -0.8s;
+        transform-origin: 295px 275px;
+      }
+
+      .tree-mid-right-deciduous {
+        animation: treeSway 7.8s ease-in-out infinite alternate -2.4s;
+        transform-origin: 360px 274px;
+      }
+
+      .tree-right-pine {
+        animation: treeSway 6.8s ease-in-out infinite alternate -4.2s;
+        transform-origin: 455px 272px;
+      }
+
+      .tree-right-small {
+        animation: treeSway 5.5s ease-in-out infinite alternate -1.2s;
+        transform-origin: 515px 270px;
+      }
+
+      @keyframes treeSway {
+        0% { transform: rotate(-0.9deg); }
+        100% { transform: rotate(1.1deg); }
+      }
+
+      @keyframes treeSwayCenter {
+        0% { transform: rotate(-0.7deg); }
+        100% { transform: rotate(0.85deg); }
+      }
+
+      /* 4. Flowing River Currents */
+      .stream-1 {
+        animation: waterFlow1 12s linear infinite;
+      }
+      @keyframes waterFlow1 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: -120; }
+      }
+
+      .stream-2 {
+        animation: waterFlow2 9s linear infinite;
+      }
+      @keyframes waterFlow2 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: -108; }
+      }
+
+      .stream-3 {
+        animation: waterFlow3 14s linear infinite;
+      }
+      @keyframes waterFlow3 {
+        from { stroke-dashoffset: 0; }
+        to { stroke-dashoffset: -128; }
+      }
+
+      /* Accessibility Reduced Motion */
+      @media (prefers-reduced-motion: reduce) {
+        .sun-aura,
+        .sun-disc,
+        .motion-birds,
+        .sketch-tree,
+        .stream-line {
+          animation: none !important;
+        }
       }
 
 
@@ -1535,10 +1615,8 @@
 
       @media (max-width: 640px) {
         .form-row { grid-template-columns: 1fr; }
-        .photo-row-item { grid-template-columns: 1fr; }
         .travel-hero-grid { grid-template-columns: 1fr; gap: 24px; }
-        .travel-hero-art-wrap { order: -1; justify-content: flex-start; }
-        .travel-hero-art { width: 220px; height: 220px; }
+        .travel-hero-visual { order: -1; max-width: 100%; margin-bottom: 8px; }
         .topo-simulation-canvas-wrap { width: 50vw; opacity: 0.35; }
         .photo-preview-box { width: 100%; height: 120px; }
         .preview-pair {
@@ -1575,7 +1653,7 @@
       }
       @media (prefers-reduced-motion: reduce) {
         .topo-simulation-canvas-wrap { display: none !important; }
-        .astrolabe-rose, .summit-pulse, .expedition-trail { animation: none !important; }
+        .sun-aura, .sun-disc, .motion-birds, .sketch-tree, .stream-line { animation: none !important; }
       }
     </style>
   </head>
@@ -1647,86 +1725,212 @@
             </p>
           </div>
 
-          <div class="travel-hero-art-wrap" aria-hidden="true">
-            <div class="travel-hero-art" id="heroArtPlate">
-              <svg class="hero-astrolabe-svg" viewBox="0 0 320 320" width="320" height="320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <radialGradient id="heroPlateGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#D9E5D6" stop-opacity="0.45" />
-                    <stop offset="70%" stop-color="#D9E5D6" stop-opacity="0.05" />
-                    <stop offset="100%" stop-color="#D9E5D6" stop-opacity="0" />
-                  </radialGradient>
-                </defs>
+          <!-- Handcrafted Mountain, Forest & River Landscape Motion Graphic -->
+          <div class="travel-hero-visual" aria-hidden="true">
+            <svg class="travel-landscape-svg" viewBox="0 0 600 340" width="100%" height="auto" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <!-- Soft Sun Atmosphere Glow -->
+                <radialGradient id="sunAuraGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#FDE896" stop-opacity="0.8" />
+                  <stop offset="45%" stop-color="#F6CB43" stop-opacity="0.35" />
+                  <stop offset="75%" stop-color="#F6CB43" stop-opacity="0.08" />
+                  <stop offset="100%" stop-color="#F6CB43" stop-opacity="0" />
+                </radialGradient>
 
-                <!-- Background Ambient Tint -->
-                <circle cx="160" cy="160" r="144" fill="url(#heroPlateGlow)" />
+                <!-- Mountain Watercolor Washes -->
+                <linearGradient id="mtnGradFar" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+                  <stop offset="35%" stop-color="#E5EFE7" stop-opacity="0.75" />
+                  <stop offset="100%" stop-color="#D4E5D8" stop-opacity="0.45" />
+                </linearGradient>
 
-                <!-- Outer Art Frame Rings -->
-                <circle cx="160" cy="160" r="148" stroke="var(--line)" stroke-width="1.2" />
-                <circle cx="160" cy="160" r="140" stroke="var(--line)" stroke-width="0.7" stroke-dasharray="3 3" opacity="0.6" />
+                <linearGradient id="mtnGradMid" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+                  <stop offset="30%" stop-color="#DEEBE1" stop-opacity="0.85" />
+                  <stop offset="100%" stop-color="#C2DEC9" stop-opacity="0.6" />
+                </linearGradient>
 
-                <!-- Constellation in Sky (Upper hemisphere) -->
-                <g class="constellation-group" stroke="var(--earth-amber, #A06A42)" stroke-width="0.7" opacity="0.65">
-                  <line x1="90" y1="75" x2="115" y2="60" />
-                  <line x1="115" y1="60" x2="150" y2="70" />
-                  <line x1="150" y1="70" x2="185" y2="50" />
-                  <line x1="185" y1="50" x2="225" y2="65" />
-                  <circle cx="90" cy="75" r="1.8" fill="var(--earth-amber, #A06A42)" />
-                  <circle cx="115" cy="60" r="1.8" fill="var(--earth-amber, #A06A42)" />
-                  <circle cx="150" cy="70" r="2.2" fill="var(--earth-amber, #A06A42)" />
-                  <circle cx="185" cy="50" r="2.6" fill="var(--earth-amber, #A06A42)" />
-                  <circle cx="225" cy="65" r="1.8" fill="var(--earth-amber, #A06A42)" />
+                <!-- River Water Gradient -->
+                <linearGradient id="riverWash" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#8AD0DC" stop-opacity="0.25" />
+                  <stop offset="35%" stop-color="#6EAFBA" stop-opacity="0.45" />
+                  <stop offset="70%" stop-color="#5EA4B0" stop-opacity="0.5" />
+                  <stop offset="100%" stop-color="#8AD0DC" stop-opacity="0.2" />
+                </linearGradient>
+              </defs>
+
+              <!-- 1. Golden Radiant Sun (Nestled behind peaks) -->
+              <g class="motion-sun-group">
+                <circle class="sun-aura" cx="300" cy="116" r="92" fill="url(#sunAuraGrad)" />
+                <circle class="sun-disc" cx="300" cy="116" r="72" fill="#F4CB43" />
+                <circle cx="300" cy="116" r="79" stroke="#EBB327" stroke-width="0.75" stroke-dasharray="2 3" opacity="0.45" />
+              </g>
+
+              <!-- 2. Gliding Alpine Birds (High in sky) -->
+              <g class="motion-birds">
+                <path class="bird bird-1" d="M165 42 C169 38, 173 40, 176 43 C179 40, 183 38, 187 42" stroke="#1B241E" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.75" />
+                <path class="bird bird-2" d="M410 36 C413 33, 416 34, 419 37 C422 34, 425 33, 428 36" stroke="#1B241E" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.65" />
+                <path class="bird bird-3" d="M438 48 C440 46, 443 47, 445 49 C447 47, 450 46, 452 48" stroke="#1B241E" stroke-width="0.75" stroke-linecap="round" fill="none" opacity="0.5" />
+              </g>
+
+              <!-- 3. Distant Back Mountain Ridges -->
+              <g class="layer-mtn-back" opacity="0.9">
+                <polygon points="10,250 50,175 105,120 160,165 215,135 270,180 320,250" fill="url(#mtnGradFar)" />
+                <path d="M10 250 L50 175 L105 120 L160 165 L215 135 L270 180" stroke="#7AA58D" stroke-width="1" stroke-linejoin="round" />
+                <polygon points="280,250 340,175 405,115 470,165 525,128 580,175 600,250" fill="url(#mtnGradFar)" />
+                <path d="M340 175 L405 115 L470 165 L525 128 L580 175 L600 250" stroke="#7AA58D" stroke-width="1" stroke-linejoin="round" />
+                <polygon points="95,130 105,120 115,130 108,135 102,133" fill="#FFFFFF" opacity="0.95" />
+                <polygon points="395,125 405,115 415,125 410,130 401,128" fill="#FFFFFF" opacity="0.95" />
+                <polygon points="518,136 525,128 532,136 528,140" fill="#FFFFFF" opacity="0.9" />
+              </g>
+
+              <!-- 4. Main Foreground Mountain Peaks (Hand-sketched ink style) -->
+              <g class="layer-mtn-front">
+                <polygon points="25,255 145,96 235,220 280,255" fill="url(#mtnGradMid)" />
+                <polygon points="320,255 365,215 440,96 565,255" fill="url(#mtnGradMid)" />
+                <polygon points="180,255 295,78 410,255" fill="url(#mtnGradMid)" />
+
+                <!-- Left Peak Ink Line & Hatching -->
+                <path d="M25 255 L85 178 L145 96 L195 168 L235 220 L275 255" stroke="#1E4531" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M145 96 L135 155 L160 215 L170 255" stroke="#1E4531" stroke-width="1.1" stroke-dasharray="2 1.5" />
+                <path d="M125 125 L145 96 L165 125 L155 136 L145 130 L135 138 Z" fill="#FFFFFF" stroke="#1E4531" stroke-width="1" />
+                <path d="M85 178 L110 240 M100 160 L125 220 M145 96 L150 140" stroke="#3D6E52" stroke-width="0.75" opacity="0.5" />
+
+                <!-- Central Peak Ink Line & Snowcap (The towering focal peak in front of sun) -->
+                <path d="M185 255 L240 165 L295 78 L355 170 L405 255" stroke="#1E4531" stroke-width="1.6" stroke-linejoin="round" />
+                <path d="M295 78 L290 145 L305 210 L295 260" stroke="#1E4531" stroke-width="1.2" stroke-dasharray="3 2" />
+                <path d="M272 114 L295 78 L318 114 L308 126 L298 120 L290 128 L280 122 Z" fill="#FFFFFF" stroke="#1E4531" stroke-width="1.1" />
+                <path d="M285 130 L275 185 M278 150 L268 205 M302 128 L312 185 M308 150 L318 205" stroke="#3D6E52" stroke-width="0.7" opacity="0.5" />
+
+                <!-- Right Peak Ink Line & Snowcap -->
+                <path d="M325 255 L380 178 L440 96 L500 172 L565 255" stroke="#1E4531" stroke-width="1.4" stroke-linejoin="round" />
+                <path d="M440 96 L450 160 L435 220 L445 255" stroke="#1E4531" stroke-width="1.1" stroke-dasharray="2 1.5" />
+                <path d="M420 125 L440 96 L460 125 L450 136 L440 130 L432 138 Z" fill="#FFFFFF" stroke="#1E4531" stroke-width="1" />
+                <path d="M440 96 L445 135 M455 140 L475 200 M470 165 L490 225" stroke="#3D6E52" stroke-width="0.7" opacity="0.5" />
+              </g>
+
+              <!-- 5. Valley Horizon & Foothills Tree-line backdrop -->
+              <g class="layer-foothills">
+                <path d="M0 260 Q150 248, 300 252 Q450 248, 600 260 L600 275 L0 275 Z" fill="#CDE1D2" opacity="0.65" />
+                <path d="M40 260 L44 252 L48 260 M52 260 L55 250 L58 260 M70 262 L74 251 L78 262 M170 260 L174 250 L178 260 M380 260 L384 251 L388 260 M480 260 L483 250 L486 260 M540 262 L544 251 L548 262" stroke="#2A5C40" stroke-width="1" opacity="0.65" />
+              </g>
+
+              <!-- 6. Forest Midground (Animated Swaying Trees matching reference picture) -->
+              <g class="motion-forest">
+                <!-- TREE 1: Small Left Pine (X=80, Base Y=272) -->
+                <g class="sketch-tree tree-left-small">
+                  <path d="M80 272 L80 242" stroke="#3A2B1E" stroke-width="1.8" stroke-linecap="round" />
+                  <polygon points="80,215 72,235 88,235" fill="#3D7D56" stroke="#1B3825" stroke-width="0.9" />
+                  <polygon points="80,225 68,248 92,248" fill="#2E6644" stroke="#1B3825" stroke-width="0.9" />
+                  <polygon points="80,238 65,260 95,260" fill="#235436" stroke="#1B3825" stroke-width="0.9" />
                 </g>
 
-                <!-- Mountain Ranges (Layered Line Art) -->
-                <g class="mountain-art-group">
-                  <!-- Back Range -->
-                  <path class="mountain-back" d="M48 200 L95 130 L140 170 L195 110 L245 165 L272 200" stroke="var(--muted)" stroke-width="1" opacity="0.6" />
-                  <path d="M95 130 L110 200" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="1 2" opacity="0.4" />
-                  <path d="M195 110 L210 200" stroke="var(--muted)" stroke-width="0.6" stroke-dasharray="1 2" opacity="0.4" />
-
-                  <!-- Main Front Peak -->
-                  <path class="mountain-front" d="M62 205 L135 85 L208 205" stroke="var(--accent)" stroke-width="1.4" stroke-linejoin="round" />
-                  <!-- Peak Snowcap -->
-                  <path d="M122 108 L135 85 L148 108 L140 114 L135 110 L128 115 Z" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="0.8" opacity="0.7" />
-                  <!-- Mountain Ridge Spine -->
-                  <path d="M135 85 L150 205" stroke="var(--accent)" stroke-width="1" stroke-dasharray="2 1.5" />
-
-                  <!-- Secondary Peak -->
-                  <path class="mountain-front" d="M180 205 L230 118 L265 205" stroke="var(--accent)" stroke-width="1.2" stroke-linejoin="round" />
-                  <path d="M230 118 L240 205" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="2 1.5" />
-
-                  <!-- Pine Forest Silhouettes at foothills -->
-                  <g stroke="var(--accent)" stroke-width="1" opacity="0.8">
-                    <path d="M80 205 L80 188 M76 195 L80 188 L84 195 M74 200 L80 193 L86 200" />
-                    <path d="M94 205 L94 191 M91 197 L94 191 L97 197" />
-                    <path d="M106 205 L106 186 M102 194 L106 186 L110 194 M100 200 L106 192 L112 200" />
-                    <path d="M245 205 L245 190 M242 196 L245 190 L248 196" />
-                    <path d="M256 205 L256 187 M252 194 L256 187 L260 194" />
-                  </g>
+                <!-- TREE 2: Lush Deciduous Tree (Left) (X=135, Base Y=273) -->
+                <g class="sketch-tree tree-left-deciduous">
+                  <path d="M135 273 C135 250, 133 235, 131 220 M134 240 C138 230, 145 224, 148 218 M132 232 C126 225, 122 220, 120 216" stroke="#463527" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M110 205 C105 185, 120 168, 134 165 C146 162, 160 172, 162 188 C168 198, 164 216, 155 225 C146 235, 122 235, 114 224 C108 216, 108 208, 110 205 Z" fill="#4B865B" opacity="0.88" />
+                  <path d="M118 195 C115 180, 128 170, 140 168 C150 166, 158 175, 156 186 C152 195, 135 198, 124 198 Z" fill="#88C477" opacity="0.75" />
+                  <path d="M110 205 C104 192, 112 175, 125 168 C135 162, 150 165, 156 176 C165 185, 166 202, 158 215 C152 226, 135 232, 122 226 C112 220, 108 212, 110 205" stroke="#1E452C" stroke-width="1.2" stroke-linecap="round" />
+                  <path d="M125 180 C128 175, 138 176, 142 182 M118 198 C122 192, 132 194, 135 200 M142 202 C146 198, 154 200, 156 206" stroke="#1E452C" stroke-width="0.9" stroke-linecap="round" />
                 </g>
 
-                <!-- Winding Expedition Trail with Waypoint Camps -->
-                <g class="trail-group">
-                  <path class="expedition-trail" d="M78 202 C96 185, 110 190, 126 162 C142 134, 158 148, 178 132 C196 118, 212 124, 230 118" stroke="var(--earth-amber, #A06A42)" stroke-width="1.4" stroke-dasharray="4 3" stroke-linecap="round" />
-                  <!-- Camp 1 -->
-                  <circle cx="78" cy="202" r="3" fill="var(--earth-amber, #A06A42)" />
-                  <circle cx="78" cy="202" r="6" stroke="var(--earth-amber, #A06A42)" stroke-width="0.6" stroke-dasharray="1 2" />
-                  <!-- Mid Pass -->
-                  <circle cx="126" cy="162" r="2.5" fill="var(--accent)" />
-                  <!-- Summit Peak Beacon -->
-                  <circle class="summit-beacon" cx="230" cy="118" r="3.5" fill="var(--accent)" />
-                  <circle class="summit-pulse" cx="230" cy="118" r="8" stroke="var(--accent)" stroke-width="0.8" />
+                <!-- TREE 3: Conical Evergreen Pine (Mid-Left) (X=215, Base Y=274) -->
+                <g class="sketch-tree tree-mid-left-pine">
+                  <path d="M215 274 L215 160" stroke="#3D2D20" stroke-width="2.2" stroke-linecap="round" />
+                  <polygon points="215,130 206,155 224,155" fill="#589B6E" stroke="#1B3F28" stroke-width="1" />
+                  <polygon points="215,145 200,175 230,175" fill="#3D7D54" stroke="#1B3F28" stroke-width="1.1" />
+                  <polygon points="215,165 194,200 236,200" fill="#2E6843" stroke="#1B3F28" stroke-width="1.2" />
+                  <polygon points="215,188 188,226 242,226" fill="#255A38" stroke="#1B3F28" stroke-width="1.2" />
+                  <polygon points="215,212 182,254 248,254" fill="#1C4B2E" stroke="#1B3F28" stroke-width="1.3" />
+                  <path d="M206 155 L215 148 L224 155 M200 175 L215 165 L230 175 M194 200 L215 188 L236 200 M188 226 L215 212 L242 226" stroke="#163923" stroke-width="0.8" />
                 </g>
 
-                <!-- Ocean Soundings / Topographic Base Waves -->
-                <g class="waves-group" stroke="#5ba8b8" stroke-width="1" opacity="0.75" stroke-linecap="round">
-                  <path d="M44 218 C74 212, 104 212, 134 218 C164 224, 194 224, 224 218 C244 214, 264 214, 276 218" />
-                  <path d="M54 230 C84 225, 114 225, 144 230 C174 235, 204 235, 234 230 C250 227, 260 227, 268 230" stroke-width="0.8" opacity="0.6" />
-                  <path d="M70 242 C100 238, 130 238, 160 242 C190 246, 220 246, 250 242" stroke-width="0.7" stroke-dasharray="3 3" opacity="0.45" />
+                <!-- TREE 4: GRAND CENTER PINE (Central Majestic Conifer, X=295, Base Y=275) -->
+                <g class="sketch-tree tree-center-pine">
+                  <path d="M295 275 L295 130" stroke="#38271C" stroke-width="2.6" stroke-linecap="round" />
+                  <polygon points="295,102 286,130 304,130" fill="#75B876" stroke="#193D26" stroke-width="1.1" />
+                  <polygon points="295,120 280,152 310,152" fill="#529969" stroke="#193D26" stroke-width="1.2" />
+                  <polygon points="295,140 274,178 316,178" fill="#3D8254" stroke="#193D26" stroke-width="1.2" />
+                  <polygon points="295,162 268,206 322,206" fill="#2D6F44" stroke="#193D26" stroke-width="1.3" />
+                  <polygon points="295,188 260,234 330,234" fill="#225D38" stroke="#193D26" stroke-width="1.3" />
+                  <polygon points="295,216 252,260 338,260" fill="#184D2D" stroke="#193D26" stroke-width="1.4" />
+                  <path d="M280 152 L295 142 L310 152 M274 178 L295 166 L316 178 M268 206 L295 192 L322 206 M260 234 L295 218 L330 234" stroke="#143D24" stroke-width="0.9" />
+                  <path d="M295 106 L295 130 M295 136 L295 160 M295 168 L295 200" stroke="#A7DC84" stroke-width="1.2" stroke-linecap="round" opacity="0.8" />
                 </g>
-              </svg>
-            </div>
+
+                <!-- TREE 5: Mid-Right Rounded Deciduous Tree (X=360, Base Y=274) -->
+                <g class="sketch-tree tree-mid-right-deciduous">
+                  <path d="M360 274 C360 252, 362 238, 364 218 M361 242 C356 232, 350 224, 346 218 M363 234 C369 226, 375 220, 378 214" stroke="#463527" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M340 215 C334 195, 345 174, 362 170 C378 166, 395 180, 396 198 C402 212, 394 230, 382 238 C370 246, 348 240, 342 228 Z" fill="#4B865B" opacity="0.88" />
+                  <path d="M352 195 C348 180, 360 172, 372 172 C384 172, 390 182, 388 194 C382 204, 365 205, 356 202 Z" fill="#88C477" opacity="0.75" />
+                  <path d="M340 215 C334 198, 345 180, 358 174 C372 168, 390 174, 394 188 C400 200, 398 218, 386 228 C375 238, 352 238, 342 225" stroke="#1E452C" stroke-width="1.2" stroke-linecap="round" />
+                  <path d="M355 188 C360 182, 370 184, 374 190 M348 206 C354 200, 364 202, 368 208" stroke="#1E452C" stroke-width="0.9" stroke-linecap="round" />
+                </g>
+
+                <!-- TREE 6: Slender Pine (Right, X=455, Base Y=272) -->
+                <g class="sketch-tree tree-right-pine">
+                  <path d="M455 272 L455 185" stroke="#3D2D20" stroke-width="2" stroke-linecap="round" />
+                  <polygon points="455,160 446,182 464,182" fill="#589B6E" stroke="#1B3F28" stroke-width="1" />
+                  <polygon points="455,175 440,205 470,205" fill="#3D7D54" stroke="#1B3F28" stroke-width="1.1" />
+                  <polygon points="455,195 434,230 476,230" fill="#255A38" stroke="#1B3F28" stroke-width="1.2" />
+                  <polygon points="455,218 428,255 482,255" fill="#1C4B2E" stroke="#1B3F28" stroke-width="1.2" />
+                </g>
+
+                <!-- TREE 7: Small Far-Right Sapling (X=515, Base Y=270) -->
+                <g class="sketch-tree tree-right-small">
+                  <path d="M515 270 L515 242" stroke="#463527" stroke-width="1.5" stroke-linecap="round" />
+                  <circle cx="515" cy="235" r="14" fill="#4B865B" opacity="0.85" />
+                  <circle cx="513" cy="232" r="10" fill="#88C477" opacity="0.75" />
+                  <path d="M504 240 C502 230, 508 222, 516 222 C524 222, 528 230, 526 238 C524 246, 510 248, 504 240" stroke="#1E452C" stroke-width="1" stroke-linecap="round" />
+                </g>
+
+                <!-- Forest Foothill Shrubs & Grass Mounds along bottom edge -->
+                <path d="M60 273 Q70 268, 80 273 M110 274 Q125 267, 140 274 M175 275 Q190 269, 205 275 M240 276 Q255 269, 270 276 M315 276 Q330 270, 345 276 M400 275 Q415 269, 430 275 M490 273 Q505 267, 520 273 M560 272 Q575 268, 590 272" stroke="#25583A" stroke-width="1.2" stroke-linecap="round" fill="none" />
+              </g>
+
+              <!-- 7. Riverbed, Smooth Stones & Gently Flowing River (Foreground) -->
+              <g class="motion-river-group">
+                <!-- River Water Surface Wash -->
+                <path d="M0 282 C100 278, 200 284, 300 280 C400 276, 500 282, 600 278 L600 335 C500 338, 400 332, 300 336 C200 340, 100 334, 0 338 Z" fill="url(#riverWash)" />
+
+                <!-- Shoreline sand sketch line -->
+                <path d="M0 280 C120 277, 240 284, 360 279 C480 275, 540 280, 600 278" stroke="#1B241E" stroke-width="1.1" stroke-linecap="round" opacity="0.75" />
+
+                <!-- River Stones / Pebbles (Scattered along shoreline as in reference picture) -->
+                <!-- Stone 1 (Left large flat pebble) -->
+                <path d="M92 308 C90 302, 105 298, 115 300 C124 302, 126 310, 120 314 C112 318, 95 315, 92 308 Z" fill="#DFC99B" stroke="#1B241E" stroke-width="1.1" stroke-linejoin="round" />
+                <path d="M98 304 C104 302, 114 304, 116 308" stroke="#FAF4E8" stroke-width="1" stroke-linecap="round" opacity="0.9" />
+
+                <!-- Stone 2 (Smooth rounded pebble) -->
+                <ellipse cx="148" cy="312" rx="14" ry="7" fill="#EFE3C6" stroke="#1B241E" stroke-width="1.1" />
+                <path d="M140 310 C144 308, 154 308, 158 311" stroke="#FFFFFF" stroke-width="0.8" opacity="0.8" />
+
+                <!-- Stone 3 (Small river pebble) -->
+                <ellipse cx="185" cy="304" rx="7" ry="4" fill="#DFC99B" stroke="#1B241E" stroke-width="1" />
+
+                <!-- Stone 4 (Mid-river boulder) -->
+                <path d="M265 312 C262 306, 275 302, 286 304 C296 306, 298 314, 292 318 C284 322, 268 319, 265 312 Z" fill="#DFC99B" stroke="#1B241E" stroke-width="1.2" />
+                <path d="M272 307 C278 305, 286 307, 288 311" stroke="#FAF4E8" stroke-width="1" stroke-linecap="round" opacity="0.9" />
+
+                <!-- Stone 5 (Small pebble) -->
+                <ellipse cx="320" cy="316" rx="9" ry="5" fill="#EFE3C6" stroke="#1B241E" stroke-width="1" />
+
+                <!-- Stone 6 (Right river rock pair) -->
+                <ellipse cx="395" cy="318" rx="12" ry="6" fill="#DFC99B" stroke="#1B241E" stroke-width="1.1" />
+                <ellipse cx="415" cy="321" rx="6" ry="3.5" fill="#EFE3C6" stroke="#1B241E" stroke-width="0.9" />
+
+                <!-- Stone 7 (Far right flat pebble) -->
+                <path d="M485 315 C482 310, 495 306, 504 308 C512 310, 514 316, 508 320 C500 324, 488 321, 485 315 Z" fill="#DFC99B" stroke="#1B241E" stroke-width="1.1" />
+
+                <!-- Animated Flowing Water Current Lines (Dashed & Continuous) -->
+                <g class="water-current-lines">
+                  <path class="stream-line stream-1" d="M10 292 C110 286, 210 294, 310 288 C410 282, 510 290, 600 285" stroke="#4B95A2" stroke-width="1.2" stroke-linecap="round" fill="none" stroke-dasharray="14 8 28 10" />
+                  <path class="stream-line stream-2" d="M30 304 C130 299, 230 306, 330 300 C430 294, 530 302, 600 298" stroke="#65AEC0" stroke-width="1.1" stroke-linecap="round" fill="none" stroke-dasharray="20 12 16 8" />
+                  <path class="stream-line stream-3" d="M0 322 C100 316, 200 324, 300 318 C400 312, 500 320, 600 316" stroke="#4B95A2" stroke-width="1.2" stroke-linecap="round" fill="none" stroke-dasharray="18 10 24 12" />
+                  <path d="M125 317 C130 316, 136 317, 140 318 M295 320 C302 319, 310 320, 316 322 M425 323 C430 322, 436 323, 440 324" stroke="#7CBCC8" stroke-width="1" stroke-linecap="round" opacity="0.8" />
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
 
