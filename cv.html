@@ -325,14 +325,16 @@
       .section-entries {
         display: flex;
         flex-direction: column;
+        position: relative;
+        z-index: 2;
       }
 
       .cv-entry {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding: 24px 0;
-        border-bottom: 1px solid rgba(217, 217, 209, 0.7);
+        padding: 24px 0 26px;
+        border-bottom: 1px solid rgba(27, 36, 30, 0.1);
         transition: transform 220ms ease;
       }
 
@@ -359,9 +361,9 @@
       .entry-title {
         margin: 0;
         font-family: var(--sans);
-        font-size: 16.5px;
+        font-size: 17px;
         font-weight: 600;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.015em;
         line-height: 1.35;
         color: var(--ink);
         transition: color 200ms ease;
@@ -373,62 +375,72 @@
 
       .entry-period {
         font-family: var(--mono);
-        font-size: 10px;
-        letter-spacing: 0.05em;
-        color: var(--muted);
+        font-size: 11.5px;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+        color: #38453c;
         white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        padding: 2.5px 8.5px;
+        border-radius: 4px;
+        background: rgba(27, 36, 30, 0.045);
+        border: 1px solid rgba(27, 36, 30, 0.08);
+        line-height: 1.25;
       }
 
       .entry-badge {
         display: inline-flex;
         align-items: center;
-        padding: 2px 8px;
-        border-radius: 4px;
-        background: var(--accent-soft);
-        color: #1E4231;
-        border: 1px solid rgba(47, 106, 79, 0.2);
+        padding: 3px 10px;
+        border-radius: 5px;
+        background: rgba(47, 106, 79, 0.09);
+        color: #17422c;
+        border: 1px solid rgba(47, 106, 79, 0.22);
         font-family: var(--mono);
-        font-size: 9.5px;
-        letter-spacing: 0.04em;
+        font-size: 10.5px;
+        font-weight: 500;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
         width: fit-content;
+        line-height: 1.2;
       }
 
       .entry-institution {
         margin: 0;
-        font-size: 13.5px;
-        color: var(--muted);
-        line-height: 1.45;
+        font-size: 14px;
+        color: #48554c;
+        line-height: 1.5;
       }
 
       .entry-specialization {
-        font-size: 13.5px;
+        font-size: 14px;
         color: var(--ink);
         font-weight: 500;
       }
 
       /* Clean bullet points */
       .entry-bullets {
-        margin: 4px 0 0;
+        margin: 6px 0 0;
         padding: 0;
         list-style: none;
         display: flex;
         flex-direction: column;
-        gap: 8px;
+        gap: 9px;
       }
 
       .entry-bullets li {
         position: relative;
         padding-left: 18px;
-        font-size: 13px;
-        line-height: 1.55;
-        color: #2D3A31;
+        font-size: 13.5px;
+        line-height: 1.62;
+        color: #1d2720;
       }
 
       .entry-bullets li::before {
         position: absolute;
         left: 0;
-        top: 8px;
+        top: 9px;
         width: 4px;
         height: 4px;
         border-radius: 50%;
@@ -742,20 +754,20 @@
         .footer-rule { max-width: 50px; margin: 0 8px; }
       }
 
-      /* Conway's Game of Life Background Simulation */
+      /* Conway's Game of Life Background Simulation (Strictly confined to margin outside content) */
       .life-simulation-canvas-wrap {
         position: fixed;
         top: 0;
         right: 0;
         bottom: 0;
-        width: clamp(280px, 30vw, 460px);
+        width: clamp(0px, calc((100vw - 1160px) / 2), 340px);
         height: 100vh;
-        z-index: 2;
+        z-index: 0;
         pointer-events: none;
         overflow: hidden;
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.7) 65%, black 100%);
-        opacity: 0.72;
+        mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 40%, black 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.35) 40%, black 100%);
+        opacity: 0.35;
       }
 
       #lifeCanvas {
@@ -764,10 +776,9 @@
         height: 100%;
       }
 
-      @media (max-width: 820px) {
+      @media (max-width: 1360px) {
         .life-simulation-canvas-wrap {
-          width: 45vw;
-          opacity: 0.28;
+          display: none !important;
         }
       }
 
@@ -1275,19 +1286,21 @@
         }
 
         function draw() {
-          const width = canvas.parentElement.clientWidth;
-          const height = canvas.parentElement.clientHeight;
+          const wrap = canvas.parentElement;
+          if (!wrap || wrap.clientWidth === 0 || window.innerWidth <= 1360) return;
+          const width = wrap.clientWidth;
+          const height = wrap.clientHeight;
           ctx.clearRect(0, 0, width, height);
 
           // Subtle grid guide dots matching website theme
-          ctx.fillStyle = "rgba(27, 36, 30, 0.07)";
+          ctx.fillStyle = "rgba(27, 36, 30, 0.035)";
           for (let y = 0; y < rows; y += 2) {
             for (let x = 0; x < cols; x += 2) {
               ctx.fillRect(x * CELL_SIZE + CELL_SIZE / 2, y * CELL_SIZE + CELL_SIZE / 2, 1, 1);
             }
           }
 
-          // Render living cells with theme-accurate colors & rounded nodes
+          // Render living cells with subtle, harmonious tones
           for (let y = 0; y < rows; y++) {
             for (let x = 0; x < cols; x++) {
               const idx = y * cols + x;
@@ -1297,13 +1310,13 @@
                 const py = y * CELL_SIZE + 1;
                 const size = CELL_SIZE - 2;
 
-                // Color palette transitioning from young deep moss to cedar bark to forest obsidian
+                // Gentle palette: soft moss, soft cedar, soft ink
                 if (age <= 2) {
-                  ctx.fillStyle = "rgba(47, 106, 79, 0.85)"; // --accent deep moss
+                  ctx.fillStyle = "rgba(47, 106, 79, 0.42)"; // subtle moss
                 } else if (age <= 6) {
-                  ctx.fillStyle = "rgba(160, 106, 66, 0.78)"; // --earth-amber cedar bark
+                  ctx.fillStyle = "rgba(160, 106, 66, 0.36)"; // subtle cedar bark
                 } else {
-                  ctx.fillStyle = "rgba(27, 36, 30, 0.65)"; // --ink forest obsidian
+                  ctx.fillStyle = "rgba(27, 36, 30, 0.26)"; // subtle charcoal ink
                 }
 
                 if (ctx.roundRect) {
@@ -1323,8 +1336,11 @@
           const elapsed = timestamp - lastStepTime;
 
           if (elapsed > STEP_INTERVAL_MS) {
-            step();
-            draw();
+            const wrap = canvas.parentElement;
+            if (wrap && wrap.clientWidth > 0 && window.innerWidth > 1360) {
+              step();
+              draw();
+            }
             lastStepTime = timestamp;
           }
 
