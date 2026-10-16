@@ -246,57 +246,7 @@
         transform: translate(5px, -2px);
       }
 
-      /* Forest trees gentle swaying */
-      .travel-art-vignette .forest-tree {
-        transition: transform 260ms ease, stroke 260ms ease;
-      }
 
-      .travel-art-vignette:hover .forest-tree path {
-        stroke: #18442c;
-      }
-
-      .travel-art-vignette:hover .tree-1 {
-        animation: treeSway 2.2s ease-in-out infinite;
-        transform-origin: 14px 35px;
-      }
-      .travel-art-vignette:hover .tree-2 {
-        animation: treeSway 1.9s ease-in-out infinite 0.1s;
-        transform-origin: 26px 35px;
-      }
-      .travel-art-vignette:hover .tree-3 {
-        animation: treeSway 2.4s ease-in-out infinite 0.3s;
-        transform-origin: 68px 35px;
-      }
-      .travel-art-vignette:hover .tree-4 {
-        animation: treeSway 1.8s ease-in-out infinite 0.15s;
-        transform-origin: 82px 35px;
-      }
-      .travel-art-vignette:hover .tree-5 {
-        animation: treeSway 2.1s ease-in-out infinite 0.25s;
-        transform-origin: 98px 35px;
-      }
-      .travel-art-vignette:hover .tree-6 {
-        animation: treeSway 1.7s ease-in-out infinite 0.05s;
-        transform-origin: 114px 35px;
-      }
-      .travel-art-vignette:hover .tree-7 {
-        animation: treeSway 2.3s ease-in-out infinite 0.35s;
-        transform-origin: 130px 35px;
-      }
-      .travel-art-vignette:hover .tree-8 {
-        animation: treeSway 1.9s ease-in-out infinite 0.2s;
-        transform-origin: 144px 35px;
-      }
-      .travel-art-vignette:hover .tree-9 {
-        animation: treeSway 2.0s ease-in-out infinite 0.1s;
-        transform-origin: 162px 35px;
-      }
-
-      @keyframes treeSway {
-        0%, 100% { transform: rotate(0deg); }
-        25% { transform: rotate(4.5deg); }
-        75% { transform: rotate(-3.5deg); }
-      }
 
       /* River Flow Animation */
       .travel-art-vignette .wave-1 {
@@ -1865,68 +1815,6 @@
                 <path d="M178 12 L175 21 L180 28 L177 36" stroke="var(--accent)" stroke-width="0.9" stroke-dasharray="1.5 1.5" fill="none" />
               </g>
 
-              <!-- 5. Layered Conifer & Pine Forest Grove -->
-              <g class="vignette-forest">
-                <!-- Left Flank Grove -->
-                <g class="forest-tree tree-1" transform="translate(14, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-12" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-5 -4 L0 -8 L5 -4 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-4 -7 L0 -11 L4 -7 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-2.5 -10 L0 -13.5 L2.5 -10 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                </g>
-                <g class="forest-tree tree-2" transform="translate(26, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-15" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-5.5 -5 L0 -9.5 L5.5 -5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-4.5 -8.5 L0 -13 L4.5 -8.5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-3 -12 L0 -16 L3 -12 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                </g>
-
-                <!-- Center Valley Pines (Occluding the resting text, swaying on hover) -->
-                <g class="forest-tree tree-3" transform="translate(68, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-16" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-6 -5 L0 -10 L6 -5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-4.5 -9 L0 -14 L4.5 -9 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-3 -13 L0 -17 L3 -13 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                </g>
-                <g class="forest-tree tree-4" transform="translate(82, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-18" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-6.5 -6 L0 -11 L6.5 -6 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-5 -10 L0 -15 L5 -10 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-3.5 -14 L0 -19 L3.5 -14 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                </g>
-                <g class="forest-tree tree-5" transform="translate(98, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-17" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-6 -5.5 L0 -10.5 L6 -5.5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-4.8 -9.5 L0 -14.5 L4.8 -9.5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-3.2 -13.5 L0 -18 L3.2 -13.5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                </g>
-                <g class="forest-tree tree-6" transform="translate(114, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-18" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-6.5 -6 L0 -11 L6.5 -6 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-5 -10 L0 -15 L5 -10 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-3.5 -14 L0 -19 L3.5 -14 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                </g>
-                <g class="forest-tree tree-7" transform="translate(130, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-16" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-6 -5 L0 -10 L6 -5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-4.5 -9 L0 -14 L4.5 -9 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                  <path d="M-3 -13 L0 -17 L3 -13 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.9" />
-                </g>
-
-                <!-- Right Flank Grove -->
-                <g class="forest-tree tree-8" transform="translate(144, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-14" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-5 -4.5 L0 -8.5 L5 -4.5 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-4 -8 L0 -12 L4 -8 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-2.5 -11 L0 -15 L2.5 -11 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                </g>
-                <g class="forest-tree tree-9" transform="translate(162, 35)">
-                  <line x1="0" y1="0" x2="0" y2="-13" stroke="#1b3d2c" stroke-width="1.1" />
-                  <path d="M-4.5 -4 L0 -7.5 L4.5 -4 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-3.5 -7 L0 -10.5 L3.5 -7 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                  <path d="M-2 -10 L0 -13.5 L2 -10 Z" fill="var(--paper, #F6F7F2)" stroke="var(--accent)" stroke-width="0.85" />
-                </g>
-              </g>
 
               <!-- 6. Foreground Winding River -->
               <g class="vignette-river">
