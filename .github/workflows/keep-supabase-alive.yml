@@ -1,0 +1,34 @@
+name: Keep Supabase Database Active
+
+on:
+  schedule:
+    # Runs every 3 days at 06:00 UTC (well within Supabase's 7-day inactivity window)
+    - cron: '0 6 */3 * *'
+  workflow_dispatch: # Allows manual execution from the GitHub Actions tab anytime
+
+jobs:
+  ping-supabase:
+    name: Ping Supabase Database
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send keep-alive query to Supabase
+        env:
+          SUPABASE_URL: "https://ihahwjaqfcdteyjgkpwi.supabase.co"
+          SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloYWh3amFxZmNkdGV5amdrcHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTAxNjEzMDIsImV4cCI6MjEwNTczNzMwMn0.xbwyey8xOmguCMWFzmmx8ohON2qjO1a9pZ61xbeTvro"
+        run: |
+          echo "Pinging Supabase database to reset inactivity timer..."
+          HTTP_STATUS=$(curl -s -o /tmp/supabase_response.json -w "%{http_code}" \
+            -X GET "${SUPABASE_URL}/rest/v1/travel_stories?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}")
+
+          echo "HTTP Response Status: ${HTTP_STATUS}"
+          cat /tmp/supabase_response.json
+          echo ""
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Success: Supabase database is active and the 7-day inactivity timer has been reset."
+          else
+            echo "Error: Received HTTP status code ${HTTP_STATUS}"
+            exit 1
+          fi
