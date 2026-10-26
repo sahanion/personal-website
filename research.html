@@ -234,10 +234,16 @@
         font-size: clamp(4.4rem, 10vw, 8.6rem);
         font-weight: 400;
         letter-spacing: -0.075em;
-        line-height: 0.82;
+        line-height: 0.94;
+        padding-top: clamp(6px, 1.2vw, 14px);
+        overflow: visible;
       }
 
-      h1 span { display: block; }
+      h1 span {
+        display: block;
+        overflow: visible;
+        padding-top: 0.04em;
+      }
       h1 em {
         margin-left: clamp(12px, 3.5vw, 56px);
         font-style: italic;
@@ -1084,7 +1090,7 @@
       }
 
       @media (max-width: 860px) {
-        .page { padding: 64px 20px 52px; }
+        .page { padding: clamp(74px, 10vh, 84px) 20px 52px; }
         .site-header { grid-template-columns: 1fr auto; gap: 9px 14px; padding: 14px 20px 10px; }
         .header-right { grid-column: 2; grid-row: 1; justify-self: end; }
         .travel-art-vignette { width: 154px; height: 31px; }
@@ -1092,7 +1098,7 @@
         .nav-link { font-size: 9px; }
         .field { font-size: 8px; }
         main { margin: 0 auto; }
-        h1 { font-size: clamp(3.8rem, 14vw, 5.6rem); line-height: 0.85; }
+        h1 { font-size: clamp(3.8rem, 14vw, 5.6rem); line-height: 0.94; padding-top: 4px; overflow: visible; }
         .research-hero { grid-template-columns: 1fr; gap: 20px; }
         .research-block { grid-template-columns: 1fr; gap: 28px; padding-bottom: 44px; }
         .graphics-frame { order: -1; }
